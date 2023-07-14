@@ -1,0 +1,496 @@
+#!/bin/sh 
+# Copyright 1998-2003 National Instruments Corporation.
+# All Rights Reserved.
+ 
+if [ -d /lib/modules/"`uname -r`"/build/include/linux ]; then
+   INCLUDE_ROOT=/lib/modules/"`uname -r`"/build/include/linux
+elif [ -d /usr/src/linux/include/linux ]; then
+   INCLUDE_ROOT=/usr/src/linux/include/linux
+else
+   INCLUDE_ROOT=/usr/include/linux
+fi
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+export PATH
+
+recomp_help() {
+	echo ""
+	echo "To configure your kernel, as root, cd to your kernel source directory"
+	echo "(typically /usr/src/linux), and type 'make menuconfig' or 'make xconfig'."
+	if test ! -d /usr/src/linux -o ! -f /usr/src/linux/Makefile ; then
+		echo "WARNING: /usr/src/linux does not appear to contain the kernel source."
+		echo "If you have not installed the source in an alternate directory, you need"
+		echo "to obtain and install the source for your current kernel version"
+		echo "before proceeding.  Kernel sources are available on ftp sites such as"
+		echo "ftp://tsx-11.mit.edu/pub/linux/sources/system or"
+		echo "ftp://metalab.unc.edu/pub/Linux/kernel"
+		if test -x /bin/rpm -o -x /usr/bin/rpm -o -x /usr/local/bin/rpm; then
+			echo "RPM packages for the kernel source are also available; check your installation"
+			
+			echo "media or contact your Linux distribution vendor."
+		fi
+		echo ""
+	fi
+	echo "While configuring your kernel, make sure to enable the following options:"
+	echo ""
+	echo '"Enable loadable module support"'
+	echo '"Set version information on all symbols for modules"'
+	echo '"Kernel daemon support" (to enable autoloading of module)'
+	echo ""
+	echo "Then execute 'make dep', and 'make bzImage modules modules_install'."
+	echo "Finally, install the new kernel and reboot.  "
+	echo "Check the documentation for your Linux distribution for more information."
+	exit 1
+}
+
+conf_atgpib() {
+   allio=
+   alldma=
+   allirq=
+   if test -x /sbin/pnpdump -o -x /usr/sbin/pnpdump ; then
+       # Can't do this... it will reset an already-configured board!
+       #if pnpdump | grep -s "National Instruments AT-GPIB/TNT" >/dev/null; then
+	    #echo ""
+	    #echo "AT-GPIB/TNT+ Plug-and-play card detected.  Make sure you have configured"
+	    #echo "the card with isapnp before proceeding.  See README.PNP for details."
+	    #echo ""
+       #fi
+	    echo ""
+	    echo "NOTE: If you have an AT-GPIB/TNT+ Plug-n-Play card, please read the README.PNP"
+            echo "first for instructions on setting up your card before proceeding with"
+            echo "installation."
+	    echo ""
+   else
+       echo ""
+       echo "NOTE: If you have an AT-GPIB/TNT+ Plug-n-Play card, please read the README.PNP"
+       echo "first for instructions on setting up your card before proceeding with"
+       echo "installation.  You will need to obtain and install the isapnp tools as they"
+       echo "do not appear to be installed on your system."
+       echo ""
+   fi
+   while :
+   do 
+     ok=0
+     echo ""
+     while test "$ok" = 0; 
+     do
+        echo -n "Enter AT-GPIB/TNT I/O base address, or 'q' [0x2c0] "
+        read io
+	if test -z "$io"; then
+	    io=0x2c0
+	fi
+	if test "$io" = "$allio"; then
+	    echo "You already entered that address for another board"
+	    continue
+	fi
+	case $io in
+	    0x1[a-fA-F]0*) ok=1;;
+	    0x[23][0-9a-fA-F]0*) ok=1;;
+            q) exit 1;;
+	esac
+     done
+     ok=0
+     while test "$ok" = 0; 
+     do
+        echo -n "Enter AT-GPIB/TNT IRQ [11] "
+        read irq
+	if test -z "$irq"; then
+	    irq=11
+	fi
+	if test "$irq" = "$allirq"; then
+	    echo "You already entered that IRQ for another board"
+	    continue
+	fi
+	case $irq in
+	    3|4|5|6|7|9|10|11|12|14|15) ok=1;
+	esac
+     done
+     ok=0
+     while test "$ok" = 0; 
+     do
+        echo -n "Enter AT-GPIB/TNT DMA Channel (-1 for none) [5] "
+        read dma
+	if test -z "$dma"; then
+	    dma=5
+	fi
+        if test "x$dma" != x-1 ; then
+	   if test "$dma" = "$alldma"; then
+	       echo "You already entered that DMA channel for another board"
+	       continue
+	   fi
+	fi
+	case $dma in
+	    5|6|7|-1) ok=1;
+	esac
+     done
+     echo ""
+     echo "Using I/O $io, IRQ $irq, DMA $dma"
+     echo ""
+     if [ -z "$allio" ]; then allio=$io ; else allio=$allio,$io; fi
+     if [ -z "$allirq" ]; then allirq=$irq ; else allirq=$allirq,$irq; fi
+     if [ -z "$alldma" ]; then alldma=$dma ; else alldma=$alldma,$dma; fi
+     echo -n "Configure another AT-GPIB/TNT card? [ny] "
+     read ans
+     case $ans in 
+	 [yY]*) ;;
+             *) break ;;
+     esac
+  done
+  opts="io=$allio irq=$allirq dma=$alldma"
+}
+
+proceed() {
+    echo -n "Do you want to proceed? [yn] "
+    read ans
+    case $ans in 
+	[nNqQ]*) exit 1;;
+    esac
+    echo ""
+}
+
+build_driver() {
+	if test -r ${INCLUDE_ROOT}/version-up.h ; then
+	      VFILE="${INCLUDE_ROOT}/version-up.h"
+	 else
+	      VFILE="${INCLUDE_ROOT}/version.h"
+	fi
+	IVER="`echo "UTS_RELEASE" | gcc -E -include $VFILE - | perl -ne ' if (/^"(2.*)"/) { print "$1\n"; } ' 2>/dev/null || uname -r`"
+
+    if test ! -d ${INCLUDE_ROOT} -o ! -d ${INCLUDE_ROOT}/../asm ; then
+	echo <<EOF
+Could not find kernel header directories. Please install the kernel
+header/include files or the kernel sources for the kernel you are running.
+If you have the kernel sources/headers in some other directory,
+please make sure /usr/src/linux/include is a symbolic link
+to the corresponding include directories in the source tree.
+
+EOF
+	exit 1
+    fi
+    if test ! -f $INCLUDE_ROOT/autoconf.h; then
+	echo ""
+	echo "The kernel header files do not appear to be installed correctly."
+	echo "You should execute make config and make dep for the kernel."
+	echo ""
+	recomp_help
+	exit 1
+    fi
+
+    if ! grep -s 'define CONFIG_MODULES' $INCLUDE_ROOT/autoconf*.h >/dev/null; then
+	echo ""
+	echo "Your kernel seems to be configured without loadable modules support."
+	echo "This is required to use the NI-GPIB driver."
+	recomp_help
+	exit 1
+	echo ""
+    fi
+
+    if ! grep -s 'define CONFIG_MODVERSIONS' $INCLUDE_ROOT/autoconf*.h >/dev/null; then
+	echo ""
+	echo "Your kernel seems to be configured without loadable module versioning."
+	echo "This is required to use the NI-GPIB driver."
+	echo "Please recompile the kernel with the CONFIG_MODVERSIONS option enabled."
+	echo ""
+	recomp_help
+	exit 1
+    fi
+    if test ! -f $INCLUDE_ROOT/modversions.h; then
+	echo ""
+	echo "Your kernel seems to be configured without loadable module versioning."
+	echo "This is required to use the NI-GPIB driver."
+	echo "Please recompile the kernel with the CONFIG_MODVERSIONS option enabled."
+	echo ""
+	recomp_help
+	exit 1
+    fi
+
+    if test $INCLUDE_ROOT = /usr/include/linux; then
+        echo "WARNING - kernel header files could not be located."
+	echo "In order to compile and install kernel drivers, you must have the header files"
+	echo "for your kernel installed.  Modern Linux distributions based on the 2.2.x"
+	echo "and 2.4.x kernels typically only install generic kernel header files (in "
+	echo "/usr/include) by default, which cannot be used to compile driver modules."
+	echo "You will need to find and install the correct kernel headers for kernel $KVER."
+	if test -x /bin/rpm -o -x /usr/bin/rpm -o -x /usr/local/bin/rpm; then
+	    echo "Check your Linux distribution media or vendor for the kernel-source RPM."
+	fi
+	echo ""
+	case "$IVER" in
+	  2.0.*)
+		proceed
+		;;
+	      *)
+		exit 1
+		;;
+	esac
+    else
+        echo "Your kernel appears to be configured properly to build NI-GPIB for Linux."
+        proceed
+    fi
+    if test "$KVER" != "$IVER" ; then
+	echo "WARNING - Your kernel header file version in ${INCLUDE_ROOT}/version.h"
+	echo "is $IVER, but you are running kernel $KVER."
+	echo "The driver being built will only run under Linux $IVER."
+	echo ""
+	KVER=$IVER
+	EARLYEXIT=1
+    fi
+
+    make nigpib.o
+    if test "$?" != 0; then
+	echo "Couldn't build driver."
+	exit 1
+    fi
+}
+
+# MAIN
+echo ""
+echo "NI-488.2 GPIB Driver for Linux/x86 (Beta Release 0.8.3)"
+echo "Copyright (C) 1999-2003 National Instruments Corporation."
+echo "Supports AT-GPIB/TNT, AT-GPIB/TNT PnP, and PCI-GPIB cards ONLY."
+echo "Note that PCII/a and PCMCIA cards are NOT supported; see README for more info."
+echo ""
+echo "This driver requires a stable Linux 2.0.x, 2.2.x, or 2.4.x series kernel with"
+echo "loadable modules and module versioning enabled."
+echo ""
+KVER="`uname -r`"
+
+case "$1" in
+   rebuild|-rebuild) rebuild=1 ;;
+esac
+
+case $KVER in
+	2.[135].*) echo "WARNING - This driver has not been tested under this kernel $KVER"
+	       echo "It is recommended that you use a stable kernel version with this driver."
+	       ;;
+	2.[024].*) ;;
+	    *) echo "Sorry, kernel version $KVER is not currently supported."
+	       exit 1
+	       ;;
+esac
+
+if [ ! -x /sbin/insmod -o ! -x /sbin/rmmod -o ! -x /sbin/modprobe ]; then
+	echo ""
+	echo "Module utilities not found.  You need to install the modutils package"
+	echo "to use the loadable NI-GPIB kernel module."
+	echo ""
+	exit 1
+fi
+
+SMP=
+case $KVER in
+   2.[123].*)
+	if uname -a | grep -s -w 'SMP' >/dev/null; then
+	# was grep -s '#define CONFIG_SMP 1' $INCLUDE_ROOT/autoconf.h >/dev/null
+	SMP=smp
+	fi
+        ;;
+esac
+PREBUILT=prebuilt/nigpib-$KVER$SMP.o
+
+if [ "x$rebuild" = x -a -f "$PREBUILT" ]; then
+   echo "A pre-built driver for your kernel (nigpib-$KVER$SMP.o) exists."
+   echo "You may choose to install the pre-built driver, or rebuild the driver."
+   echo "Rebuilding requires the kernel source to be installed in /usr/src/linux."
+   echo ""
+   echo -n "Do you wish to use the pre-built driver? [ynq] "
+   read ans
+   case "$ans" in
+      [qQ]*) exit 1 ;;
+      [nN]*) echo ""
+             build_driver ;;
+          *) rm -f nigpib.o
+             cp "$PREBUILT" nigpib.o ;;
+   esac
+else
+   build_driver
+fi
+
+if test "`id -u`" != 0; then
+	echo "To install the driver, you must run this script as root."
+	exit 1
+fi
+
+# 2.4 moddir
+MODDIR="/lib/modules/$KVER/kernel/drivers/char"
+if test ! -d "$MODDIR"; then
+	# 2.2 and earlier moddir
+	MODDIR="/lib/modules/$KVER/misc"
+fi
+if test ! -d "$MODDIR"; then
+	# Funky old RedHat location
+	echo ""
+	echo "Modules directory $MODDIR not found."
+	if test -d "/lib/modules/preferred/misc" ; then
+		MODDIR="/lib/modules/preferred/misc"
+		echo "Using $MODDIR instead."
+	else
+		exit 1
+	fi
+fi
+
+if ! cp nigpib.o "$MODDIR/nigpib.o" ; then
+ 	echo "Couldn't copy driver to modules directory $MODDIR"
+	exit 1
+else
+ 	echo "Copied nigpib.o driver to modules directory $MODDIR"
+fi
+echo ""
+
+(
+cd /dev
+rm -f gpib gpib[0123] gpibdebug dev[1-9] dev[123][0-9] dev4[01234]
+mknod gpib  c 31 50
+mknod gpib0 c 31 255
+mknod gpib1 c 31 254
+mknod gpib2 c 31 253
+mknod gpib3 c 31 252
+mknod gpibdebug c 31 200
+for i in 1 2 3 4 5 6 7 8 9
+do
+    mknod dev$i c 31 "`expr $i + 50`"
+done
+for i in 1 2 3
+do
+   for j in 0 1 2 3 4 5 6 7 8 9
+   do
+       mknod dev$i$j c 31 "`expr $i$j + 50`"
+   done
+done
+for j in 0 1 2 3 4
+do
+    mknod dev4$j c 31 "`expr 4$j + 50`"
+done
+chmod 666 gpib gpib[0123] gpibdebug dev[1-9] dev[123][0-9] dev4[0-4]
+)
+echo "Devices created."
+
+if test "$EARLYEXIT" = 1; then
+    echo "The driver can only be used on kernel $IVER."
+    echo "Reboot under $IVER to use the driver, or install the correct kernel header"
+    echo "files to rebuild under this kernel (`uname -r`)."
+    exit 1
+fi
+
+rmmod nigpib >/dev/null 2>&1
+
+echo "Probing for PCI-GPIB."
+if insmod nigpib io=0 >/dev/null 2>&1; then
+	echo "PCI-GPIB detected."
+else
+	echo "No PCI-GPIB boards detected."
+fi
+rmmod nigpib >/dev/null 2>&1
+opts="io=0"
+echo -n "Do you have an AT-GPIB/TNT board installed? [ny] "
+read ans
+case $ans in 
+    [Yy]*) conf_atgpib ;;
+esac
+
+MODCONF=/etc/modules.conf
+if test ! -f /etc/modules.conf -a -f /etc/conf.modules; then
+    MODCONF=/etc/conf.modules
+fi
+if test -d /etc/modutils -a -x /sbin/update-modules ; then
+    # Debian system
+    MODCONF=/etc/modutils/nigpib
+    touch $MODCONF
+fi
+
+if test -f $MODCONF; then
+        uptodate=0
+	if grep -s "^alias char-major-31 nigpib" $MODCONF >/dev/null; then
+	    if test -z "$opts"; then
+		uptodate=1
+	    fi
+	    if grep -s "^options nigpib $opts *\$" $MODCONF >/dev/null; then
+		uptodate=1
+            fi
+	fi
+	if test "$uptodate" = 1; then
+		echo "$MODCONF is up to date."
+		test -e /lib/modules/preferred && depmod -a preferred >/dev/null 2>&1
+		depmod -a >/dev/null 2>&1
+	else
+		echo "Updating $MODCONF"
+		sed -e '/^alias char-major-31/d' \
+		    -e '/^options nigpib/d' $MODCONF > /tmp/cm$$
+		echo "alias char-major-31 nigpib" >> /tmp/cm$$
+		echo "options nigpib $opts" >> /tmp/cm$$
+		if test -f /tmp/cm$$; then
+		    if test ! -f ${MODCONF}.bak; then
+		        mv $MODCONF ${MODCONF}.bak
+		    fi
+		    cp /tmp/cm$$ $MODCONF
+		    rm -f /tmp/cm$$
+                    test -d /etc/modutils -a -x /sbin/update-modules && /sbin/update-modules
+		    test -e /lib/modules/preferred && depmod -a preferred >/dev/null 2>&1
+		    depmod -a >/dev/null 2>&1
+		fi
+	fi
+	echo ""
+	if ! modprobe nigpib; then
+		echo "*** Module failed to autoload. ***"
+		echo ""
+		if [ -e /lib/modules/preferred ]; then
+			echo "If you have upgraded your modutils by hand and not applied the Red Hat patches,"
+			echo "modprobe will not look in the /lib/modules/preferred directory."
+			echo "You can reinstall modutils from a Red Hat RPM, or work around the problem"
+			echo "by adding paths in $MODCONF to refer to the correct"
+			echo "directory for your kernel.  Or you can use insmod with the full path to"
+			echo "the driver at boot time, bypassing the module autoload process altogether."
+		fi
+		echo ""
+		echo "Loading module directly with 'insmod $MODDIR/nigpib.o'..."
+		if insmod $MODDIR/nigpib.o; then
+			echo "Module loaded successfully."
+		else
+			echo ""
+			echo "Could not load kernel module.  Make sure your board(s) are installed correctly"
+			echo "and, if using AT-GPIB board(s), that you have entered the correct I/O address,"
+			echo "IRQ, and DMA information."
+			echo "If *all* kernel modules fail to load on your system, please contact your"
+			echo "vendor for help."
+			echo "Otherwise, please report the problem at http://www.ni.com/ask."
+			echo "If kernel error messages were printed to the console or /var/log/messages,"
+			echo "please include this information in your report, along with the name"
+			echo "and version of your Linux distribution and Linux kernel version."
+		fi
+		exit 1
+	fi
+else
+	echo "The $MODCONF file does not exist."
+	echo "You must either enable kerneld or load the module explicitly"
+	echo "at system startup by adding an 'insmod nigpib $opts' command"
+	echo "to one of the scripts in /etc/rc.d."
+fi
+
+if [ ! -f /usr/local/lib/libgpib.a -o ! -f /usr/local/include/sys/ugpib.h -o \
+    libgpib.a -nt /usr/local/lib/libgpib.a -o \
+    ugpib.h -nt /usr/local/include/sys/ugpib.h ]; then
+   instlib=1
+else
+   instlib=0
+fi
+if [ "$instlib" = 1 ]; then
+	echo ""
+	echo -n "Install libgpib.a and header files in /usr/local/{lib,include}? [yn] "
+	read ans
+	test -z "$ans" && ans=y
+	case "$ans" in
+	    [yY]*) test -d /usr/local/lib || mkdir -p /usr/local/lib
+	    	   cp libgpib.a /usr/local/lib
+		   chmod 644 /usr/local/lib/libgpib.a
+		   ranlib /usr/local/lib/libgpib.a
+		   test -d /usr/local/include/sys || mkdir -p /usr/local/include/sys
+		   cp ugpib.h /usr/local/include/sys
+		   chmod 644 /usr/local/include/sys/ugpib.h
+		   echo "Done."
+		   echo ""
+		  ;;
+        esac
+fi
+
+echo "Installation complete."
+exit 0

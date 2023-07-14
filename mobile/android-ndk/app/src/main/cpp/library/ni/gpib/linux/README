@@ -1,0 +1,137 @@
+JavaGPIB JNI provides a java programmer with the ability to make three 
+fundamental GPIB driver function calls - ibfind, ibrd, and ibwrt.  It is designed
+for use on a linux machine using a PCI-GPIB card and the NI-488.2 GPIB Driver for Linux/x86 (Beta Release 0.8.3) January 2003.  
+
+In order that you may use your own package naming conventions and directory
+structure, all java source code is included in this release, as well as 
+instructions for installation and use of the JavaGPIB JNI.  This requires
+making simple changes to the source code, so make a back-up copy of the original 
+before following these instructions. 
+
+INSTALLATION OF JavaGPIB JNI: 
+
+1.  Choose a name for the java package based on your package naming conventions
+        For simplicity, I used 'javagpib' for my package name.  My directory
+        structure is equally as simple:
+
+                            top_level
+                          /   /   \   \
+                         /   /     \   \
+                      src  class   lib  drivers
+                      /     /        \       \
+               javagpib  javagpib  javagpib  nigpib-0.8.3-gcc3
+
+2.  Edit JavaGPIB.java and JavaGPIBException.java to be in this package.
+        In my case, line 1 in both files should read:
+            package javagpib;
+
+3.  Compile the java source code:
+        javac JavaGPIB.java JavaGPIBException.java
+
+4.  Use the javah tool to create the 'C' header file from the java class file.
+        You must use your full package name when doing this. In my case:
+            javah javagpib.JavaGPIB
+        This will create a file named '<package_name>_JavaGPIB.h'
+
+5.  Move the JavaGPIB.c file to a file named '<package_name>_JavaGPIB.c'
+        mv JavaGPIB.c javagpib_JavaGPIB.c  
+
+6.  Edit five lines of the '.c' file to make it match the '.h' 
+        change #include "JavaGPIB.h"
+            to #include "<package_name>_JavaGPIB.h"
+            in my case this is #include "javagpib_JavaGPIB.h"
+        change throwException(env, "JavaGPIBException", exceptionStr);
+            to throwException(env, "<package_name>/JavaGPIBException", exceptionStr);
+            in my case this is ... "javagpib/JavaGPIBException"  ...
+        change method declarations from Java_JavaGPIB_ib*
+            to Java_<package_name>_JavaGPIB_ib*
+            in my case this is Java_javagpib_JavaGPIB_ib*
+        
+7.  Edit the Makefile to point DRIVER_DIR to the nigpib driver 
+    directory and INSTALL_DIR to the directory in which you wish 
+    to install the 'C' library code. In my case:
+        DRIVER_DIR=/top_level/drivers/nigpib-0.8.3-gcc3
+        INSTALL_DIR=/top_level/lib/javagpib
+
+8.  Run 'make' and verify that the shared library was created in the
+    source directory.  
+
+9.  Do a 'make install' to install the library in the install directory.
+
+10. Move the java class files to your class directory.  In my case:
+        mv *.class /top_level/class/javagpib/
+
+The JavaGPIB JNI should now be ready to use, but first it may be useful
+to test your GPIB driver installation and device connections.
+
+
+TESTING YOUR GPIB DRIVER INSTALLATION AND DEVICE CONNECTIONS:  
+
+1.  Check installation and operation of GPIB driver software
+       cd to the nigpib driver directory
+       Disconnect GPIB cables and run ibtsta
+       If test fails, refer to driver documentation
+
+2.  Assign device names to your GPIB devices by running ibconf
+       Run ibconf (another program included with nigpib driver)
+       Default device names such "dev1" and "dev2 can be changed
+       to more descriptive names to use in your software if you wish.
+
+3.  You can test command sequences by running ibic
+       Run ibic (yet another program with the driver)
+       Type "ibfind <device_name>" to connect to one of your devices. Default case:
+             ibfind dev1
+       If successful an id should be returned and a device prompt shown:
+             id = 1056
+             dev1:
+       Send commands to your device over GPIB by typing 
+             ibwrt "<command>"
+       Read bytes of data from GPIB by typing
+             ibrd <number_of_bytes>
+       You can switch to another device using ibfind 
+       Get help with any of these commands by typing 'help'     
+       
+
+USING THE JavaGPIB JNI
+
+1.  JavaGPIB and JavaGPIBException are packaged together.  To 
+    incorporate their functinality into other java programs, you 
+    must import the package in your source code.  In my case:
+         import javagpib.*;
+  
+2.  Once imported, you can create a new JavaGPIB object 
+         javagpib.JavaGPIB jgpib = new javagpib.JavaGPIB();
+    get unit descriptors for devices using ibfind
+         int ud1 = jgpib.ibfind("dev1");
+         int ud2 = jgpib.ibfind("voltMeter");
+    write to a device
+         jgpib.ibwrt(ud, "*RST", 4);
+    read bytes from GPIB
+         String rd = "";
+         int bytes_to_read = 16;
+         jgpib.ibrd(ud, rd, bytes_to_read)   
+
+3.  Every time a JavaGPIB method is called, a JavaGPIBException could be thrown.
+    Java requires that exceptions be caught, so use try-catch blocks around
+    JavaGPIB method calls.  For example:
+         try {
+             jgpib.ibwrt(ud, "hello", 5);
+         }
+         catch (javagpib.JavaGPIBException ex) {
+             System.out.println(ex);
+         }
+             
+2.  To compile, be sure that the CLASSPATH environment variable points 
+    to the location of the class files.  To set this, in my case:
+         export CLASSPATH=.:/top_level/class:$CLASSPATH
+
+3.  To execute your program, Java must know where the shared library 
+    is located through the LD_LIBRARY_PATH enviroment variable or using
+    '-Djava.library.path=' when excuting the java code.  In my case:
+         export LD_LIBRARY_PATH=/top_level/lib/javagpib
+         or if running 'test'
+         java -Djava.library.path=/top_level/lib/javagpib test
+         
+
+
+
