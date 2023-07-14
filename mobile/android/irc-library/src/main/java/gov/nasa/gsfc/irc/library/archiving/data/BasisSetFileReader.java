@@ -114,7 +114,7 @@ public class BasisSetFileReader extends DefaultAlgorithm
      */
     public ArchiveSession[] getArchiveSessions()
     {
-        return BasisSetFileController.sSelectedRows;
+        return new ArchiveSession[0];
     }
     
     /**
