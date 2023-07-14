@@ -24,7 +24,6 @@ package gov.nasa.gsfc.irc.library.archiving.data;
 
 import java.util.Date;
 
-import javax.swing.table.DefaultTableModel;
 
 /**
  *  BasisSetFileModel overwrites some of the methods in DefaultTableModel
@@ -38,7 +37,7 @@ import javax.swing.table.DefaultTableModel;
  *  @author Peyush Jain
  */
 
-public class BasisSetFileModel extends DefaultTableModel
+public class BasisSetFileModel
 {
     private static final String[] COLUMN_NAMES = {"Basis Bundle Id", "Start Time", "Stop Time"};
     private ArchiveCatalog fCatalog;
@@ -48,50 +47,21 @@ public class BasisSetFileModel extends DefaultTableModel
      */
     public BasisSetFileModel()
     {
-        fCatalog = ArchiveCatalog.getArchiveCatalog();
 
-        if(fCatalog != null)
-        {
-            for(int i = 0; i < fCatalog.getSessions().size(); i++)
-            {
-                ArchiveSession session = (ArchiveSession)fCatalog.getSessions().elementAt(i);
-                String name = session.getBasisBundleId().getFullyQualifiedName();
-                long startTime = session.getStartTime();
-                long stopTime = session.getStopTime();
-                
-                Date d1 = new Date(startTime);
-                Date d2 = new Date(stopTime);
-                
-                Object row[] = {name, d1, d2};
-//                SimpleDateFormat format = new SimpleDateFormat("MM.dd.yyyy 'at' hh:mm:ss a z");
-//                Object row[] = {name, format.format(d1), format.format(d2)};
-//                Object row[] = {name, DateFormat.getDateInstance(DateFormat.FULL).format(d1),
-//                        DateFormat.getDateInstance(DateFormat.FULL).format(d2)};
-//                
-                addRow(row);
-            }
-        }        
     }
   
-    /**
-     * @see javax.swing.table.TableModel#isCellEditable(int, int)
-     */
+
     public boolean isCellEditable(int row, int column)
     {
         return false;
     }
 
-    /** 
-     * @see javax.swing.table.TableModel#getColumnCount()
-     */
+
     public int getColumnCount()
     {
         return COLUMN_NAMES.length;
     }
-    
-    /**
-     * @see javax.swing.table.TableModel#getColumnName(int)
-     */
+
     public String getColumnName(int i)
     {
         return COLUMN_NAMES[i];
@@ -104,10 +74,7 @@ public class BasisSetFileModel extends DefaultTableModel
      */
     public void removeRows(int[] row)
     {
-        for(int i = 0; i < row.length; i++)
-        {
-            removeRow(row[i] - i);
-        }
+
     }
     
     /**
