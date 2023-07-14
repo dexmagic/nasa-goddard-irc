@@ -30,7 +30,7 @@ import java.nio.channels.ScatteringByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.Iterator;
 import java.util.List;
-
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 import gov.nasa.gsfc.commons.publishing.messages.Message;
@@ -170,7 +170,7 @@ public abstract class AbstractPipeInputAdapter extends AbstractInputAdapter
 	
 	/**
 	 * Causes this InputAdapter to process the specified buffer by writing the
-	 * data to an internal pipe. Use the {@link #getReadChannel()} method to 
+	 * data to an internal pipe. Use the getReadChannel() method to
 	 * get a reference to the read end of the pipe.
 	 *
 	 * @param handle BufferHandle to a buffer to be processed
