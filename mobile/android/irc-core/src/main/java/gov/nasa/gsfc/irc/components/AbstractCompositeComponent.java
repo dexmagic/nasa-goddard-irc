@@ -760,19 +760,8 @@ public abstract class AbstractCompositeComponent extends AbstractIrcComponent
 
 	public boolean addComponent(MinimalComponent component)
 	{
-		boolean result = fComponents.add(component);
-		
-		if (result == true)
-		{
-			if (component instanceof IrcComponent)
-			{
-				((IrcComponent) component).addStateListener(this);
-			}
-				
-			component.addPropertyChangeListener(this);
-		}
-		
-		return (result);
+
+		return false;
 	}
 	
 
@@ -1126,21 +1115,7 @@ public abstract class AbstractCompositeComponent extends AbstractIrcComponent
 
 	public boolean removeComponent(MinimalComponent component)
 	{
-		boolean result = fComponents.remove(component);
-		
-		if (result == true)
-		{
-			if (component instanceof IrcComponent)
-			{
-				((IrcComponent) component).stop();
-					
-				((IrcComponent) component).removeStateListener(this);
-			}
-				
-			component.removePropertyChangeListener(this);
-		}
-		
-		return (result);
+		return false;
 	}
 	
 	
