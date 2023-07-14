@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<ControlClass id="Selected_Request_Controller"
+		class="gov.nasa.gsfc.irc.gui.data.BasisRequestEditorController"/>
+	<ControlClass id="Property_Table_Controller"
+		class="gov.nasa.gsfc.irc.gui.properties.PropertyTableController"/>
+	<dialog id="Request_Editor_Frame" name="frame" size="600,400" title="Request Editor Dialog"
+		controlclass="Selected_Request_Controller" layout="BorderLayout" modal="true">
+		<splitpane Orientation="0" LeftComponent="List_Panel" RightComponent="Property_Table_Panel">
+			<panel id="List_Panel" Layout="borderlayout" border="EmptyBorder(4,4,4,4)">
+				<label text="Current request for Input:" constraints="BorderLayout.NORTH">
+				</label>
+				<scrollpane constraints="BorderLayout.CENTER">
+					<list id="Request_List" controlclass="Selected_Request_Controller"/>
+				</scrollpane>
+				<panel constraints="BorderLayout.EAST" layout="GridBagLayout">
+					<button text="Add" name="ADD" controlclass="Selected_Request_Controller"
+						actionCommand="ADD">
+						<gridbagconstraints gridx="0" gridy="0" fill="GridBagConstraints.HORIZONTAL"
+							weightx="1.0" weighty="1.0" anchor="GridBagConstraints.SOUTH"
+							insets="4,4,4,4"/>
+					</button>
+					<button text="Remove" name="REMOVE" controlclass="Selected_Request_Controller"
+						actionCommand="REMOVE">
+						<gridbagconstraints gridx="0" gridy="1" fill="GridBagConstraints.HORIZONTAL"
+							weightx="1.0" weighty="1.0" anchor="GridBagConstraints.NORTH"
+							insets="4,4,4,4"/>
+					</button>
+				</panel>
+			</panel>
+			<InitObject id="Property_Filter_Model"
+				class="gov.nasa.gsfc.irc.gui.browser.PropertyFilterModel"/>
+			<panel id="Property_Editor_Table_Panel" Layout="borderlayout"
+				controlclass="Property_Table_Controller">
+				<panel constraints="BorderLayout.NORTH" layout="GridBagLayout">
+					<toolbar floatable="false">
+						<gridbagconstraints id="toolbar_gbc" gridx="0" gridy="0" gridheight="1"
+							gridwidth="1" anchor="GridBagConstraints.WEST"
+							fill="GridBagConstraints.HORIZONTAL" weightx="1.0" weighty="0.0"
+							insets="4,4,4,4"/>
+						<buttongroup>
+							<togglebutton icon="Sort_None_Icon"
+								controlclass="Property_Table_Controller" enabled="true"
+								actionCommand="SORT_NONE" toolTipText="Turn sorting off"> </togglebutton>
+							<togglebutton icon="Sort_Alpha_Icon"
+								controlclass="Property_Table_Controller" enabled="true"
+								actionCommand="SORT_ALPHA" toolTipText="Sort alphabetically"
+								selected="true"> </togglebutton>
+							<togglebutton icon="Sort_Type_Icon"
+								controlclass="Property_Table_Controller" enabled="true"
+								actionCommand="SORT_TYPE" toolTipText="Sort by property type"
+							> </togglebutton>
+						</buttongroup>
+					</toolbar>
+					<toolbar floatable="false">
+						<gridbagconstraints use="toolbar_gbc" gridx="1" gridy="0"
+							fill="GridBagConstraints.NONE"/>
+						<label text="Property Filter:"> </label>
+						<comboBox controlclass="Property_Table_Controller"
+							initclass="Property_Filter_Model" editable="false"/>
+					</toolbar>
+				</panel>
+				<scrollpane constraints="BorderLayout.CENTER">
+					<table
+						initclass="gov.nasa.gsfc.irc.gui.properties.PropertyTableModel;gov.nasa.gsfc.irc.gui.properties.PropertyColumnModel"
+						controlclass="Selected_Request_Controller;Property_Table_Controller"
+						surrendersFocusOnKeystroke="true"/>
+				</scrollpane>
+				<panel constraints="BorderLayout.SOUTH">
+					<button text="Ok" name="OK" controlclass="Selected_Request_Controller"
+						actionCommand="OK"/>
+					<!--
+					<button text="Cancel" name="CANCEL" controlclass="Selected_Request_Controller"
+						actionCommand="CANCEL"/>
+					-->
+				</panel>
+			</panel>
+		</splitpane>
+	</dialog>
+</doc>

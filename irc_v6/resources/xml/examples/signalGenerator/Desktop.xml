@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	This is an initial representation of a Desktop description. The
+	format will likely change in the next release of IRC.
+-->
+
+<desktop 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xinclude="http://www.w3.org/2003/XInclude"
+	xml:base="resources/xml/core/gui/">
+	
+	<xinclude:include href="resources/xml/core/gui/ApplicationFrame.xml"/>
+	<xinclude:include href="resources/xml/examples/signalGenerator/ChartExample.xml"/>
+	
+</desktop>

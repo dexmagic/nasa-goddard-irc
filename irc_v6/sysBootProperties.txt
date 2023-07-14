@@ -1,0 +1,75 @@
+###############################################################################
+#
+# Default boot properties file
+#
+# This file defines optional boot properties. These properties are loaded
+# during application startup before any user properties are loaded. 
+# All properties are optional with default values specified in code.
+# These parameters can also be specified in System.properties at Java startup.
+#
+# Optional java properties:
+#	java.util.logging.config.class
+#		See java.util.logging.LogManager documentation for this property.
+#	java.util.logging.config.file
+#		See java.util.logging.LogManager documentation for this property.
+#
+# Optional system boot properties:
+#	sys.manager=<class name>
+#		The default SysManager implementing class.
+#		Default=gov.nasa.gsfc.commons.system.DefaultSysManager
+#	sys.resource.manager=<class name>
+#		The default ResourceManager class that is used by the 
+#		DefaultSysManager for locating all application resources.
+#		Default=gov.nasa.gsfc.commons.system.resources.DefaultResourceManager
+#	sys.resource.path=<relative path>{;<relative path>}
+#		The default search paths relative to the class path for finding resources.
+#		Each path is separated by a ";".
+#		Default=.
+#
+# Optional application boot properties:
+#	app.manager=<class name>
+#		The default AppManager implementation.
+#		Default=gov.nasa.gsfc.commons.app.DefaultAppManager
+#	app.preference.manager=<class name>
+#		The default PreferenceManager implementation.
+#		Default=gov.nasa.gsfc.commons.app.preferences.DefaultPreferenceManager
+#
+# Optional IRC boot properties:
+#	irc.manager=<class name>
+#		The default IrcManager implementation.
+#		Default=gov.nasa.gsfc.irc.app.DefaultIrcManager
+#
+#	irc.manager.startupImage={<relative path>/}<filename>
+#		The DefaultIrcManager class displays a image along with a progress
+#		bar during startup initialization. This property can be used to 
+#		point to an application specific image.
+#
+#	irc.manager.properties={<relative path>/}<filename>
+#		The DefaultIrcManager class loads in default properties before 
+#		any user specified properties. This property can be used to 
+#		change this default file. Typically it is not necessary to change 
+#		the default since instrument and user properties
+#		can already override specific properties in this file.
+#		Default=resources/configurations/irc.plist
+#
+#	irc.manager.guiDisabled=[true|false]
+#		The DefaultIrcManager class optionally loads a specified GUI if the
+#		application is running in an environment that supports it. This flag
+#		can force the manager to not load a GUI or present a progress bar
+#		at startup.
+#		Default=false
+#
+#	irc.manager.noGuiProperties={<relative path>/}<filename>
+#		The DefaultIrcManager class optionally loads in properties from the 
+#		specified file if it detects the application is running in an 
+#		environment that does not support a graphical UI or the 
+#       irc.manager.guiDisabled property is set to true. This property
+#		is checked after the irc.manager.properties are read in so this
+#		property can be set or overriden in the default file. This file
+#		is however read in before any instrument or user properties.
+#		Default=no default in code
+#
+
+# Properties that override defaults mentioned above:
+
+sys.resource.path=.;resources;resources/configurations;resources/xml/schema

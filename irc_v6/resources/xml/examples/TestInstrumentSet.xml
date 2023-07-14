@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DeviceSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xinclude="http://www.w3.org/2003/XInclude"
+	xsi:schemaLocation="http://aaa.gsfc.nasa.gov/iml iml.xsd" 
+	xmlns:data="http://aaa.gsfc.nasa.gov/data" 
+	xmlns:dt="http://aaa.gsfc.nasa.gov/dt" 
+	xmlns:irc="http://aaa.gsfc.nasa.gov/irc" 
+	xmlns="http://aaa.gsfc.nasa.gov/iml"
+	xml:base="examples/">
+	
+	<xinclude:include href="TestInstrument.xml"/>
+	<xinclude:include href="TestInstrument2.xml"/>
+</DeviceSet>

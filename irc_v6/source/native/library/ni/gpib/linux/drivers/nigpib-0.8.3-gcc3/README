@@ -1,0 +1,86 @@
+NI-488.2 GPIB Driver for Linux/x86 (Beta Release 0.8.3) January 2003
+Copyright (C) 1999-2003 National Instruments Corporation.
+All Rights Reserved.
+
+NOTE: This is a BETA release of the driver.
+Please report problems or questions at http://www.ni.com/ask.
+
+This driver supports National Instruments AT-GPIB/TNT, PCI-GPIB and
+PCI-GPIB+ cards.  It may be used with the LabVIEW GPIB or NI488.2
+primitives or called from C by linking your program with libgpib.a.
+
+See the file README.PNP if you are using an ISA Plug-and-Play AT-GPIB/TNT
+card for information on configuring your card which should be done prior
+to installing this driver.
+
+This driver does NOT support the PCII, PCII/a, or PCMCIA-GPIB cards.
+At the present time, no support is planned for these cards under Linux.
+
+REQUIREMENTS:
+
+This driver requires a stable Linux 2.0.x, 2.2.x, or 2.4.x series kernel with
+loadable modules support enabled.
+
+In order to work on a wide variety of kernel versions and configurations,
+a portion of the driver is distributed as source which will be compiled by
+the installer to match your current kernel version.  You must have
+gcc-2.7.2 or egcs-1.0.1 or later and the module utilities installed
+on your system to proceed with installation.
+
+Also, the kernel source include files matching the kernel you are running
+must be installed.  On some systems, these will match the system include 
+files (/usr/include) which are installed by default.  On RedHat 7.0 and
+later systems, you must install the kernel-source package to get the
+correct include files.  This package can be safely removed after successful
+driver installation.
+
+To install (as root), run
+
+  ./INSTALL
+
+and follow the instructions.
+
+You may then use ibconf to configure the driver, ibtsta to test the
+installation of the driver (with no GPIB cable attached), and ibic to
+interactively send NI-488.2 commands to GPIB devices.
+
+DOCUMENTATION:
+
+A full manual describing the NI-488.2 API, ibconf and other GPIB utilities
+for Unix systems is available in Adobe Acrobat format at:
+
+  ftp://ftp.ni.com/support/gpib/linux/ni488m-320351b.pdf
+
+Visit http://www.adobe.com/products/acrobat/readstep.html to download
+a free Adobe Acrobat viewer for Linux.
+
+
+FILES
+-----
+README 		- this file
+README.PNP	- information for AT-GPIB/TNT Plug-and-Play card users
+INSTALL		- NI-GPIB for Linux Installation script
+ugpib.h		- Header file needed for user GPIB/NI-488.2 C programs
+cib.o		- Precompiled GPIB interface for linking with C applications
+libgpib.a	- Library built from cib.o
+ibconf		- NI-488 driver configuration utility.
+		  NOTE: If you run this utility on ib_ni.o, you can change
+		  settings permanently for all future installations of the
+		  driver for new kernel versions.
+ibtsta		- Simply diagnostic program to verify correct operation
+ibic		- GPIB Interactive Control program; allows you to interactively
+		  send GPIB commands to a device
+static/		- subdirectory containing statically linked versions of
+		  ibconf, ibtsta, and ibic for use with older systems without
+		  glibc 2.x support.
+
+Other files:
+cib.c		- Source for C language interface to GPIB driver
+cib.h		- Header file for cib.c
+ib_linux.[hc]	- Linux OS-specific portion of the driver, recompiled by
+		  install script to support Linux kernel upgrades without
+		  requiring re-release of driver
+ib_ni.o		- Platform-independent UNIX GPIB driver interface
+
+The files ibconf.h, ib_ni.h, ib_linux.h, ib_linux.c, ib_ni.o and the Makefile
+are needed to rebuild/relink the driver during installation.

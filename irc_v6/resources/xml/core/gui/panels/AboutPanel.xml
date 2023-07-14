@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<panel id="About_Panel" title="About" layout="BorderLayout">
+		<panel constraints="BorderLayout.NORTH" >
+			<label icon="aaa_image" horizontalTextPosition="CENTER"/> 
+		</panel>
+		<panel constraints="BorderLayout.CENTER" >
+			<panel>
+				<label text="app_name" font="Serif-BOLD-24" 
+					foreground="black" horizontalTextPosition="CENTER"/> 
+			</panel>
+		</panel>
+		<panel constraints="BorderLayout.SOUTH" layout="GridLayout(4, 1, 0, 0)">
+			<panel>
+				<label text="NASA Goddard Space Flight Center" font="Serif-BOLD-14" 
+					foreground="black" horizontalTextPosition="CENTER"/> 
+			</panel>
+			<panel>
+				<label labelfor="app_version" text="application_version" font="Dialog-PLAIN-12" 
+					foreground="black" horizontalTextPosition="CENTER"/> 
+				<PreferenceField id="app_version" key="app.version" editable="false" font="Dialog-PLAIN-12" 
+					foreground="black" horizontalTextPosition="CENTER"/> 
+			</panel>
+			<panel>
+				<label labelfor="irc_version" text="framework_version" font="Dialog-PLAIN-12" 
+					foreground="black" horizontalTextPosition="CENTER"/> 
+				<PreferenceField id="irc_version" key="irc.version" editable="false" font="Dialog-PLAIN-12" 
+					foreground="black" horizontalTextPosition="CENTER"/> 
+			</panel>
+			<panel>
+				<label text="copyright" font="Dialog-ITALIC-12" 
+					foreground="black" horizontalTextPosition="CENTER"/> 
+			</panel>
+		</panel>
+	</panel>
+</doc>

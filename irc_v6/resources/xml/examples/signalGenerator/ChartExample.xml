@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame title="Chart Example">
+	<Input id="Input">
+		<HistoryBasisRequest 
+			basisBundleId="Signals.Signals Output.Signal Generator.IRC"
+			requestAmount="3.0 s"
+			updateInterval="0.5"/>
+	</Input>
+	<InitObject id="Y_Trace_Model"
+		class="gov.nasa.gsfc.irc.gui.vis.channel.DefaultChannelModel"/>
+	<ControlClass id="Vis_Menu_Controller"
+		class="gov.nasa.gsfc.irc.gui.vis.DefaultVisPanelController"/>
+		
+	<splitpane Orientation="0" 
+		topComponent="Vis_Panel" 
+		bottomComponent="Statistics_Panel"
+		continuousLayout="true"
+		oneTouchExpandable="true">
+		<panel id="Vis_Panel" layout="GridBagLayout" controlclass="Vis_Menu_Controller">
+			<InitObject id="X_Axis_Model"
+				class="gov.nasa.gsfc.irc.gui.vis.axis.DefaultAxisModel"
+				autoScale="true"/>
+			<InitObject id="Left_Y_Axis_Model"
+				class="gov.nasa.gsfc.irc.gui.vis.axis.DefaultAxisModel"
+				viewExtent="5.0"
+				viewMinimum="-2.0"
+				autoScale="true"/>
+			<InitObject id="Time_Label_Formatter"
+				class="gov.nasa.gsfc.commons.numerics.formats.TimeFormat"
+				pattern="mm:ss.S"
+				unit="msec"/>
+			
+			<popupmenu controlclass="Vis_Menu_Controller">
+				<menuitem text="Properties..." 
+					controlclass="Vis_Menu_Controller" 
+					actionCommand="Properties"/> 
+			</popupmenu>
+	
+			<label text="Signal Generator Example"
+				horizontalAlignment="1.0">
+				<gridbagconstraints insets="4,4,4,4" 
+					gridx="1" gridy="0"
+					fill="GridBagConstraints.BOTH" 
+					weightx="1.0" weighty="0.0" /> 
+			</label>
+			
+			<AxisComponent
+				initclass="Left_Y_Axis_Model"
+				controlclass="Vis_Menu_Controller"
+				border="EmptyBorder(2, 0, 2, 0)"
+				width="50"
+				foreground="black"
+				opaque="true">
+				<gridbagconstraints gridx="0" gridy="1"
+					insets="0,4,0,0" 
+					gridheight="1" gridwidth="1" 
+					anchor="GridBagConstraints.CENTER" 
+					fill="GridBagConstraints.BOTH"
+					weightx="0.0" weighty="1.0"/> 
+				<YAxisRenderer 
+					initclass="Left_Y_Axis_Model">
+				</YAxisRenderer>
+			</AxisComponent>
+	
+			<VisComponent 
+				initclass="Input"
+				controlclass="Vis_Menu_Controller"
+				preferredSize="100,200" 
+				background="WHITE"
+				border="LoweredBevelBorder"
+				opaque="true">	
+				<gridbagconstraints gridx="1" gridy="1" 
+					gridheight="1" gridwidth="1" 
+					insets="0,0,0,4" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="1.0" /> 
+	
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+				
+				<AxisAutoScale
+					initclass="X_Axis_Model"
+					scaleChannel="Time"
+					rangePinned="true"
+					resetScaleEnabled="true"/>
+				<!--
+				<AxisAutoScale
+					initclass="Left_Y_Axis_Model"/>
+				-->
+				<XGridRenderer
+					initclass="X_Axis_Model"/>
+				<YGridRenderer
+					initclass="Left_Y_Axis_Model"/>
+				<XyPlotRenderer
+					initclass="X_Axis_Model;Left_Y_Axis_Model;Y_Trace_Model"
+					xAxisChannel="Time"
+					yAxisChannels="Cos(omega*t)|Sin(omega*t)|Random()"/>
+				<XyLabelRenderer
+					initclass="X_Axis_Model;Left_Y_Axis_Model"
+					dataLabelEnabled="true"
+					positionLabelEnabled="false"
+					xAxisChannel="Time"
+					yAxisChannels="Cos(omega*t)|Sin(omega*t)|Random()"/>
+			</VisComponent>
+			
+			<AxisComponent
+				initclass="X_Axis_Model"
+				controlclass="Vis_Menu_Controller"
+				border="EmptyBorder(0, 2, 0, 2)"
+				autoScale="true"
+				foreground="black"
+				opaque="true">
+				<gridbagconstraints 
+					gridx="1" gridy="2" 
+					gridheight="1" gridwidth="1" 
+					insets="0,0,0,4" 
+					anchor="GridBagConstraints.CENTER" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="0.0"/> 
+				<XAxisRenderer 
+					initclass="X_Axis_Model;Time_Label_Formatter">
+				</XAxisRenderer>
+			</AxisComponent>
+			
+			<AxisScrollBar initclass="X_Axis_Model">
+				<gridbagconstraints 
+					gridx="1" gridy="3"
+					fill="GridBagConstraints.HORIZONTAL"
+					insets="0,0,0,4" 
+					gridheight="1" gridwidth="1" 
+					weightx="1.0" weighty="0.0" /> 					
+			</AxisScrollBar>
+			
+			<AxisComponent
+				initclass="X_Axis_Model"
+				controlclass="Vis_Menu_Controller"
+				border="EmptyBorder(0, 2, 0, 2)"
+				foreground="black"
+				opaque="true">
+				<gridbagconstraints 
+					gridx="1" gridy="4" 
+					gridheight="1" gridwidth="1" 
+					anchor="GridBagConstraints.CENTER" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="0.0"/> 
+				<TimeLabelRenderer initclass="X_Axis_Model"
+					pattern="D:HH:mm:ss.SSS"
+					unit="msec"/>
+			</AxisComponent>
+			
+		</panel>
+		
+		<scrollpane id="Statistics_Panel"
+			preferredSize="450,70">
+			
+			<!--<gridbagconstraints gridx="0" gridy="5" 
+				gridheight="1" gridwidth="4" 
+				insets="4,0,0,0" 
+				fill="GridBagConstraints.BOTH"
+				weightx="1.0" weighty="0.5" /> -->
+				
+			<StatisticsTable initclass="Input;Y_Trace_Model"
+				controlclass="Vis_Menu_Controller"
+				statisticsColumns="Color|Name|Samples|Min|Max|Mean|Unit">
+			</StatisticsTable>					
+		</scrollpane>
+	</splitpane>		
+</frame>

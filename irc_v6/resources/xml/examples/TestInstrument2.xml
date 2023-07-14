@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://aaa.gsfc.nasa.gov/iml iml.xsd" name="TestInstrument2"
+	displayName="Test Instrument 2" type="Default">
+	<ScriptInterface name="SI1">
+		<Script name="Script_C" displayName="Script C" file="resources/scripts/examples/helloWorldWithArg.py" language="JPython">
+			<Field name="argument1" displayName="Argument One" type="String" default="hello"/>
+			<Field name="argument2" displayName="Argument Two" type="String" default="world"/>
+			<Field name="argument3" displayName="String Choice" type="String" default="Choice_3">
+				<ListConstraint name="list3">
+					<Choice name="c1" displayName="Choice One" value="Choice_1"/>
+					<Choice name="c2" displayName="Choice two" value="Choice_2"/>
+					<Choice name="c3" displayName="Choice Three" value="Choice_3"/>
+				</ListConstraint>
+			</Field>
+			<Field name="argument4" displayName="Integer Choice" type="Integer" default="2">
+				<ListConstraint name="list4">
+					<Choice name="c1" displayName="One" value="1"/>
+					<Choice name="c2" displayName="Two" value="2"/>
+					<Choice name="c3" displayName="Three" value="3"/>
+					<Choice name="c4" displayName="Four" value="4"/>
+				</ListConstraint>
+			</Field>
+		</Script>
+	</ScriptInterface>
+	<MessageInterface name="MI1" displayName="Group 1">
+		<Message name="Command_BB" displayName="Command BB">
+			<Field name="BitArray_Choice" type="BitArray" default="000001">
+				<ListConstraint name="list">
+					<Choice name="c1" displayName="One" value="000001"/>
+					<Choice name="c2" displayName="Two" value="000010"/>
+					<Choice name="c3" displayName="Three" value="000011"/>
+					<Choice name="c4" displayName="Four" value="000100"/>
+				</ListConstraint>
+			</Field>
+		</Message>
+		<Message name="Command_CC" displayName="Command CC"> </Message>
+	</MessageInterface>
+	<Port name="Port_B" displayName="Port B STDOUT" type="Default">
+		<MessageInterface name="MI1" displayName="Message Group 1">
+			<Message name="Command_AA" displayName="Type checker">
+				<Field name="String_arg1" type="String" default="Arg 1"/>
+				<Field name="String_hidden_arg" displayName="String (hidden arg)" hidden="true" type="String" default="Arg 2"/>
+				<Field name="String_read_only" displayName="String (read only)" readOnly="true" type="String" default="Arg 3"/>
+				<Field name="String_expert" displayName="String (expert)" expert="true" type="String" default="Arg 0"/>
+				<Field name="Byte_arg" type="Byte" default="1"/>
+				<Field name="Short_arg" type="Short" default="1"/>
+				<Field name="Integer_arg" type="Short" default="1"/>
+				<Field name="Long_arg" type="Long" default="1"/>
+				<Field name="Long_choice_arg" type="Long" default="1">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="1"/>
+						<Choice name="c2" displayName="Two" value="2"/>
+						<Choice name="c3" displayName="Three" value="3"/>
+						<Choice name="c4" displayName="Four" value="4"/>
+					</ListConstraint>
+				</Field>
+				<Field name="BigInteger_arg" type="BigInteger" default="1"/>
+				<Field name="Float_arg" type="Float" default="1.0"/>
+			</Message>
+			<Message name="Command_BB" displayName="Command BB">
+				<Field name="BitArray" type="BitArray" default="10101"/>
+				<Field name="BitArray_Choice" type="BitArray" default="000010">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="000001"/>
+						<Choice name="c2" displayName="Two" value="000010"/>
+						<Choice name="c3" displayName="Three" value="000011"/>
+						<Choice name="c4" displayName="Four" value="000100"/>
+					</ListConstraint>
+				</Field>
+			</Message>
+			<Message name="Command_CC" displayName="Command CC"> </Message>
+		</MessageInterface>
+		<InputAdapter name="response" type="Object"> </InputAdapter>
+		<OutputAdapter name="command" type="Object"> </OutputAdapter>
+		<Connection name="connection" type="STDOUT"> </Connection>
+	</Port>
+	<Port name="Port_C" displayName="Port C TCP Server" type="Default">
+		<MessageInterface name="MI1" displayName="Message Group 1">
+			<Message name="Command_AA" displayName="Type checker">
+				<Field name="String_arg1" type="String" default="Arg 1"/>
+				<Field name="String_hidden_arg" displayName="String (hidden arg)" hidden="true" type="String" default="Arg 2"/>
+				<Field name="String_read_only" displayName="String (read only)" readOnly="true" type="String" default="Arg 3"/>
+				<Field name="String_expert" displayName="String (expert)" expert="true" type="String" default="Arg 0"/>
+				<Field name="Byte_arg" type="Byte" default="1"/>
+				<Field name="Short_arg" type="Short" default="1"/>
+				<Field name="Integer_arg" type="Short" default="1"/>
+				<Field name="Long_arg" type="Long" default="1"/>
+				<Field name="Long_choice_arg" type="Long" default="1">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="1"/>
+						<Choice name="c2" displayName="Two" value="2"/>
+						<Choice name="c3" displayName="Three" value="3"/>
+						<Choice name="c4" displayName="Four" value="4"/>
+					</ListConstraint>
+				</Field>
+				<Field name="BigInteger_arg" type="BigInteger" default="1"/>
+				<Field name="Float_arg" type="Float" default="1.0"/>
+			</Message>
+			<Message name="Command_BB" displayName="Command BB">
+				<Field name="BitArray" type="BitArray" default="10101"/>
+				<Field name="BitArray_Choice" type="BitArray" default="000010">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="000001"/>
+						<Choice name="c2" displayName="Two" value="000010"/>
+						<Choice name="c3" displayName="Three" value="000011"/>
+						<Choice name="c4" displayName="Four" value="000100"/>
+					</ListConstraint>
+				</Field>
+			</Message>
+			<Message name="Command_CC" displayName="Command CC"> </Message>
+		</MessageInterface>
+		<MessageInterface name="MI2" displayName="Message Group 2">
+			<Message name="Command_AA" displayName="Type checker">
+				<Field name="String_arg1" type="String" default="Arg 1"/>
+				<Field name="String_hidden_arg" displayName="String (hidden arg)" hidden="true" type="String" default="Arg 2"/>
+				<Field name="String_read_only" displayName="String (read only)" readOnly="true" type="String" default="Arg 3"/>
+				<Field name="String_expert" displayName="String (expert)" expert="true" type="String" default="Arg 0"/>
+				<Field name="Byte_arg" type="Byte" default="1"/>
+				<Field name="Short_arg" type="Short" default="1"/>
+				<Field name="Integer_arg" type="Short" default="1"/>
+				<Field name="Long_arg" type="Long" default="1"/>
+				<Field name="Long_choice_arg" type="Long" default="1">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="1"/>
+						<Choice name="c2" displayName="Two" value="2"/>
+						<Choice name="c3" displayName="Three" value="3"/>
+						<Choice name="c4" displayName="Four" value="4"/>
+					</ListConstraint>
+				</Field>
+				<Field name="BigInteger_arg" type="BigInteger" default="1"/>
+				<Field name="Float_arg" type="Float" default="1.0"/>
+			</Message>
+			<Message name="Command_BB" displayName="Command BB">
+				<Field name="BitArray" type="BitArray" default="10101"/>
+				<Field name="BitArray_Choice" type="BitArray" default="000010">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="000001"/>
+						<Choice name="c2" displayName="Two" value="000010"/>
+						<Choice name="c3" displayName="Three" value="000011"/>
+						<Choice name="c4" displayName="Four" value="000100"/>
+					</ListConstraint>
+				</Field>
+			</Message>
+			<Message name="Command_CC" displayName="Command CC"> </Message>
+		</MessageInterface>
+		<InputAdapter name="response" type="Object"> </InputAdapter>
+		<OutputAdapter name="command" type="Object"> </OutputAdapter>
+		<Connection name="Client Server" type="TCP Server">
+			<Parameter name="port" value="6789"/>
+			<Parameter name="connectionsAllowed" value="5"/>
+		</Connection>
+	</Port>
+	<Port name="Port_D" displayName="Port D TCP Client" type="Default">
+		<MessageInterface name="MI1" displayName="Message Group 1">
+			<Message name="Command_AA" displayName="Type checker">
+				<Field name="String_arg1" type="String" default="Arg 1"/>
+				<Field name="String_hidden_arg" displayName="String (hidden arg)" hidden="true" type="String" default="Arg 2"/>
+				<Field name="String_read_only" displayName="String (read only)" readOnly="true" type="String" default="Arg 3"/>
+				<Field name="String_expert" displayName="String (expert)" expert="true" type="String" default="Arg 0"/>
+				<Field name="Byte_arg" type="Byte" default="1"/>
+				<Field name="Short_arg" type="Short" default="1"/>
+				<Field name="Integer_arg" type="Short" default="1"/>
+				<Field name="Long_arg" type="Long" default="1"/>
+				<Field name="Long_choice_arg" type="Long" default="1">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="1"/>
+						<Choice name="c2" displayName="Two" value="2"/>
+						<Choice name="c3" displayName="Three" value="3"/>
+						<Choice name="c4" displayName="Four" value="4"/>
+					</ListConstraint>
+				</Field>
+				<Field name="BigInteger_arg" type="BigInteger" default="1"/>
+				<Field name="Float_arg" type="Float" default="1.0"/>
+			</Message>
+			<Message name="Command_BB" displayName="Command BB">
+				<Field name="BitArray" type="BitArray" default="10101"/>
+				<Field name="BitArray_Choice" type="BitArray" default="000010">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="000001"/>
+						<Choice name="c2" displayName="Two" value="000010"/>
+						<Choice name="c3" displayName="Three" value="000011"/>
+						<Choice name="c4" displayName="Four" value="000100"/>
+					</ListConstraint>
+				</Field>
+			</Message>
+			<Message name="Command_CC" displayName="Command CC"> </Message>
+		</MessageInterface>
+		<MessageInterface name="MI2" displayName="Message Group 2">
+			<Message name="Command_AA" displayName="Type checker">
+				<Field name="String_arg1" type="String" default="Arg 1"/>
+				<Field name="String_hidden_arg" displayName="String (hidden arg)" hidden="true" type="String" default="Arg 2"/>
+				<Field name="String_read_only" displayName="String (read only)" readOnly="true" type="String" default="Arg 3"/>
+				<Field name="String_expert" displayName="String (expert)" expert="true" type="String" default="Arg 0"/>
+				<Field name="Byte_arg" type="Byte" default="1"/>
+				<Field name="Short_arg" type="Short" default="1"/>
+				<Field name="Integer_arg" type="Short" default="1"/>
+				<Field name="Long_arg" type="Long" default="1"/>
+				<Field name="Long_choice_arg" type="Long" default="1">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="1"/>
+						<Choice name="c2" displayName="Two" value="2"/>
+						<Choice name="c3" displayName="Three" value="3"/>
+						<Choice name="c4" displayName="Four" value="4"/>
+					</ListConstraint>
+				</Field>
+				<Field name="BigInteger_arg" type="BigInteger" default="1"/>
+				<Field name="Float_arg" type="Float" default="1.0"/>
+			</Message>
+			<Message name="Command_BB" displayName="Command BB">
+				<Field name="BitArray" type="BitArray" default="10101"/>
+				<Field name="BitArray_Choice" type="BitArray" default="000010">
+					<ListConstraint name="list">
+						<Choice name="c1" displayName="One" value="000001"/>
+						<Choice name="c2" displayName="Two" value="000010"/>
+						<Choice name="c3" displayName="Three" value="000011"/>
+						<Choice name="c4" displayName="Four" value="000100"/>
+					</ListConstraint>
+				</Field>
+			</Message>
+			<Message name="Command_CC" displayName="Command CC"> </Message>
+		</MessageInterface>
+		<InputAdapter name="response" type="Object"> </InputAdapter>
+		<OutputAdapter name="command" type="Object"> </OutputAdapter>
+		<Connection name="Server" type="TCP Client">
+			<Parameter name="hostname" value="localhost"/>
+			<Parameter name="port" value="6789"/>
+		</Connection>
+	</Port>
+	
+</Device>

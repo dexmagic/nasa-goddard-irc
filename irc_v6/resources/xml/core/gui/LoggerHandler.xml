@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<ControlClass id="Selected_Handler_Controller"
+			class="gov.nasa.gsfc.irc.gui.logging.SelectedHandlerController"/>
+	<ControlClass id="Property_Table_Controller"
+			class="gov.nasa.gsfc.irc.gui.properties.PropertyTableController"/>
+
+	<dialog id="LogHandler_Frame" name="frame" size="600,400" title="Log Handler" 
+		 controlclass="Selected_Handler_Controller" layout="BorderLayout"
+		 modal="true">
+	
+		<splitpane Orientation="1" DividerLocation="200"  
+				     LeftComponent="List_Panel" RightComponent="Property_Table_Panel">	 
+				<panel id="List_Panel" Layout="borderlayout">
+					<panel constraints="BorderLayout.CENTER">
+						<scrollpane>
+							<list id="Handler_List"
+								controlclass="Selected_Handler_Controller" />
+						</scrollpane>
+					</panel>
+					<panel constraints="BorderLayout.SOUTH">
+						<button text="Add" name="ADD" controlclass="Selected_Handler_Controller" 
+							actionCommand="ADD"/>
+						<button text="Remove" name="REMOVE" controlclass="Selected_Handler_Controller" 
+							actionCommand="REMOVE"/>
+					</panel>					
+				</panel>
+						
+				<InitObject id="Property_Filter_Model"
+					class="gov.nasa.gsfc.irc.gui.browser.PropertyFilterModel"/>
+		
+				<panel id="Property_Editor_Table_Panel" Layout="borderlayout"
+					controlclass="Property_Table_Controller">
+					
+					<panel constraints="BorderLayout.NORTH" layout="GridBagLayout">
+						<toolbar floatable="false" >				
+							<gridbagconstraints id="toolbar_gbc" 
+								gridx="0" gridy="0"
+								gridheight="1" gridwidth="1" 
+								anchor="GridBagConstraints.WEST"
+								fill="GridBagConstraints.HORIZONTAL"
+								weightx="1.0" weighty="0.0" 
+								insets="4,4,4,4"/> 
+							<buttongroup>
+								<togglebutton icon="Sort_None_Icon" 
+									controlclass="Property_Table_Controller"
+									enabled="true" actionCommand="SORT_NONE"
+									toolTipText="Turn sorting off">
+								</togglebutton>
+								<togglebutton icon="Sort_Alpha_Icon" 
+									controlclass="Property_Table_Controller"
+									enabled="true" actionCommand="SORT_ALPHA"
+									toolTipText="Sort alphabetically"
+									selected="true">
+								</togglebutton>
+								<togglebutton icon="Sort_Type_Icon" 
+									controlclass="Property_Table_Controller"
+									enabled="true" actionCommand="SORT_TYPE"
+									toolTipText="Sort by property type">
+								</togglebutton>
+							</buttongroup>
+						</toolbar>	
+						<toolbar floatable="false" >				
+							<gridbagconstraints use="toolbar_gbc"
+								gridx="1" gridy="0"
+								fill="GridBagConstraints.NONE"/> 
+							<label text="Property Filter:">
+							</label>
+							<comboBox controlclass="Property_Table_Controller"
+								initclass="Property_Filter_Model"
+								editable="false"/>			
+						</toolbar>	
+					</panel>
+					<scrollpane constraints="BorderLayout.CENTER">	
+						<table initclass="gov.nasa.gsfc.irc.gui.properties.PropertyTableModel;gov.nasa.gsfc.irc.gui.properties.PropertyColumnModel"
+							controlclass="Selected_Handler_Controller;Property_Table_Controller"
+							surrendersFocusOnKeystroke="true"/>								
+					</scrollpane>			
+				</panel>		
+			</splitpane>
+	</dialog>
+</doc>

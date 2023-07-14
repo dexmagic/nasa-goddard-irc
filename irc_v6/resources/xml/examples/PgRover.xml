@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Table of common character codes
+	
+	In string literals:
+	
+	&#9;	:	Tab
+	&#10;	:	Line-feed
+	&#13;	:	Carriage return
+	In regular expresssions:
+	
+	\t	:	Tab
+	\r	:	Carriage return
+	\n	:	Line-feed
+	\s	:	Any non-whitespace character
+-->
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://aaa.gsfc.nasa.gov/iml iml.xsd" name="PgRover"
+	displayName="Pacific Gyre Rover" type="Default">
+
+	<Port name="Port" type="Simple">
+
+		<MessageInterface name="CI1">
+			<Message name="auth dpac dpac" displayName="Login"/>
+			<Message name="pass" displayName="Pass-Through Mode"/>
+			<Message name="!F" displayName="Forward">
+				<Field name="Value" displayName="Value" type="Integer" default="10">
+					<RangeConstraint name="" low="0" high="47"/>
+				</Field>
+			</Message>
+			<Message name="!B" displayName="Reverse">
+				<Field name="Value" displayName="Value" type="Integer" default="00">
+					<RangeConstraint name="" low="0" high="47"/>
+				</Field>
+			</Message>
+			<Message name="*L" displayName="Left Turn">
+				<Field name="Value" displayName="Value" type="Integer" default="00">
+					<RangeConstraint name="" low="0" high="47"/>
+				</Field>
+			</Message>
+			<Message name="*R" displayName="Right Turn">
+				<Field name="Value" displayName="Value" type="Integer" default="00">
+					<RangeConstraint name="" low="0" high="47"/>
+				</Field>
+			</Message>
+			<Message name="?C" displayName="Toggle Camera ON/OFF"/>
+			<Message name="?M" displayName="Toggle Manual Control ON/OFF"/>
+			<Message name="?D" displayName="Distance?"/>
+			<Message name="?H" displayName="Heading?"/>
+			<Message name="?T" displayName="Toggle Running Clock ON/OFF"/>
+			<Message name="?B" displayName="Battery Voltage?"/>
+		</MessageInterface>
+
+		<InputAdapter name="messageParser" displayName="Message Parser" type="SystemOut"> </InputAdapter>
+
+		<OutputAdapter name="messageFormatter" displayName="Message Formatter" type="Message">
+			<Transformation>
+				<Format>
+					<!-- 
+						We simply write out the message name followed by the 
+						value of each field in the input message as ascii values, 
+						terminated by a CR.
+					-->
+					<Record useDataNameAsInitiator="true">
+						<Field applyToAllFields="true">
+							<Value type="printf" pattern="%02d"/>
+						</Field>
+						<Terminator value="&#13;"/>
+					</Record>
+				</Format>
+			</Transformation>
+		</OutputAdapter>
+
+		<!-- For local testing of output change type below to "STDOUT" -->
+		<Connection name="TCP" type="TCP Client">
+			<Parameter name="hostname" value="${rover.ip}"/>
+			<Parameter name="port" value="23"/>
+		</Connection>
+
+		<Connection name="Standard Out" type="STDOUT">
+		</Connection>
+	</Port>
+</Device>

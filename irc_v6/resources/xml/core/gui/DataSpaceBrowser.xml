@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame id="DS_Browser_Frame" name="frame" size="600,400" title="Data Space Browser" 
+	 layout="BorderLayout">
+
+	<ControlClass id="Data_Space_Tree_Controller"
+			class="gov.nasa.gsfc.irc.library.gui.data.DataSpaceTreeController"/>
+			
+	<panel id="Tree_Panel" Layout="borderlayout">
+		<scrollpane>
+			<tree id="Data_Space_Tree" SelectionRow="0"
+				initclass="gov.nasa.gsfc.irc.gui.data.DataSpaceTreeModel"
+				controlclass="Data_Space_Tree_Controller"
+				constraints="BorderLayout.NORTH">
+			
+			</tree>
+		</scrollpane>
+	</panel>
+</frame>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame id="Properties_Frame" name="frame" size="600,400" title="Visualization Properties" 
+	 layout="BorderLayout">
+
+	<ControlClass id="Vis_Tree_Controller"
+			class="gov.nasa.gsfc.irc.gui.vis.editor.VisEditorTreeController"/>
+	<ControlClass id="Property_Table_Controller"
+			class="gov.nasa.gsfc.irc.gui.properties.PropertyTableController"/>
+			
+	<splitpane Orientation="1" DividerLocation="200"  
+		     BottomComponent="Property_Table_Panel" TopComponent="Tree_Panel">	 
+		<panel id="Tree_Panel" Layout="borderlayout">
+			<scrollpane>
+				<tree id="Vis_Tree" 
+					initclass="gov.nasa.gsfc.irc.gui.vis.editor.VisEditorTreeModel"
+					constraints="BorderLayout.NORTH"
+					controlclass="Vis_Tree_Controller"/>
+			</scrollpane>
+			
+		</panel>
+		
+		<InitObject id="Property_Filter_Model"
+			class="gov.nasa.gsfc.irc.gui.browser.PropertyFilterModel"/>
+
+		<panel id="Property_Editor_Table_Panel" Layout="borderlayout"
+			controlclass="Property_Table_Controller">
+			
+			<panel constraints="BorderLayout.NORTH" layout="GridBagLayout">
+				<toolbar floatable="false" >				
+					<gridbagconstraints id="toolbar_gbc" 
+						gridx="0" gridy="0"
+						gridheight="1" gridwidth="1" 
+						anchor="GridBagConstraints.WEST"
+						fill="GridBagConstraints.HORIZONTAL"
+						weightx="1.0" weighty="0.0" 
+						insets="4,4,4,4"/> 
+					<buttongroup>
+						<togglebutton icon="Sort_None_Icon" 
+							controlclass="Property_Table_Controller"
+							enabled="true" actionCommand="SORT_NONE"
+							toolTipText="Turn sorting off">
+						</togglebutton>
+						<togglebutton icon="Sort_Alpha_Icon" 
+							controlclass="Property_Table_Controller"
+							enabled="true" actionCommand="SORT_ALPHA"
+							toolTipText="Sort alphabetically"
+							selected="true">
+						</togglebutton>
+						<togglebutton icon="Sort_Type_Icon" 
+							controlclass="Property_Table_Controller"
+							enabled="true" actionCommand="SORT_TYPE"
+							toolTipText="Sort by property type">
+						</togglebutton>
+					</buttongroup>
+				</toolbar>	
+				<toolbar floatable="false" >				
+					<gridbagconstraints use="toolbar_gbc"
+						gridx="1" gridy="0"
+						fill="GridBagConstraints.NONE"/> 
+					<label text="Property Filter:">
+					</label>
+					<comboBox controlclass="Property_Table_Controller"
+						initclass="Property_Filter_Model"
+						editable="false"/>			
+				</toolbar>	
+			</panel>
+			<scrollpane constraints="BorderLayout.CENTER">	
+				<table id="Property_Table" 
+					initclass="gov.nasa.gsfc.irc.gui.properties.PropertyTableModel;gov.nasa.gsfc.irc.gui.properties.PropertyColumnModel"
+					controlclass="Vis_Tree_Controller;Property_Table_Controller"/>
+								
+			</scrollpane>			
+		</panel>		
+	</splitpane>
+</frame>

@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Main-Class: gov.nasa.gsfc.irc.app.Irc
+Class-Path: batik/batik-all.jar \
+            bsf/bsf.jar \
+            javacomm/comm.jar \
+            jdom/jdom.jar \
+            js/js.jar \
+            jscience/jscience.jar \
+            jscience/javolution.jar \
+            jython/jython.jar \
+            swixml/swixml.jar \
+            swixml/ui.jar \
+            xerces/xercesImpl.jar \
+            xerces/xml-apis.jar \
+            fits/fits.jar \
+            fits/image.jar \
+            fits/util.jar \
+            concurrent/backport-util-concurrent.jar \
+            xdr/oncrpc.jar \
+            ../
+            

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Instrument Remote Control (IRC) project.
+#== Warning ============================================================== 
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="ParameterSet" type="ParameterSetType"/>
+	<!--ParameterSetType:-->
+	<xsd:complexType name="ParameterSetType">
+		<xsd:sequence>
+			<xsd:element name="InputOutputSpecification" type="InputOutputSpecificationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Parameter" type="ParameterType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="type" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<!--InputOutputSpecificationType: -->
+	<xsd:complexType name="InputOutputSpecificationType">
+		<xsd:sequence>
+			<xsd:element name="Input" type="IOType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Output" type="IOType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	<!--IOType: -->
+	<xsd:complexType name="IOType">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="unit" type="xsd:string"/>
+	</xsd:complexType>
+	<!--ParameterType: -->
+	<xsd:complexType name="ParameterType">
+		<xsd:sequence>
+			<xsd:element name="Value" type="ValueType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<!--ValueType: -->
+	<xsd:complexType name="ValueType">
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+		<xsd:attribute name="value" type="xsd:string" use="required"/>
+	</xsd:complexType>
+</xsd:schema>

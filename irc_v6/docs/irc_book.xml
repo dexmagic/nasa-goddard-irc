@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.docbook.org/xml/4.4/docbookx.dtd"
+[ <!ENTITY % xinclude SYSTEM "xinclude.mod"> %xinclude; ]
+>
+<book>
+    <bookinfo>
+        <title>Instrument Remote Control (IRC) Framework Guide</title>
+        <authorgroup>
+            <author>
+                <firstname>Troy</firstname>
+                <othername>J.</othername>
+                <surname>Ames</surname>
+            </author>
+            <author>
+                <firstname>Carl</firstname>
+                <othername>F.</othername>
+                <surname>Hostetter</surname>
+            </author>
+        </authorgroup>
+    </bookinfo> 
+    <xi:include href="design/design_part" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="core/core_part" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="programmer/programmer_part" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="user/user_part" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</book>

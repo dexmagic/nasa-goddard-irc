@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://aaa.gsfc.nasa.gov/iml iml.xsd" name="TestInstrument"
+	displayName="Test Instrument" type="Default">
+
+	<ScriptInterface name="SI1">
+		<Script name="HelloWorld" displayName="Hello World" file="resources/scripts/examples/helloWorld.py" language="JPython"> </Script>
+		<Script name="CallCommand" displayName="Call Command" file="resources/scripts/examples/callCommand.py" language="JPython">
+			<Field name="cmdName" displayName="Command Name" type="String" default="TestInstrument.Port_A.CI1.Command_C"/>
+		</Script>
+		<Script name="CallScript" displayName="Call Script" file="resources/scripts/examples/callScript.py" language="JPython">
+			<Field name="scriptName" displayName="Script Name" type="String" default="TestInstrument.SI1.HelloWorld"/>
+		</Script>
+		<Script name="Script_B" displayName="Script B" file="resources/scripts/examples/helloWorld.py" language="JPython">
+			<Field name="xThrow" displayName="X Throw" type="Float" units="arc seconds" default="30.0">
+				<RangeConstraint low="0.0" high="600.0"/>
+			</Field>
+			<Field name="yThrowMult" displayName="Y Throw Multiplier" type="Float" default="1.0"/>
+			<Field name="maxSpeed" displayName="Max Speed" type="Float" units="arc seconds per second" default="5.0">
+				<RangeConstraint name="" low="0.5" high="30.0"/>
+			</Field>
+			<Field name="yPeriodRatio" displayName="Y Period Ratio" type="Float" default="1.414"/>
+			<Field name="coordinateSys" displayName="Coordinate Systems" type="String" default="Equitorial">
+				<ListConstraint name="LC">
+					<Choice name="equitorial" displayName="Equitorial" value="Equitorial"/>
+					<Choice name="azimuthal" displayName="Alt Azimuthal" value="Alt Azimuthal"/>
+					<Choice name="galactic" displayName="Galactic" value="Galactic"/>
+				</ListConstraint>
+			</Field>
+		</Script>
+	</ScriptInterface>
+	<Port name="Port_A" type="Simple">
+		<MessageInterface name="CI1">
+			<Message name="Command_A" displayName="Command A" timeout="0" synchronous="false">
+				<Field name="Command" displayName="First argument" type="String" default="default"/>
+			</Message>
+			<Message name="Command_B" displayName="Command B" timeout="0" synchronous="false"> </Message>
+			<Message name="Command_C" displayName="Command C" timeout="0">
+				<Field name="Chopper_Throw" type="Integer" units="arcsec" default="120">
+					<RangeConstraint name="" low="0" high="540"/>
+				</Field>
+				<Field name="Chop_Frequency" type="Float" units="Hz" default="4.0">
+					<RangeConstraint low="0.0" high="5.0"/>
+				</Field>
+				<Field name="On_Tolerance" type="Float" units="arcsec" expert="true" default="10.0"/>
+				<Field name="Off_Tolerance" type="Float" units="arcsec" default="10.0"/>
+				<Field name="Chop_Qualifier" type="String" units="" default="none">
+					<ListConstraint name="Parameter">
+						<Choice name="stop" displayName="Stop" value="STOP"/>
+						<Choice name="debug" displayName="Debug" value="DEBUG"/>
+						<Choice name="reload" displayName="Reload" value="RELOAD"/>
+						<Choice name="none" displayName="None" value="none"/>
+					</ListConstraint>
+				</Field>
+			</Message>
+			<Message name="Command_D" displayName="Command D" timeout="0">
+				<Field name="Command_File" required="true" readOnly="false" type="File" units="" default=""/>
+			</Message>
+		</MessageInterface>
+
+		<InputAdapter name="response" type="Object"> </InputAdapter>
+		<OutputAdapter name="command" type="Object"> </OutputAdapter>
+		<Connection name="command" type="Multicast">
+			<Parameter name="groupName" value="228.5.6.7"/>
+			<Parameter name="port" value="6789"/>
+			<Parameter name="loopbackEnabled" value="true"/>
+		</Connection>
+	</Port>
+</Device>

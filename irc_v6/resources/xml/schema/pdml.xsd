@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!--Include support to map parse primitives to DataObjects.-->
+	<xsd:include schemaLocation="resources/irc/xml/schema/dmml.xsd"/>
+
+	<!--Include support to allow parse primitives to be sequenced. -->
+	<xsd:include schemaLocation="resources/irc/xml/schema/dsml.xsd"/>
+
+	<!-- Define the root element of a parse definition document -->
+	<xsd:element name="ParseDef" type="ParseDefType"/>
+
+	<!--ParseDefType: Root of a parse definition.-->
+	<xsd:complexType name="ParseDefType">
+		<xsd:sequence>
+			<xsd:element name="DataSequence" type="DataSequenceType" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="DataMap" type="DataMapType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+
+</xsd:schema>

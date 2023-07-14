@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Instrument Remote Control (IRC) project.
+#== Warning ==============================================================
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="ircml.xsd"/>
+    <xsd:include schemaLocation="dataml.xsd"/>
+    <xsd:include schemaLocation="dataselml.xsd"/>
+    <!-- DeterminantType: Specifies a determinant of data state -->
+    <xsd:complexType name="DeterminantType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Determinant" type="DeterminantSelectionType" minOccurs="0"/>
+                    <xsd:sequence>
+                        <xsd:element name="Comparison" type="ComparisonType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:sequence>
+                <xsd:attribute name="sourceType" type="PredefinedDataTypes"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- DeterminantSelectionType: Specifies a selection of determinant data -->
+    <xsd:complexType name="DeterminantSelectionType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Selection" type="DataSelectionType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ComparisonType: Specifies a comparison between two data items -->
+    <xsd:complexType name="ComparisonType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:attribute name="comparator" type="ComparatorTypes"/>
+                <xsd:attribute name="targetValue" type="xsd:string"/>
+                <xsd:attribute name="targetType" type="PredefinedDataTypes"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ComparatorTypes: Enumerates the permissible types of data comparators -->
+    <xsd:simpleType name="ComparatorTypes">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="true"/>
+            <xsd:enumeration value="false"/>
+            <xsd:enumeration value="null"/>
+            <xsd:enumeration value="not null"/>
+            <xsd:enumeration value="instanceof"/>
+            <xsd:enumeration value="matches"/>
+            <xsd:enumeration value="equals"/>
+            <xsd:enumeration value="="/>
+            <xsd:enumeration value="!="/>
+            <xsd:enumeration value="&lt;"/>
+            <xsd:enumeration value="&gt;"/>
+            <xsd:enumeration value="&lt;="/>
+            <xsd:enumeration value="&gt;="/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

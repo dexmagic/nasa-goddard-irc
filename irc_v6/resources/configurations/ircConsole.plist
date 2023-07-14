@@ -1,0 +1,6 @@
+#################################################################
+#
+# Instrument Remote Control Console properties file
+#
+#################################################################
+irc.ui.consoleCommandingEnabled=true

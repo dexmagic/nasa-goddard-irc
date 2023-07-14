@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<panel id="Command_Panel" layout="BorderLayout" >
+		<splitpane constraint="BorderLayout.CENTER" Orientation="1" 
+				oneTouchExpandable="true">
+
+			<ControlClass id="Command_Tree_Controller"
+				class="gov.nasa.gsfc.irc.gui.messages.MessagePanelController"/>
+
+			<panel layout="GridBagLayout">
+				<label text="Message_Label">
+					<gridbagconstraints id="gbc_1" insets="4,4,4,4" 
+						gridx="0" gridy="0"
+						gridheight="1" gridwidth="1" 
+						anchor="GridBagConstraints.NORTH" 
+						fill="GridBagConstraints.HORIZONTAL" 
+						weightx="1.0" weighty="0.0" /> 
+				</label>
+				<scrollpane preferredSize="250,400">
+					<gridbagconstraints use="gbc_1" gridy="1" 
+							fill="GridBagConstraints.BOTH"
+							weighty="1.0" /> 
+					<MessageCatalog id="Command_Tree" rootVisible="false"
+						initclass="gov.nasa.gsfc.irc.gui.messages.DescriptorModelAdapter"
+						controlclass="Command_Tree_Controller">
+						
+						<popupmenu controlclass="Command_Tree_Controller">
+							<menuitem text="Run" 
+								controlclass="Command_Tree_Controller" 
+								actionCommand="RUN_ACTION"/>
+							<!--
+							<separator/>
+							<menuitem text="Save" 
+								icon="Save_Icon"
+								controlclass="Command_Tree_Controller" 
+								actionCommand="SAVE"/>
+							<menuitem text="Restore" 
+								icon="Restore_Icon"
+								controlclass="Command_Tree_Controller" 
+								actionCommand="RESTORE"/>
+							<menuitem text="Restore Defaults" 
+								icon="Restore_Defaults"
+								controlclass="Command_Tree_Controller" 
+								actionCommand="RESTORE_DEFAULTS"/>
+							-->
+						</popupmenu>
+					</MessageCatalog>
+				</scrollpane>
+				<button icon="Send_Icon" controlclass="Command_Tree_Controller"
+					enabled="false" actionCommand="RUN_ACTION">
+					<gridbagconstraints use="gbc_1" gridy="2" 
+						anchor="GridBagConstraints.CENTER" 
+						fill="GridBagConstraints.NONE"
+						weightx="0.0" /> 
+				</button>
+			</panel>
+			
+			<ControlClass id="Property_Table_Controller"
+					class="gov.nasa.gsfc.irc.gui.messages.MessageEditorController"/>
+					
+			<InitObject id="Argument_Filter_Model"
+				class="gov.nasa.gsfc.irc.gui.messages.ArgumentFilterModel"/>
+
+			<panel id="Property_Editor_Table_Panel" Layout="borderlayout"
+				controlclass="Property_Table_Controller">
+				<panel constraints="BorderLayout.NORTH" layout="GridBagLayout">
+					<toolbar floatable="false" >				
+						<gridbagconstraints id="toolbar_gbc" 
+							gridx="0" gridy="0"
+							gridheight="1" gridwidth="1" 
+							anchor="GridBagConstraints.WEST"
+							fill="GridBagConstraints.HORIZONTAL"
+							weightx="1.0" weighty="0.0" 
+							insets="4,4,4,4"/> 
+						<buttongroup>
+							<togglebutton icon="Sort_None_Icon" 
+								controlclass="Property_Table_Controller"
+								enabled="true" actionCommand="SORT_NONE"
+								toolTipText="Turn sorting off"
+								selected="true">
+							</togglebutton>
+							<togglebutton icon="Sort_Alpha_Icon" 
+								controlclass="Property_Table_Controller"
+								enabled="true" actionCommand="SORT_ALPHA"
+								toolTipText="Sort alphabetically">
+							</togglebutton>
+						</buttongroup>
+						<separator/>
+						<button icon="Save_Icon" 
+							controlclass="Command_Tree_Controller"
+							enabled="true" actionCommand="SAVE"
+							toolTipText="Save arguments">
+						</button>
+						<button icon="Restore_Icon" 
+							controlclass="Command_Tree_Controller"
+							enabled="true" actionCommand="RESTORE"
+							toolTipText="Restore last saved">
+						</button>
+						<button icon="Restore_Defaults" 
+							controlclass="Command_Tree_Controller"
+							enabled="true" actionCommand="RESTORE_DEFAULTS"
+							toolTipText="Restore defaults">
+						</button>
+						
+					</toolbar>	
+					<toolbar floatable="false" >				
+						<gridbagconstraints use="toolbar_gbc"
+							gridx="1" gridy="0"
+							fill="GridBagConstraints.NONE"/> 
+						<label text="Argument Filter:">
+						</label>
+						<comboBox controlclass="Property_Table_Controller"
+							initclass="Argument_Filter_Model"
+							editable="false"/>			
+					</toolbar>	
+				</panel>
+				<scrollpane constraints="BorderLayout.CENTER">	
+					<MessageEditor id="Property_Table" 
+						controlclass="Command_Tree_Controller;Property_Table_Controller"
+						surrendersFocusOnKeystroke="true"/>
+									
+				</scrollpane>			
+			</panel>		
+		</splitpane>
+	</panel>
+</doc>

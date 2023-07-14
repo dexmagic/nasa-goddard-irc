@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LookupTable name="GlobalTypeMap" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://aaa.gsfc.nasa.gov/mml mml.xsd"
+	xmlns="http://aaa.gsfc.nasa.gov/mml">
+	
+	<NamespaceTable name="DeviceType">
+		<Mapping name="Default" value="gov.nasa.gsfc.irc.devices.DefaultDeviceProxy"/>
+		<Mapping name="Stateful" value="gov.nasa.gsfc.irc.devices.StatefulDeviceProxy"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="StateModelType">
+	</NamespaceTable>
+	
+	<NamespaceTable name="PortType">
+		<Mapping name="Default" value="gov.nasa.gsfc.irc.library.ports.FilteringPort"/>
+		<Mapping name="Simple" value="gov.nasa.gsfc.irc.library.ports.SimplePort"/>
+		<Mapping name="Filtering" value="gov.nasa.gsfc.irc.library.ports.FilteringPort"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="InputAdapterType">
+		<Mapping name="Object" value="gov.nasa.gsfc.irc.library.ports.adapters.MessageDeserializer"/>
+		<Mapping name="Serialized" value="gov.nasa.gsfc.irc.library.ports.adapters.MessageDeserializer"/>
+		<Mapping name="DataStream" value="gov.nasa.gsfc.irc.library.ports.adapters.DataStreamParser"/>
+		<Mapping name="BasisSet" value="gov.nasa.gsfc.irc.library.ports.adapters.BasisSetDeserializer"/>
+		<Mapping name="BasisSetTcpXdr" value="gov.nasa.gsfc.irc.library.ports.adapters.BasisSetTcpXdrInputAdapter"/>
+		<Mapping name="BasisSetTcp" value="gov.nasa.gsfc.irc.library.ports.adapters.BasisSetTcpJavaSerializationInputAdapter"/>
+		<Mapping name="BasisSetTcpGeneric" value="gov.nasa.gsfc.irc.library.ports.adapters.BasisSetTcpGenericInputAdapter"/>		
+		<Mapping name="SimpleAscii" value="gov.nasa.gsfc.irc.library.ports.adapters.SimpleAsciiParser" />
+		<Mapping name="SystemOut" value="gov.nasa.gsfc.irc.library.ports.adapters.SystemOutInputAdapter"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="OutputAdapterType">
+		<Mapping name="Object" value="gov.nasa.gsfc.irc.library.ports.adapters.MessageSerializer"/>
+		<Mapping name="Serialized" value="gov.nasa.gsfc.irc.library.ports.adapters.MessageSerializer"/>
+		<Mapping name="BasisSet" value="gov.nasa.gsfc.irc.library.ports.adapters.BasisSetSerializer"/>
+		<Mapping name="BasisSetTcpXdr" value="gov.nasa.gsfc.irc.library.ports.adapters.BasisSetTcpXdrOutputAdapter"/>
+		<Mapping name="BasisSetTcp" value="gov.nasa.gsfc.irc.library.ports.adapters.BasisSetTcpJavaSerializationOutputAdapter"/>		
+		<Mapping name="BasisSetTcpGeneric" value="gov.nasa.gsfc.irc.library.ports.adapters.BasisSetTcpGenericOutputAdapter"/>		
+		<Mapping name="SimpleAscii" value="gov.nasa.gsfc.irc.library.ports.adapters.SimpleAsciiFormatter" />
+		<Mapping name="Message" value="gov.nasa.gsfc.irc.library.ports.adapters.MessageFormatter" />
+		<Mapping name="Command" value="gov.nasa.gsfc.irc.library.ports.adapters.MessageFormatter" />
+	</NamespaceTable>
+	
+	<NamespaceTable name="TransformationType">
+	</NamespaceTable>
+	
+	<NamespaceTable name="SelectionType">
+	</NamespaceTable>
+	
+	<NamespaceTable name="ParseType">
+		<Mapping name="boolean" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="byte" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="char" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="shart" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="int" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="long" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="float" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="double" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="Boolean" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="Byte" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="Character" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="Shart" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="Integer" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="Long" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="Float" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="Double" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+		<Mapping name="String" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueParser" />
+	</NamespaceTable>
+	
+	<NamespaceTable name="FormatType">
+		<Mapping name="text" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="printf" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="time" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="binary" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="decimal" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="real" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Date" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="BitArray" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="boolean" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="byte" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="char" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="shart" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="int" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="long" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="float" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="double" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Boolean" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Byte" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Character" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Shart" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Integer" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Long" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Float" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="Double" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+		<Mapping name="String" value="gov.nasa.gsfc.irc.data.transformation.SimpleValueFormatter" />
+	</NamespaceTable>
+	
+	<NamespaceTable name="ConnectionType">
+		<Mapping name="STDOUT" value="gov.nasa.gsfc.irc.library.ports.connections.StandardOutConnection"/>
+		<Mapping name="TCP Client" value="gov.nasa.gsfc.irc.library.ports.connections.TcpClientConnection"/>
+		<Mapping name="TCP Server" value="gov.nasa.gsfc.irc.library.ports.connections.TcpServerConnection"/>
+		<Mapping name="Multicast" value="gov.nasa.gsfc.irc.library.ports.connections.MulticastConnection"/>
+		<Mapping name="UDP" value="gov.nasa.gsfc.irc.library.ports.connections.UdpPeerlessConnection"/>
+		<Mapping name="UDP Peer" value="gov.nasa.gsfc.irc.library.ports.connections.UdpPeerConnection"/>
+		<Mapping name="UDP Server" value="gov.nasa.gsfc.irc.library.ports.connections.UdpServerConnection"/>
+		<Mapping name="Serial" value="gov.nasa.gsfc.irc.library.ports.connections.SerialConnection"/>
+		<Mapping name="DMA" value="gov.nasa.gsfc.irc.library.ports.connections.dma.DmaConnection"/>
+		<Mapping name="GPIB" value="gov.nasa.gsfc.irc.library.ports.connections.ni.GpibConnection"/>
+		<Mapping name="FileIn" value="gov.nasa.gsfc.irc.library.ports.connections.FileInConnection"/>
+		<Mapping name="TextFileInput" value="gov.nasa.gsfc.irc.library.ports.connections.TextFileInputConnection"/>
+		<Mapping name="HTTP Client" value="gov.nasa.gsfc.irc.library.ports.connections.HttpClientConnection"/>
+		<Mapping name="HTTPS Client" value="gov.nasa.gsfc.irc.library.ports.connections.HttpsClientConnection"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="ScriptType">
+		<Mapping name="Jython" value="gov.nasa.gsfc.irc.library.scripts.engines.IrcJythonEngine"/>
+		<Mapping name="jython" value="gov.nasa.gsfc.irc.library.scripts.engines.IrcJythonEngine"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="DataType">
+		<Mapping name="BigDecimal" value="java.math.BigDecimal"/>
+		<Mapping name="BigInteger" value="java.math.BigInteger"/>
+		<Mapping name="BitArray" value="gov.nasa.gsfc.commons.types.arrays.BitArray"/>
+		<Mapping name="Boolean" value="java.lang.Boolean"/>
+		<Mapping name="Byte" value="java.lang.Byte"/>
+		<Mapping name="byte" value="byte.class"/>
+		<Mapping name="char" value="char.class"/>
+		<Mapping name="Date" value="java.util.Date" />
+		<Mapping name="Directory" value="java.io.File"/>
+		<Mapping name="Double" value="java.lang.Double"/>
+		<Mapping name="double" value="double.class"/>
+		<Mapping name="File" value="java.io.File"/>
+		<Mapping name="Float" value="java.lang.Float"/>
+		<Mapping name="float" value="float.class"/>
+		<Mapping name="int" value="int.class"/>
+		<Mapping name="Integer" value="java.lang.Integer"/>
+		<Mapping name="integer" value="int.class"/>
+		<Mapping name="Long" value="java.lang.Long"/>
+		<Mapping name="long" value="long.class"/>
+		<Mapping name="Object" value="java.lang.Object"/>
+		<Mapping name="Short" value="java.lang.Short"/>
+		<Mapping name="short" value="short.class"/>
+		<Mapping name="String" value="java.lang.String"/>
+		<Mapping name="URL" value="java.net.URL"/>
+		<Mapping name="text" value="java.lang.String"/>
+		<Mapping name="real" value="java.lang.Double"/>
+		<Mapping name="decimal" value="java.lang.Long"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="ComponentLibraryType">
+		<Mapping name="InstrumentProxy" value="gov.nasa.gsfc.irc.devices.DefaultDeviceProxy"/>
+		<Mapping name="SimplePort" value="gov.nasa.gsfc.irc.library.ports.SimplePort"/>
+		<Mapping name="ObjectSerializer" value="gov.nasa.gsfc.irc.library.ports.adapters.MessageSerializer"/>
+		<Mapping name="AsciiFormatter" value="gov.nasa.gsfc.irc.library.ports.adapters.SimpleAsciiFormatter"/>
+		<Mapping name="SignalGenerator" value="gov.nasa.gsfc.irc.library.algorithms.SignalGenerator"/>
+		<Mapping name="DataToTextWriter" value="gov.nasa.gsfc.irc.library.algorithms.DataToTextWriter"/>
+		<Mapping name="Archiver Writer" value="gov.nasa.gsfc.irc.library.archiving.data.BasisSetFileWriter" />
+		<Mapping name="Archiver Reader" value="gov.nasa.gsfc.irc.library.archiving.data.BasisSetFileReader" />
+		<Mapping name="Log Retriever" value="gov.nasa.gsfc.irc.gui.logging.LogRetriever" />
+	</NamespaceTable>
+	
+	<NamespaceTable name="ComponentType">
+		<Mapping name="DataToTextWriter" value="gov.nasa.gsfc.irc.library.algorithms.DataToTextWriter"/>
+		<Mapping name="Archiver Writer" value="gov.nasa.gsfc.irc.library.archiving.data.BasisSetFileWriter" />
+		<Mapping name="Archiver Reader" value="gov.nasa.gsfc.irc.library.archiving.data.BasisSetFileReader" />
+		<Mapping name="SignalGenerator" value="gov.nasa.gsfc.irc.library.algorithms.SignalGenerator"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="ManagerType">
+		<Mapping name="TaskManager" value="gov.nasa.gsfc.commons.processing.tasks.DefaultTaskManager"/>
+		<Mapping name="ComponentManager" value="gov.nasa.gsfc.irc.components.DefaultComponentNamespaceManager"/>
+		<Mapping name="PersistentStoreManager" value="gov.nasa.gsfc.commons.system.storage.DefaultPersistentStore"/>
+		<Mapping name="ConsoleManager" value="gov.nasa.gsfc.irc.ui.ConsoleInterpreter"/>
+		<Mapping name="DataSpaceManager" value="gov.nasa.gsfc.irc.data.DefaultDataSpace"/>
+		<Mapping name="OutputMessageRouter" value="gov.nasa.gsfc.irc.library.messages.DefaultOutputMessageRouter"/>
+		<Mapping name="InputMessageRouter" value="gov.nasa.gsfc.irc.library.messages.DefaultInputMessageRouter"/>
+		<Mapping name="EventBus" value="gov.nasa.gsfc.commons.publishing.ThreadedEventBus"/>
+		<Mapping name="MessageValidator" value="gov.nasa.gsfc.irc.messages.DefaultMessageValidator"/>
+		<Mapping name="ScriptValidator" value="gov.nasa.gsfc.irc.scripts.DefaultScriptValidator"/>
+		<Mapping name="ScriptEvaluator" value="gov.nasa.gsfc.irc.scripts.DefaultScriptEvaluator"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="FactoryType">
+		<Mapping name="ComponentFactory" value="gov.nasa.gsfc.irc.components.DefaultComponentFactory"/>
+		<Mapping name="GuiFactory" value="gov.nasa.gsfc.irc.gui.DefaultGuiFactory"/>
+		<Mapping name="BasisBundleFactory" value="gov.nasa.gsfc.irc.data.DefaultBasisBundleFactory"/>
+		<Mapping name="BasisRequesterFactory" value="gov.nasa.gsfc.irc.data.DefaultBasisRequesterFactory"/>
+		<Mapping name="MessageFactory" value="gov.nasa.gsfc.irc.messages.DefaultMessageFactory"/>
+		<Mapping name="ScriptFactory" value="gov.nasa.gsfc.irc.scripts.DefaultScriptFactory"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="PropertyEditors">
+		<Mapping name="boolean" value="gov.nasa.gsfc.irc.gui.properties.SwingBooleanEditor"/>
+		<Mapping name="byte" value="gov.nasa.gsfc.irc.gui.properties.IntegralNumberEditor"/>
+		<Mapping name="short" value="gov.nasa.gsfc.irc.gui.properties.IntegralNumberEditor"/>
+		<Mapping name="int" value="gov.nasa.gsfc.irc.gui.properties.SwingIntegerEditor"/>
+		<Mapping name="long" value="gov.nasa.gsfc.irc.gui.properties.IntegralNumberEditor"/>
+		<Mapping name="float" value="gov.nasa.gsfc.irc.gui.properties.SwingNumberEditor"/>
+		<Mapping name="double" value="gov.nasa.gsfc.irc.gui.properties.SwingNumberEditor"/>
+
+		<Mapping name="java.lang.Object" value="gov.nasa.gsfc.irc.gui.properties.SwingObjectEditor"/>
+		<Mapping name="java.lang.Boolean" value="gov.nasa.gsfc.irc.gui.properties.SwingBooleanEditor"/>
+		<Mapping name="java.lang.Byte" value="gov.nasa.gsfc.irc.gui.properties.IntegralNumberEditor"/>
+		<Mapping name="java.lang.Short" value="gov.nasa.gsfc.irc.gui.properties.IntegralNumberEditor"/>
+		<Mapping name="java.lang.Integer" value="gov.nasa.gsfc.irc.gui.properties.SwingIntegerEditor"/>
+		<Mapping name="java.lang.Long" value="gov.nasa.gsfc.irc.gui.properties.IntegralNumberEditor"/>
+		<Mapping name="java.math.BigInteger" value="gov.nasa.gsfc.irc.gui.properties.IntegralNumberEditor"/>
+		<Mapping name="java.lang.Float" value="gov.nasa.gsfc.irc.gui.properties.SwingNumberEditor"/>
+		<Mapping name="java.lang.Double" value="gov.nasa.gsfc.irc.gui.properties.SwingNumberEditor"/>
+		<Mapping name="java.math.BigDecimal" value="gov.nasa.gsfc.irc.gui.properties.SwingNumberEditor"/>
+		<Mapping name="java.lang.String" value="gov.nasa.gsfc.irc.gui.properties.SwingStringEditor"/>
+		<Mapping name="java.awt.Dimension" value="gov.nasa.gsfc.irc.gui.properties.SwingDimensionEditor"/>
+		<Mapping name="java.awt.Color" value="gov.nasa.gsfc.irc.gui.properties.SwingColorEditor"/>
+		<Mapping name="java.awt.Font" value="gov.nasa.gsfc.irc.gui.properties.SwingFontEditor"/>
+		<Mapping name="java.awt.Point" value="gov.nasa.gsfc.irc.gui.properties.SwingPointEditor"/>
+		<Mapping name="java.awt.Rectangle" value="gov.nasa.gsfc.irc.gui.properties.SwingRectangleEditor"/>
+		<Mapping name="java.awt.Insets" value="gov.nasa.gsfc.irc.gui.properties.SwingInsetsEditor"/>
+		<Mapping name="javax.swing.border.Border" value="gov.nasa.gsfc.irc.gui.properties.SwingBorderEditor"/>
+		<Mapping name="gov.nasa.gsfc.commons.types.arrays.BitArray" value="gov.nasa.gsfc.irc.gui.properties.SwingBitArrayEditor"/>
+		<Mapping name="java.io.File" value="gov.nasa.gsfc.irc.gui.properties.FileEditor"/>
+		<Mapping name="gov.nasa.gsfc.irc.library.archiving.data.ArchiveSession[]" value="gov.nasa.gsfc.irc.gui.properties.BasisSetFileEditor"/>
+		<Mapping name="java.util.logging.Level" value="gov.nasa.gsfc.irc.gui.properties.LoggerLevelEditor"/>
+		<Mapping name="gov.nasa.gsfc.commons.numerics.types.Amount" value="gov.nasa.gsfc.irc.gui.properties.AmountEditor"/>
+		<!--<Mapping name="gov.nasa.gsfc.irc.data.BasisRequest" value="gov.nasa.gsfc.irc.gui.properties.BasisRequestEditor"/>-->
+		<Mapping name="java.util.logging.Handler[]" value="gov.nasa.gsfc.irc.gui.properties.LoggerHandlerEditor"/>
+		<Mapping name="gov.nasa.gsfc.irc.data.BasisRequest []" value="gov.nasa.gsfc.irc.gui.properties.BasisRequestArrayEditor"/>
+		
+			<!-- Object[] doesn't work with the following -->
+		<Mapping name="java.lang.String[]" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="byte []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="int []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="long []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="short []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="float []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="double []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.lang.Byte []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.lang.Integer []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.lang.Short []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.lang.Long []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.lang.Float []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.lang.Double []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.math.BigInteger []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.math.BigDecimal []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="gov.nasa.gsfc.commons.types.arrays.BitArray []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+		<Mapping name="java.awt.Color []" value="gov.nasa.gsfc.irc.gui.properties.GenericArrayEditorWrapper"/>
+	</NamespaceTable>
+
+	<NamespaceTable name="GuiTagType">
+		<Mapping name="PreferenceField" value="gov.nasa.gsfc.irc.gui.swing.PreferenceField"/>
+		<Mapping name="preferenceField" value="gov.nasa.gsfc.irc.gui.swing.PreferenceField"/>
+		<Mapping name="MessageCatalog" value="gov.nasa.gsfc.irc.gui.messages.MessageCatalogView"/>
+		<Mapping name="VisComponent" value="gov.nasa.gsfc.irc.gui.vis.DefaultDataVisComponent"/>
+		<Mapping name="StatisticsTable" value="gov.nasa.gsfc.irc.gui.vis.tabular.StatisticsTable"/>
+		<Mapping name="XyPlotRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.plot.XyPlotRenderer"/>
+		<Mapping name="XyzPlotRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.plot.XyzPlotRenderer"/>		
+		<Mapping name="XyLabelRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.plot.XyLabelRenderer"/>
+		<Mapping name="TwinkleCellRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.cell.TwinkleCellRenderer"/>
+		<Mapping name="TwinkleLabelRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.cell.TwinkleLabelRenderer"/>
+		<Mapping name="XGridRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.plot.XGridRenderer"/>
+		<Mapping name="YGridRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.plot.YGridRenderer"/>
+		<Mapping name="AxisComponent" value="gov.nasa.gsfc.irc.gui.vis.axis.DefaultAxisComponent"/>
+		<Mapping name="XAxisRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.axis.XAxisRenderer"/>
+		<Mapping name="TimeLabelRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.axis.TimeLabelRenderer"/>
+		<Mapping name="YAxisRenderer" value="gov.nasa.gsfc.irc.library.gui.vis.axis.YAxisRenderer"/>
+		<Mapping name="AxisAutoScale" value="gov.nasa.gsfc.irc.library.gui.vis.scale.AutoScaleRenderer"/>
+		<Mapping name="AxisScalar" value="gov.nasa.gsfc.irc.library.gui.vis.AxisScaleSlider"/>
+		<Mapping name="AxisScaleSlider" value="gov.nasa.gsfc.irc.library.gui.vis.AxisScaleSlider"/>
+		<Mapping name="AxisScrollBar" value="gov.nasa.gsfc.irc.gui.swing.AxisScrollBar"/>
+		<Mapping name="DataLabel" value="gov.nasa.gsfc.irc.gui.swing.DataLabel"/>
+		<Mapping name="MessageEditor" value="gov.nasa.gsfc.irc.gui.messages.MessageEditorView"/>
+		<Mapping name="SvgCanvas" value="gov.nasa.gsfc.irc.gui.svg.SvgCanvas"/>
+		<Mapping name="SvgDataComponent" value="gov.nasa.gsfc.irc.gui.svg.DefaultDataSvgComponent"/>
+		<Mapping name="SvgComponent" value="gov.nasa.gsfc.irc.gui.svg.SvgComponent"/>
+		<Mapping name="SvgVisibilityUpdater" value="gov.nasa.gsfc.irc.library.gui.svg.VisibilityUpdater"/>
+		<Mapping name="Input" value="gov.nasa.gsfc.irc.algorithms.DefaultInput"/>
+		<Mapping name="HistoryBasisRequest" value="gov.nasa.gsfc.irc.data.HistoryBasisRequest"/>
+		<Mapping name="BasisRequest" value="gov.nasa.gsfc.irc.data.BasisRequest"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="GuiConverterType">
+		<Mapping name="gov.nasa.gsfc.irc.data.BasisBundleId" value="gov.nasa.gsfc.irc.gui.converters.BasisBundleIdConverter"/>
+		<Mapping name="gov.nasa.gsfc.commons.numerics.types.Amount" value="gov.nasa.gsfc.irc.gui.converters.AmountConverter"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="StatisticsTableTypes">
+		<Mapping name="Color" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelColor"/>
+		<Mapping name="Samples" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelSamples"/>
+		<Mapping name="StdDev" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelStdDev"/>
+		<Mapping name="Diff" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelDiff"/>
+		<Mapping name="Max" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelMax"/>
+		<Mapping name="Min" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelMin"/>
+		<Mapping name="Mean" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelMean"/>
+		<Mapping name="Name" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelName"/>
+		<Mapping name="Value" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelValue"/>
+		<Mapping name="Unit" value="gov.nasa.gsfc.irc.library.gui.vis.tabular.statistics.ChannelUnit"/>
+	</NamespaceTable>
+	
+	<NamespaceTable name="AxisScale">
+		<Mapping name="Linear" value="gov.nasa.gsfc.irc.library.gui.vis.scale.LinearScale"/>
+		<Mapping name="Log" value="gov.nasa.gsfc.irc.library.gui.vis.scale.LogScale"/>
+	</NamespaceTable>
+	
+	<!-- Are ParameterSetTypes obsolete? -->
+	<NamespaceTable name="ParameterSetType">
+		<Mapping name="Generic" value="gov.nasa.gsfc.irc.algorithms.parameterset.GenericParameterSet"/>
+		<Mapping name="Channel" value="gov.nasa.gsfc.irc.algorithms.parameterset.ChannelBasedParameterSet"/>
+		<Mapping name="Row" value="gov.nasa.gsfc.irc.algorithms.parameterset.RowBasedParameterSet"/>
+		<Mapping name="Column" value="gov.nasa.gsfc.irc.algorithms.parameterset.ColumnBasedParameterSet"/>
+		<Mapping name="RowType" value="gov.nasa.gsfc.irc.algorithms.parameterset.RowTypeBasedParameterSet"/>
+		<Mapping name="ColumnType" value="gov.nasa.gsfc.irc.algorithms.parameterset.ColumnTypeBasedParameterSet"/>
+	</NamespaceTable>
+
+</LookupTable>

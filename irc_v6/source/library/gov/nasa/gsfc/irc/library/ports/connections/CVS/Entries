@@ -1,0 +1,16 @@
+/FileInConnection.java/1.16/Tue Mar 14 17:00:48 2006//
+/HttpClientConnection.java/1.1/Wed Jun  7 15:54:14 2006//
+/HttpsClientConnection.java/1.1/Wed Jun  7 15:56:52 2006//
+/MulticastConnection.java/1.11/Tue Mar 14 17:00:48 2006//
+/SerialConnection.java/1.10/Mon May  1 19:58:30 2006//
+/StandardOutConnection.java/1.9/Tue May  9 17:53:50 2006//
+/TcpClientConnection.java/1.29/Wed Aug  9 21:28:27 2006//
+/TcpServerConnection.java/1.33/Tue May  9 17:53:50 2006//
+/TextFileInputConnection.java/1.3/Tue Mar 14 17:00:48 2006//
+/TextLineInputConnection.java/1.3/Tue Mar 14 17:00:48 2006//
+/UdpPeerConnection.java/1.13/Tue Mar 14 17:00:48 2006//
+/UdpPeerlessConnection.java/1.9/Tue Apr 18 04:25:07 2006//
+/UdpServerConnection.java/1.11/Tue Mar 14 17:00:48 2006//
+D/dma////
+D/ni////
+D/tests////

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame size="510,360" title="frame_title" bundle="resources.locales.AboutFrame">
+	<panel layout="BorderLayout">
+		<tabbedpane titles="tab_titles" constraints="BorderLayout.CENTER">
+			<panel title="About" layout="BorderLayout" 
+				include="resources/xml/core/gui/panels/AboutPanel.xml#About_Panel"/>
+			<panel title="System" layout="BorderLayout" 
+				include="resources/xml/core/gui/panels/SystemPanel.xml#System_Panel"/>
+				
+			<panel title="License" layout="BorderLayout">
+				<scrollpane>
+					<textarea lineWrap="true" wrapStyleWord="true" editable="false"
+						caretPosition="0" text="license_text">
+					</textarea>
+				</scrollpane>
+			</panel>
+		</tabbedpane>
+	</panel>
+</frame>

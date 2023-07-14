@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<ControlClass id="Application_Frame_Controller"
+		class="gov.nasa.gsfc.irc.gui.controller.ApplicationFrameController"/>
+
+	<frame size="510,360" title="Main_Frame_Name" 
+		bundle="resources.locales.ApplicationFrame" 
+		defaultCloseOperation="JFrame.EXIT_ON_CLOSE"
+		controlclass="Application_Frame_Controller">
+					
+		<menubar name="menubar">
+			<menu name="filemenu" text="File" mnemonic="VK_F">
+				<menuitem name="mi_device" text="Load_IML" 
+					icon="resources/icons/new.gif" mnemonic="VK_L"
+					action="gov.nasa.gsfc.irc.gui.actions.LoadImlAction" /> 
+				<menuitem name="mi_gui" text="Load_GUI" mnemonic="VK_G"
+					icon="resources/icons/new.gif" 
+					action="gov.nasa.gsfc.irc.gui.actions.LoadGuiAction" /> 
+				<separator/> 
+				<menuitem name="mi_exit" text="Exit" mnemonic="VK_E"
+					action="gov.nasa.gsfc.irc.gui.actions.ExitAction" /> 
+			</menu>
+			<menu name="editmenu" text="Edit" mnemonic="VK_E">
+				<menuitem name="mi_cut" text="Cut" actionCommand="Cut"
+					mnemonic="VK_T" Accelerator="control X"
+					action="gov.nasa.gsfc.irc.gui.actions.CutAction" /> 
+				<menuitem name="mi_copy" text="Copy" actionCommand="Copy"
+					mnemonic="VK_C" Accelerator="control C"
+					action="gov.nasa.gsfc.irc.gui.actions.CopyAction" /> 
+				<menuitem name="mi_paste" text="Paste" actionCommand="Paste"
+					mnemonic="VK_P" Accelerator="control V"
+					action="gov.nasa.gsfc.irc.gui.actions.PasteAction" /> 
+				<menuitem name="mi_select_all" text="Select_All" actionCommand="Select_All"
+					mnemonic="VK_A" Accelerator="control A"
+					action="gov.nasa.gsfc.irc.gui.actions.SelectAllAction" /> 
+				<separator/> 
+				<menuitem name="mi_preferences" text="Preferences" actionCommand="Preferences"
+					mnemonic="VK_P" 
+					action="gov.nasa.gsfc.irc.gui.actions.NotImplementedAction" /> 
+			</menu>
+			<!--<menu name="componentmenu" text="Component" mnemonic="VK_C">
+				<menuitem name="mi_start_all" text="Start_All" actionCommand="Start_All"
+					mnemonic="VK_S" 
+					action="gov.nasa.gsfc.irc.gui.actions.StartAllAction" /> 
+				<menuitem name="mi_stop_all" text="Stop_All" actionCommand="Stop_All"
+					mnemonic="VK_T" 
+					action="gov.nasa.gsfc.irc.gui.actions.StopAllAction" /> 
+			</menu>-->
+			<menu name="toolsmenu" text="Tools" mnemonic="VK_T">
+				<menuitem name="mi_data_space" text="Data Space Browser" actionCommand="Browser"
+					mnemonic="VK_D"
+					action="gov.nasa.gsfc.irc.library.gui.data.DataSpaceBrowser" />
+				<menuitem name="mi_components" text="Browser" actionCommand="Browser"
+					mnemonic="VK_C"
+					action="gov.nasa.gsfc.irc.gui.browser.ComponentBrowser" /> 	
+				<menuitem name="mi_logviewer" text="Log Viewer" actionCommand="LogViewer"
+					mnemonic="VK_L"
+					action="gov.nasa.gsfc.irc.gui.logging.LogViewer" /> 				
+			</menu>
+			<!--
+			<menu name="windowmenu" text="Window" mnemonic="VK_W">
+				<menuitem name="mi_log" text="Log_Console" actionCommand="Log"
+					mnemonic="VK_L"
+					action="gov.nasa.gsfc.irc.gui.actions.NotImplementedAction" /> 
+			</menu>
+			-->
+			<menu text="Help" mnemonic="VK_H">
+				<menuitem name="mi_about" text="About" enabled="true" 
+					icon="resources/icons/about.gif" mnemonic="VK_A"
+					action="gov.nasa.gsfc.irc.gui.actions.AboutAction" /> 
+			</menu>
+		</menubar>
+		
+		<panel layout="BorderLayout" >
+			<!--DefaultMessagePanel/-->
+	<!--		<panel layout="BorderLayout" 
+				include="resources/xml/core/gui/panels/CommandPanel.xml#Command_Panel"/>
+	-->		<panel layout="BorderLayout" 
+				include="resources/xml/core/gui/panels/MessageEditorPanel.xml#Command_Panel"/>
+		</panel>
+		
+	</frame>
+</doc>

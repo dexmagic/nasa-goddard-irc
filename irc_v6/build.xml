@@ -1,0 +1,346 @@
+<project default="usage" basedir=".">
+
+	<!-- =================================================================== -->
+	<!-- init                                                                -->
+	<!-- =================================================================== -->
+	<target name="init">
+		<tstamp />
+		<property name="Name" value="Instrument Remote Control (IRC)" />
+		<property name="name" value="IRC" />
+		<property name="project" value="irc" />
+		<property name="version" value="6.0b3" />
+	    <property name="revisionType"       value=""/>
+	    <property name="revisionNumber"     value=""/>
+		<property name="year" value="2005" />
+
+		<echo message="----------- ${Name} ${version} [${year}] ------------" />
+
+		<!-- Build properties -->
+		<property name="build.compiler" value="modern" />
+		<property name="debug" value="on" />
+		<property name="optimize" value="on" />
+		<property name="deprecation" value="off" />
+		<property name="source" value="1.4" />
+
+		<property name="src.dir" value="source" />
+		<property name="lib.dir" value="lib" />
+		<property name="tools.dir" value="tools" />
+		<property name="jxtalib.dir" value="${lib.dir}/jxtalib" />
+		<property name="fitslib.dir" value="${lib.dir}/fits" />
+		<property name="packages" value="gov.nasa.gsfc.irc.*,gov.nasa.gsfc.commons.*" />
+
+		<property name="build.dir" value="./build" />
+		<property name="build.lib" value="${build.dir}/lib" />
+		<property name="build.dest" value="${build.dir}/classes" />
+		<property name="build.src" value="${build.dir}/${src.dir}" />
+		<property name="build.resources" value="${build.dir}/resources" />
+		<property name="build.javadocs" value="${build.dir}/api" />
+		<property name="build.webStart" value="./WebStart" />
+		<property name="build.webStart.lib" value="./WebStart/dev/lib" />
+
+		<!-- Help related properties -->
+		<property name="build.help" value="${build.resources}/help" />
+		<property name="help.irc" value="${build.help}/irc" />
+		<property name="help.ice" value="${build.help}/ice" />
+
+		<property name="release.root_dir" value="${build.dir}/release" />
+		<property name="release.rules_dir" value="${build.dir}/release/rules" />
+
+		<!-- Classpath properties -->
+		<path id="libraryJars">
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+				<exclude name="**/test/**/*.jar" />
+			</fileset>
+		</path>
+		<property name="junit" value="${tools.dir}/JUnit/junit.jar" />
+
+		<filter token="year" value="${year}" />
+		<filter token="version" value="${version}" />
+		<filter token="date" value="${TODAY}" />
+		<filter token="log" value="true" />
+		<filter token="verbose" value="true" />
+
+		<!-- Definition of patterns that match text file back ups. -->
+		<patternset id="backUpPatterns">
+			<include name="**/*.*~" />
+			<include name="**/*.bak" />
+		</patternset>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- usage                                                               -->
+	<!-- =================================================================== -->
+	<target name="usage" description="Help on usage">
+		<echo message="" />
+		<echo message="" />
+		<echo message="-------------------------------------------------------------" />
+		<echo message="Instrument Remote Control (IRC) Build file" />
+		<echo message="-------------------------------------------------------------" />
+		<echo message=" Usage:                                                         " />
+		<echo message="                                                                " />
+		<echo message="     ant help          - lists supported targets                " />
+		<echo message="     ant [targetname]  - runs the specified target              " />
+		<echo message="     ant               - runs the default target                " />
+		<echo message="" />
+		<echo message=" Requires Ant 1.5, available from http://jakarta.apache.org/ant/ " />
+		<echo message="-------------------------------------------------------------" />
+		<echo message="" />
+		<echo message="" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- usage                                                               -->
+	<!-- =================================================================== -->
+	<target name="help" description="Help on usage">
+		<echo message="" />
+		<echo message="" />
+		<echo message="-------------------------------------------------------------" />
+		<echo message="Instrument Remote Control (IRC) Build file" />
+		<echo message="-------------------------------------------------------------" />
+		<echo message=" Supported targets:                                          " />
+		<echo message="                                                             " />
+		<echo message="     help       - displays this list                         " />
+		<echo message="     compile    - compiles the source to the build/classes/ directory " />
+		<echo message="     runIrc     - runs the framework without any instrument details   " />
+		<echo message="     runExample - runs a simple signal generator example      " />
+		<echo message="" />
+		<echo message=" Requires Ant 1.5, available from http://jakarta.apache.org/ant/ " />
+		<echo message="-------------------------------------------------------------" />
+		<echo message="" />
+		<echo message="" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- prepare                                                             -->
+	<!-- =================================================================== -->
+	<target name="prepare" depends="init" description="Prepares the build directory">
+		<mkdir dir="${build.dest}" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- create native headers                                                             -->
+	<!-- =================================================================== -->
+	<target name="nativeHeaders" depends="prepare" description="Creates native header .h source code">
+		<javah destdir="${build.dest}" force="yes">
+			<class name="gov.nasa.gsfc.irc.library.ports.connections.ni.daq.NiDaq"/>
+			<classpath>
+				<pathelement path="${classpath}" />
+				<path refid="libraryJars" />
+				<pathelement location="${tools.dir}/JUnit/junit.jar" />
+			</classpath>
+		</javah>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- compile                                                             -->
+	<!-- =================================================================== -->
+	<target name="compile" depends="prepare" description="Compiles the source code">
+		<javac destdir="${build.dest}" debug="${debug}" deprecation="${deprecation}" optimize="${optimize}" source="${source}">
+			<src path="${src.dir}"/>
+			<exclude name="examples/**" />
+			<exclude name="native/**" />
+			<classpath>
+				<pathelement path="${classpath}" />
+				<path refid="libraryJars" />
+				<pathelement location="${tools.dir}/JUnit/junit.jar" />
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- run                                                                 -->
+	<!-- =================================================================== -->
+	<target name="runIrc" depends="init" description="Runs the application">
+		<property name="plist" value="${name}" />
+
+		<java classname="gov.nasa.gsfc.irc.app.Irc" fork="true" dir="." maxmemory="256m">
+			<!--<arg value="-P${plist}"/>-->
+			<arg value="-Presources/configurations/irc" />
+			<classpath>
+				<pathelement location="${build.dir}/classes" />
+				<pathelement location="." />
+				<path refid="libraryJars" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="runExample" depends="init" description="Runs an example application">
+		<property name="plist" value="${name}" />
+
+		<java classname="gov.nasa.gsfc.irc.app.Irc" fork="true" dir="." maxmemory="256m">
+			<!--<arg value="-P${plist}"/>-->
+			<arg value="-Presources/configurations/signalGeneratorExample" />
+			<classpath>
+				<pathelement location="${build.dir}/classes" />
+				<pathelement location="." />
+				<path refid="libraryJars" />
+			</classpath>
+		</java>
+	</target>
+
+	  <!-- irc.jar (dependencies: all) -->
+	  <target name="root-jar" depends="prepare">
+	    <jar manifest="${src.dir}/${project}.mf"
+	         jarfile="${lib.dir}/${project}.jar">
+	      <manifest>
+	        <attribute name="Implementation-Title" value="IRC All Jar"/>
+	        <attribute name="Implementation-Version" value="${version}${revisionType}${revisionNumber}"/>
+	        <attribute name="Implementation-Vendor" value="NASA GSFC (http://aaa.gsfc.nasa.gov/)"/>
+	      </manifest>
+	    </jar>
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- core-jar                                                                 -->
+	  <!-- =================================================================== -->
+	  <target name="core-jar" depends="prepare" description="Creates the class jar package">
+		<mkdir dir="${build.webStart.lib}"/>
+		<jar jarfile="${build.webStart.lib}/${project}-core.jar"
+			 basedir="${build.dest}"
+			 includes="gov/nasa/gsfc/irc/**, org/swixml/**, gov/nasa/gsfc/testing/**"
+			 excludes="gov/nasa/gsfc/irc/library/**, gov/nasa/gsfc/irc/gui/**" />
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- sign-core-jar                                                            -->
+	  <!-- =================================================================== -->
+	  <target name="sign-core-jar" depends="core-jar" description="Updates and signs the class jar package">
+		<antcall target="jarsigner">
+			<param name="jarfile" value="${build.webStart.lib}/${project}-core.jar"/>
+		</antcall>
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- gui-jar                                                                 -->
+	  <!-- =================================================================== -->
+	  <target name="gui-jar" depends="prepare" description="Creates the class jar package">
+		<mkdir dir="${build.webStart.lib}"/>
+		<jar jarfile="${build.webStart.lib}/${project}-gui.jar"
+			 basedir="${build.dest}"
+			 includes="gov/nasa/gsfc/irc/gui/**" />
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- sign-gui-jar                                                            -->
+	  <!-- =================================================================== -->
+	  <target name="sign-gui-jar" depends="gui-jar" description="Updates and signs the class jar package">
+		<antcall target="jarsigner">
+			<param name="jarfile" value="${build.webStart.lib}/${project}-gui.jar"/>
+		</antcall>
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- commons-jar                                                                 -->
+	  <!-- =================================================================== -->
+	  <target name="commons-jar" depends="prepare" description="Creates the class jar package">
+		<mkdir dir="${build.webStart.lib}"/>
+		<jar jarfile="${build.webStart.lib}/${project}-commons.jar"
+			 basedir="${build.dest}"
+			 includes="gov/nasa/gsfc/commons/**" />
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- sign-commons-jar                                                            -->
+	  <!-- =================================================================== -->
+	  <target name="sign-commons-jar" depends="commons-jar" description="Updates and signs the class jar package">
+		<antcall target="jarsigner">
+			<param name="jarfile" value="${build.webStart.lib}/${project}-commons.jar"/>
+		</antcall>
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- lib-jar                                                                 -->
+	  <!-- =================================================================== -->
+	  <target name="lib-jar" depends="prepare" description="Creates the class jar package">
+		<mkdir dir="${build.webStart.lib}"/>
+		<jar jarfile="${build.webStart.lib}/${project}-lib.jar"
+			 basedir="${build.dest}"
+			 includes="gov/nasa/gsfc/irc/library/**" />
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- sign-lib-jar                                                            -->
+	  <!-- =================================================================== -->
+	  <target name="sign-lib-jar" depends="lib-jar" description="Updates and signs the class jar package">
+		<antcall target="jarsigner">
+			<param name="jarfile" value="${build.webStart.lib}/${project}-lib.jar"/>
+		</antcall>
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- resource-jar                                                                 -->
+	  <!-- =================================================================== -->
+	  <target name="resource-jar" depends="prepare" description="Creates the class jar package">
+		<mkdir dir="${build.webStart.lib}"/>
+		<jar jarfile="${build.webStart.lib}/${project}-resource.jar"
+			 basedir="${basedir}"
+			 includes="resources/**" />
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- sign-resource-jar                                                            -->
+	  <!-- =================================================================== -->
+	  <target name="sign-resource-jar" depends="resource-jar" description="Updates and signs the class jar package">
+		<antcall target="jarsigner">
+			<param name="jarfile" value="${build.webStart.lib}/${project}-resource.jar"/>
+		</antcall>
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- native-jar                                                          -->
+	  <!-- =================================================================== -->
+	  <target name="native-jar" depends="prepare" description="Creates the native package">
+		<mkdir dir="${build.webStart.lib}/windows"/>
+		<jar jarfile="${build.webStart.lib}/windows/${project}-native-win.jar">
+	  		<fileset dir="${lib.dir}/ni" includes="*.dll" />
+		</jar>
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- sign-native-jar                                                                 -->
+	  <!-- =================================================================== -->
+	  <target name="sign-native-jar" depends="native-jar" description="Updates and signs the native package">
+		<antcall target="jarsigner">
+			<param name="jarfile" value="${build.webStart.lib}/windows/${project}-native-win.jar"/>
+		</antcall>
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- all-jar                                                             -->
+	  <!-- =================================================================== -->
+	  <target name="all-jars" 
+	  		depends="core-jar, gui-jar, resource-jar, commons-jar, lib-jar" 
+	  		description="Updates all the jars">
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- sign-all-jar                                                             -->
+	  <!-- =================================================================== -->
+	  <target name="sign-all-jars" 
+	  		depends="sign-core-jar, sign-gui-jar, sign-resource-jar, sign-commons-jar, sign-lib-jar"
+	  		description="Updates and signs all the jars">
+	  </target>
+
+	  <!-- =================================================================== -->
+	  <!-- jarsigner                                                           -->
+	  <!--    For a single file use: ant jarsigner -Djarfile=./lib/vtt.jar     -->
+	  <!-- =================================================================== -->
+	  <target name="jarsigner" description="Signs a jar package">
+		<!-- Jar signing related properties -->
+		<property file="jarsigner.properties"/>
+		<!--<property name="jarfile" value="./lib/JMF/jmf.jar"/>-->
+		
+	    <echo message="Signing jar:${jarfile}"/>
+
+		<exec taskname="jarsigner" executable="jarsigner">
+			<arg value="-keystore"/>
+			<arg value="${keystore}"/>
+			<arg value="-storepass"/>
+			<arg value="${keystore.password}"/>
+			<arg path="${jarfile}"/>
+			<arg value="${keystore.alias}"/>
+		</exec>
+	  </target>
+
+</project>

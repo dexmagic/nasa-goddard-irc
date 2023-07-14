@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://aaa.gsfc.nasa.gov/iml iml.xsd" 
+		name="BasisSetGenericServer Device" type="Default" >
+
+ 	<Port name="SensorData-BasisSetServer-Port" type="Simple">
+        <OutputAdapter name="SensorData-BasisSetServer-OutputAdapter" type="BasisSetTcpGeneric">
+            <!-- TCP port a client should connect to -->
+			<Parameter name="port" value="9000"/>
+			<!-- How many simultaneous clients are allowed -->
+            <Parameter name="connectionsAllowed" value="5"/>
+			<!-- Size of underlying transport buffers -->
+            <Parameter name="bufferSize" value="1000000"/>
+
+			<!-- Capacity of basis set queue while waiting to process clients -->
+            <Parameter name="queueCapacity" value="5"/>
+            <Parameter name="queueKeepMode" value="keepLatest"/>
+			
+        </OutputAdapter>
+    </Port>
+
+</Device>
+

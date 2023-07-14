@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                         "http://www.docbook.org/xml/4.4/docbookx.dtd"
+[ <!ENTITY % xinclude SYSTEM "../../../xinclude.mod"> %xinclude; ]
+>
+<sect1>
+    <title>Ports</title>
+    <xi:include href="intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="connections.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="adaptors.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="messages.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="formatting.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="parsing.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="logging.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</sect1>
+    

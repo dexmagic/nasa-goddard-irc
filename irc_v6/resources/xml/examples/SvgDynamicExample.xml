@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame title="SVG Dynamic Example">
+	<panel layout="GridBagLayout" preferredSize="550, 600">
+		<Input id="Input">
+			<HistoryBasisRequest 
+				basisBundleId="Signals.Signals Output.Signal Generator.IRC"
+				requestAmount="3.0 s"
+				updateInterval="0.5"/>
+		</Input>
+		<InitObject id="X_Axis_Model"
+			class="gov.nasa.gsfc.irc.gui.vis.axis.DefaultAxisModel"
+			autoScale="true"/>
+		<InitObject id="Y_Axis_Model"
+			class="gov.nasa.gsfc.irc.gui.vis.axis.DefaultAxisModel"
+			viewExtent="300.0"
+			viewMinimum="-50.0"
+			autoScale="false"/>
+		<InitObject id="Time_Label_Formatter"
+			class="gov.nasa.gsfc.commons.numerics.formats.TimeFormat"
+			pattern="ss.S"
+			unit="msec"/>
+		<ControlClass id="Vis_Menu_Controller"
+			class="gov.nasa.gsfc.irc.gui.vis.DefaultVisPanelController"/>
+		
+		<panel layout="GridBagLayout"
+			preferredSize="300, 550">
+			<gridbagconstraints gridx="0" gridy="0"
+				gridheight="1" gridwidth="1" 
+				anchor="GridBagConstraints.EAST" 
+				fill="GridBagConstraints.BOTH"/> 
+
+			<SvgDataComponent 
+				initclass="Input"
+				border="LoweredBevelBorder"
+				file="resources/xml/examples/svg/Dewar.svg">
+				<gridbagconstraints gridx="0" gridy="0"
+					insets="4,4,4,0" 
+					anchor="GridBagConstraints.EAST" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="1.0"/> 
+				<SvgVisibilityUpdater
+					states="10"
+					idRoot="LHe4"
+					bufferName="RampUp(t)"
+					minimum="10"
+					maximum="180"
+					textFormat="##0"/>	
+			</SvgDataComponent>
+
+		</panel>
+		
+		<panel layout="GridBagLayout" 
+			border="TitledBorder(Thermal Status)"
+			controlclass="Vis_Menu_Controller">
+			<gridbagconstraints gridx="1" gridy="0"
+				gridheight="1" gridwidth="1" 
+				insets="4,4,4,4" 
+				fill="GridBagConstraints.BOTH"
+				weightx="1.0" weighty="1.0"/> 
+
+			<!-- Temp sensor visualization group 1 -->
+			<label text="Outer Shield"
+				horizontalAlignment="2">
+				<gridbagconstraints id="text_gb" 
+					insets="8,4,0,4" 
+					gridx="0" gridy="0"
+					fill="GridBagConstraints.BOTH" 
+					weightx="1.0" weighty="0.0" /> 
+			</label>
+			
+			<AxisComponent id="Y_Axis_Template"
+				initclass="Y_Axis_Model"
+				controlclass="Vis_Menu_Controller"
+				border="EmptyBorder(2, 0, 2, 0)"
+				foreground="black"
+				opaque="true">
+				<gridbagconstraints id="yAxis_gb" gridx="1" gridy="1"
+					insets="0,4,0,0" 
+					gridheight="1" gridwidth="1" 
+					anchor="GridBagConstraints.CENTER" 
+					fill="GridBagConstraints.BOTH"
+					weightx="0.0" weighty="1.0"/> 
+				<YAxisRenderer 
+					initclass="Y_Axis_Model"
+					location="right">
+				</YAxisRenderer>
+			</AxisComponent>
+
+			<VisComponent id="VisComponent_Template"
+				initclass="Input"
+				controlclass="Vis_Menu_Controller"
+				preferredSize="50,50" 
+				background="WHITE"
+				border="LoweredBevelBorder"
+				opaque="true">	
+				<gridbagconstraints id="vis_gb" gridx="0" gridy="1" 
+					gridheight="1" gridwidth="1" 
+					insets="0,0,0,4" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="1.0" /> 
+				
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+				
+				<AxisAutoScale
+					initclass="X_Axis_Model"
+					scaleChannel="Time"
+					rangePinned="true"
+					resetScaleEnabled="true"/>
+				<AxisAutoScale
+					initclass="Y_Axis_Model"/>
+				<XGridRenderer
+					initclass="X_Axis_Model"/>
+				<YGridRenderer
+					initclass="Y_Axis_Model"/>
+				<XyPlotRenderer
+					initclass="X_Axis_Model;Y_Axis_Model"
+					xAxisChannel="Time"
+					yAxisChannels="Cos(omega*t)"/>
+			</VisComponent>
+
+			<DataLabel id="label_template" initclass="Input" text="----"
+				horizontalAlignment="4"
+				bufferName="Cos(omega*t)"
+				labelFormat="##0"
+				preferredSize="40,20"
+				font="Dialog MS-PLAIN-20">
+				<gridbagconstraints id="value_gb" 
+					insets="4,4,4,4" 
+					anchor="GridBagConstraints.EAST"
+					gridx="2" gridy="1"/> 
+			</DataLabel>
+
+			<!-- Temp sensor visualization group 2 -->
+			<label text="Inner Shield"
+				horizontalAlignment="2">
+				<gridbagconstraints use="text_gb" gridy="2"/> 
+			</label>
+
+			<AxisComponent refid="Y_Axis_Template"
+				initclass="Y_Axis_Model"
+				controlclass="Vis_Menu_Controller">
+				<gridbagconstraints use="yAxis_gb" gridy="3"/> 
+				<YAxisRenderer 
+					initclass="Y_Axis_Model"
+					location="right">
+				</YAxisRenderer>
+			</AxisComponent>
+			
+			<VisComponent refid="VisComponent_Template"
+				initclass="Input"
+				controlclass="Vis_Menu_Controller">	
+				<gridbagconstraints use="vis_gb" gridy="3"/> 
+				
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+				
+				<AxisAutoScale
+					initclass="Y_Axis_Model"/>
+				<XGridRenderer
+					initclass="X_Axis_Model"/>
+				<YGridRenderer
+					initclass="Y_Axis_Model"/>
+				<XyPlotRenderer
+					initclass="X_Axis_Model;Y_Axis_Model"
+					xAxisChannel="Time"
+					yAxisChannels="Sin(omega*t)"/>
+			</VisComponent>
+
+			<DataLabel refid="label_template" initclass="Input"
+				bufferName="Sin(omega*t)">
+				<gridbagconstraints use="value_gb" gridy="3"/> 
+			</DataLabel>
+
+			<!-- Temp sensor visualization group 3 -->
+			<label text="Detector"
+				horizontalAlignment="2">
+				<gridbagconstraints use="text_gb" gridy="4"/> 
+			</label>
+			
+			<AxisComponent refid="Y_Axis_Template"
+				initclass="Y_Axis_Model"
+				controlclass="Vis_Menu_Controller">
+				<gridbagconstraints use="yAxis_gb" gridy="5"/> 
+				<YAxisRenderer 
+					initclass="Y_Axis_Model"
+					location="right">
+				</YAxisRenderer>
+			</AxisComponent>
+			
+			<VisComponent refid="VisComponent_Template"
+				initclass="Input"
+				controlclass="Vis_Menu_Controller">	
+				<gridbagconstraints use="vis_gb" gridy="5"/> 
+				
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+				
+				<AxisAutoScale
+					initclass="Y_Axis_Model"/>
+				<XGridRenderer
+					initclass="X_Axis_Model"/>
+				<YGridRenderer
+					initclass="Y_Axis_Model"/>
+				<XyPlotRenderer
+					initclass="X_Axis_Model;Y_Axis_Model"
+					xAxisChannel="Time"
+					yAxisChannels="Random()"/>
+			</VisComponent>
+			
+			<DataLabel refid="label_template" initclass="Input"
+				bufferName="Random()">
+				<gridbagconstraints use="value_gb" gridy="5"/> 
+			</DataLabel>
+			
+			<!-- Temp sensor visualization group 4 -->
+			<label text="Cold Shield"
+				horizontalAlignment="2">
+				<gridbagconstraints use="text_gb" gridy="6"/> 
+			</label>
+			
+			<AxisComponent refid="Y_Axis_Template"
+				initclass="Y_Axis_Model"
+				controlclass="Vis_Menu_Controller">
+				<gridbagconstraints use="yAxis_gb" gridy="7"/> 
+				<YAxisRenderer 
+					initclass="Y_Axis_Model"
+					location="right">
+				</YAxisRenderer>
+			</AxisComponent>
+			
+			<VisComponent refid="VisComponent_Template"
+				initclass="Input"
+				controlclass="Vis_Menu_Controller">	
+				<gridbagconstraints use="vis_gb" gridy="7"/> 
+				
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+				
+				<AxisAutoScale
+					initclass="Y_Axis_Model"/>
+				<XGridRenderer
+					initclass="X_Axis_Model"/>
+				<YGridRenderer
+					initclass="Y_Axis_Model"/>
+				<XyPlotRenderer
+					initclass="X_Axis_Model;Y_Axis_Model"
+					xAxisChannel="Time"
+					yAxisChannels="Square(t)"/>
+			</VisComponent>
+			
+			<DataLabel refid="label_template" initclass="Input"
+				bufferName="Square(t)">
+				<gridbagconstraints use="value_gb" gridy="7"/> 
+			</DataLabel>
+			
+			<!-- Temp sensor visualization group 5 -->
+			<label text="Window"
+				horizontalAlignment="2">
+				<gridbagconstraints use="text_gb" gridy="8"/> 
+			</label>
+			
+			<AxisComponent refid="Y_Axis_Template"
+				initclass="Y_Axis_Model"
+				controlclass="Vis_Menu_Controller">
+				<gridbagconstraints use="yAxis_gb" gridy="9"/> 
+				<YAxisRenderer 
+					initclass="Y_Axis_Model"
+					location="right">
+				</YAxisRenderer>
+			</AxisComponent>
+			
+			<VisComponent refid="VisComponent_Template"
+				initclass="Input"
+				controlclass="Vis_Menu_Controller">	
+				<gridbagconstraints use="vis_gb" gridy="9"/> 
+				
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+				
+				<AxisAutoScale
+					initclass="Y_Axis_Model"/>
+				<XGridRenderer
+					initclass="X_Axis_Model"/>
+				<YGridRenderer
+					initclass="Y_Axis_Model"/>
+				<XyPlotRenderer
+					initclass="X_Axis_Model;Y_Axis_Model"
+					xAxisChannel="Time"
+					yAxisChannels="RampUp(t)"/>
+			</VisComponent>
+			
+			<DataLabel refid="label_template" initclass="Input"
+				bufferName="RampUp(t)">
+				<gridbagconstraints use="value_gb" gridy="9"/> 
+			</DataLabel>
+			
+			<!-- Temp sensor visualization group 6 -->
+			<label text="Optics Box"
+				horizontalAlignment="2">
+				<gridbagconstraints use="text_gb" gridy="10"/> 
+			</label>
+			
+			<AxisComponent refid="Y_Axis_Template"
+				initclass="Y_Axis_Model"
+				controlclass="Vis_Menu_Controller">
+				<gridbagconstraints use="yAxis_gb" gridy="11"/> 
+				<YAxisRenderer 
+					initclass="Y_Axis_Model"
+					location="right">
+				</YAxisRenderer>
+			</AxisComponent>
+			
+			<VisComponent refid="VisComponent_Template"
+				initclass="Input"
+				controlclass="Vis_Menu_Controller">	
+				<gridbagconstraints use="vis_gb" gridy="11"/> 
+				
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+				
+				<AxisAutoScale
+					initclass="Y_Axis_Model"/>
+				<XGridRenderer
+					initclass="X_Axis_Model"/>
+				<YGridRenderer
+					initclass="Y_Axis_Model"/>
+				<XyPlotRenderer
+					initclass="X_Axis_Model;Y_Axis_Model"
+					xAxisChannel="Time"
+					yAxisChannels="RampDown(t)"/>
+			</VisComponent>
+			
+			<DataLabel refid="label_template" initclass="Input"
+				bufferName="RampDown(t)">
+				<gridbagconstraints use="value_gb" gridy="11"/> 
+			</DataLabel>
+			
+			<!-- Shared X axis labels and scroll bar -->
+			<AxisComponent
+				initclass="X_Axis_Model"
+				controlclass="Vis_Menu_Controller"
+				border="EmptyBorder(0, 2, 0, 2)"
+				autoScale="true"
+				foreground="black"
+				opaque="true">
+				<gridbagconstraints 
+					gridx="0" gridy="12" 
+					gridheight="1" gridwidth="1" 
+					anchor="GridBagConstraints.CENTER" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="0.0"/> 
+				<XAxisRenderer 
+					initclass="X_Axis_Model;Time_Label_Formatter">
+				</XAxisRenderer>
+			</AxisComponent>
+			
+			<AxisScrollBar initclass="X_Axis_Model">
+				<gridbagconstraints 
+					gridx="0" gridy="13"
+					fill="GridBagConstraints.HORIZONTAL"
+					insets="0,0,0,0" 
+					gridheight="1" gridwidth="1" 
+					weightx="1.0" weighty="0.0" /> 					
+			</AxisScrollBar>
+
+			<popupmenu controlclass="Vis_Menu_Controller">
+				<menuitem text="Properties..." 
+					controlclass="Vis_Menu_Controller" 
+					actionCommand="Properties"/> 
+			</popupmenu>		
+		</panel>
+	</panel>
+</frame>

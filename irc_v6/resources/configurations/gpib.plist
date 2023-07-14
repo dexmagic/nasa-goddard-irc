@@ -1,0 +1,7 @@
+#################################################################
+#
+# Instrument Remote Control Console properties file
+#
+#################################################################
+irc.ui.consoleCommandingEnabled=true
+irc.description.instrument=resources/xml/examples/GpibInstrument.xml

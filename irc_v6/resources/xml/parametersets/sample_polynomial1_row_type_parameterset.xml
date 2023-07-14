@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ParameterSet name="Polynomial" type="RowType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="psml.xsd">
+	<Parameter name="ADC:0">
+		<Value value="0"/>
+		<Value value="1"/>
+	</Parameter>
+	<Parameter name="ADC:1">
+		<Value value="500"/>
+		<Value value="1"/>
+	</Parameter>
+	<Parameter name="ADC:2">
+		<Value value="1000"/>
+		<Value value="1"/>
+	</Parameter>
+</ParameterSet>

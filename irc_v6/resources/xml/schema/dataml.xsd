@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Instrument Remote Control (IRC) project.
+#== Warning ==============================================================
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="ircml.xsd"/>
+    <!-- DataElementType: Describes a named data element -->
+    <xsd:complexType name="DataElementType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- BasisBundleGroupType: Describes a (logical) group of IRC BasisBundles -->
+    <xsd:complexType name="BasisBundleGroupType">
+        <xsd:complexContent>
+            <xsd:extension base="DataElementType">
+                <xsd:sequence>
+                    <xsd:element name="BasisBundleDefaults" type="BasisBundleType" minOccurs="0"/>
+                    <xsd:element name="BasisBundle" type="BasisBundleType" maxOccurs="unbounded"/>
+                </xsd:sequence>
+                <xsd:attribute name="prefixGroupNameToBundleNames" type="xsd:boolean"
+                    default="false"/>
+                <xsd:attribute name="appendGroupNameToBundleNames" type="xsd:boolean"
+                    default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- BasisBundleType: Describes an IRC BasisBundle -->
+    <xsd:complexType name="BasisBundleType">
+        <xsd:complexContent>
+            <xsd:extension base="DataElementType">
+                <xsd:sequence>
+                    <xsd:element name="BasisBuffer" type="DataBufferType" minOccurs="0"/>
+                    <xsd:group ref="DataBundleGroup" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+                <xsd:attribute name="size" type="xsd:nonNegativeInteger"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- DataBundleGroup: Describes a group of possibly heterogeneous DataBuffers -->
+    <xsd:group name="DataBundleGroup">
+        <xsd:choice>
+            <xsd:element name="DataBuffer" type="DataBufferType"/>
+            <xsd:element name="PixelBundle" type="PixelBundleType"/>
+            <xsd:element name="DataBundle" type="DataBundleType"/>
+        </xsd:choice>
+    </xsd:group>
+    <!-- DataBufferType: Describes individual named buffers (channels) of data -->
+    <xsd:complexType name="DataBufferType">
+        <xsd:complexContent>
+            <xsd:extension base="DataElementType">
+                <xsd:attribute name="size" type="xsd:nonNegativeInteger"/>
+                <xsd:attribute name="units" type="xsd:string" default="none"/>
+				<!-- Hint to coadders: "aggregate" to accumulate the values, "binary" to keep as binary-->
+                <xsd:attribute name="coaddHint" type="xsd:string" default="none"/>				
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- PixelBundleType: Describes a potentially multidimensional group of homogeneous DataBuffers differentiated by a (possibly multidimensional) Pixel -->
+    <xsd:complexType name="PixelBundleType">
+        <xsd:sequence>
+            <xsd:element name="DataBuffer" type="DataBufferType"/>
+            <xsd:element name="Dimension" type="DimensionType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <!-- DimensionType: Describes dimensions within PixelBundles -->
+    <xsd:complexType name="DimensionType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:attribute name="size" type="xsd:nonNegativeInteger" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- DataBundleType: Describes a named group of possibly heterogeneous DataBuffers -->
+    <xsd:complexType name="DataBundleType">
+        <xsd:complexContent>
+            <xsd:extension base="DataElementType">
+                <xsd:group ref="DataBundleGroup" maxOccurs="unbounded"/>
+                <xsd:attribute name="useGroupNameAsDataBufferNamePrefix" type="xsd:boolean"
+                    default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--ConstraintType:  Defines the constraints that apply for a field.-->
+    <xsd:complexType name="ConstraintType" abstract="true">
+        <xsd:attributeGroup ref="NameAttributeGroupType"/>
+    </xsd:complexType>
+    <!--RangeConstraintType: Defines the valid range of a double.-->
+    <xsd:complexType name="RangeConstraintType">
+        <xsd:complexContent>
+            <xsd:extension base="ConstraintType">
+                <xsd:attribute name="low" type="xsd:string" use="required"/>
+                <xsd:attribute name="high" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--BitRangeConstraintType: Defines the valid range of a bit field.-->
+    <xsd:complexType name="BitRangeConstraintType">
+        <xsd:complexContent>
+            <xsd:extension base="ConstraintType">
+                <xsd:attribute name="signed" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="numBits" type="xsd:int" use="required"/>
+                <xsd:attribute name="low" type="xsd:long" use="optional"/>
+                <xsd:attribute name="high" type="xsd:long" use="optional"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--ChoiceType: Defines the name of a single choice.-->
+    <xsd:complexType name="ChoiceType">
+        <xsd:attributeGroup ref="NameAttributeGroupType"/>
+        <xsd:attributeGroup ref="DisplayAttributeGroupType"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+    <!--ListConstraintType: Defines the valid list of choices.-->
+    <xsd:complexType name="ListConstraintType">
+        <xsd:complexContent>
+            <xsd:extension base="ConstraintType">
+                <xsd:sequence>
+                    <xsd:element name="Choice" type="ChoiceType" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--ConstraintGroupType: Construct allowing for the specification of contraint(bit range, range, list). -->
+    <xsd:group name="ConstraintGroupType">
+        <xsd:choice>
+            <xsd:element name="BitRangeConstraint" type="BitRangeConstraintType" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xsd:element name="RangeConstraint" type="RangeConstraintType" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xsd:element name="ListConstraint" type="ListConstraintType" minOccurs="0"
+                maxOccurs="unbounded"/>
+        </xsd:choice>
+    </xsd:group>
+    <!-- ValueAttributeGroupType: Defines the group of data value attributes -->
+    <xsd:attributeGroup name="ValueAttributeGroupType">
+        <xsd:attribute name="units" type="xsd:string" default="none"/>
+    </xsd:attributeGroup>
+    <!-- VariableAttributeGroupType: Defines the group of data variable attributes -->
+    <xsd:attributeGroup name="VariableAttributeGroupType">
+        <xsd:attribute name="readOnly" type="xsd:boolean" default="false"/>
+        <xsd:attribute name="default" type="xsd:string"/>
+        <xsd:attribute name="propertyName" type="xsd:string"/>
+    </xsd:attributeGroup>
+    <!-- FeatureAttributeGroupType: Defines the group of data feature attributes -->
+    <xsd:attributeGroup name="FeatureAttributeGroupType">
+        <xsd:attribute name="required" type="xsd:boolean" use="optional" default="false"/>
+        <xsd:attribute name="expert" type="xsd:boolean" use="optional" default="false"/>
+        <xsd:attribute name="hidden" type="xsd:boolean" use="optional" default="false"/>
+        <xsd:attribute name="preferred" type="xsd:boolean" use="optional" default="false"/>
+    </xsd:attributeGroup>
+    <!-- VariableType: Describes a data variable -->
+    <xsd:complexType name="VariableType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:group ref="ConstraintGroupType" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attributeGroup ref="ValueAttributeGroupType"/>
+                <xsd:attributeGroup ref="VariableAttributeGroupType"/>
+                <xsd:attributeGroup ref="FeatureAttributeGroupType"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- StringVariableType: Describes a String variable -->
+    <xsd:complexType name="StringVariableType">
+        <xsd:complexContent>
+            <xsd:extension base="VariableType">
+                <xsd:attribute name="value" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ValueType: Describes a Value type -->
+    <xsd:complexType name="ValueType">
+        <xsd:complexContent>
+            <xsd:extension base="StringVariableType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- CollectionType: Describes a Collection of elements -->
+    <xsd:complexType name="CollectionType" abstract="true">
+        <xsd:attribute name="size" type="xsd:nonNegativeInteger"/>
+    </xsd:complexType>
+    <!-- ArrayType: Describes an array of data (i.e., a Collection of homogeneously typed data) -->
+    <xsd:complexType name="ArrayType">
+        <xsd:complexContent>
+            <xsd:extension base="CollectionType">
+                <xsd:attribute name="type" type="ValueTypes" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ValueCollectionType: Describes a Collection of data values (i.e., a Collection of potentially heterogeneously typed data) -->
+    <xsd:complexType name="ValueCollectionType">
+        <xsd:complexContent>
+            <xsd:extension base="CollectionType">
+                <xsd:sequence>
+                    <xsd:element name="Value" type="ValueType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- MapType: Describes a Map -->
+    <xsd:complexType name="MapType">
+        <xsd:complexContent>
+            <xsd:extension base="CollectionType">
+                <xsd:sequence>
+                    <xsd:element name="Entry" type="MapEntryType" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- MapEntryType: Describes an entry in a Map -->
+    <xsd:complexType name="MapEntryType">
+        <xsd:sequence>
+            <xsd:element name="Value" type="ValueType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <!-- DataMapType: Describes a DataMap -->
+    <xsd:complexType name="DataMapType">
+        <xsd:complexContent>
+            <xsd:extension base="CollectionType">
+                <xsd:sequence>
+                    <xsd:element name="Field" type="VariableType" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- DataTypes: Enumerates the permissible data value types -->
+    <xsd:simpleType name="ValueTypes">
+        <xsd:union memberTypes="PredefinedDataTypes xsd:string"/>
+    </xsd:simpleType>
+    <!-- PredefinedDataTypes: Enumerates the permissible predefined data types -->
+    <xsd:simpleType name="PredefinedDataTypes">
+        <xsd:union memberTypes="StringTypes BasisBundleTypes NumericDataTypes"/>
+    </xsd:simpleType>
+    <!-- BasisBundleTypes: Denotes a BasisBundle type -->
+    <xsd:simpleType name="BasisBundleTypes">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="BasisBundle"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- NumericDataTypes: Enumerates the permissible numeric data types -->
+    <xsd:simpleType name="NumericDataTypes">
+        <xsd:union memberTypes="NumericPrimitiveTypes NumericObjectTypes NumericStringType"/>
+    </xsd:simpleType>
+    <!-- NumericObjectTypes: Enumerates the permissible numeric Object data types -->
+    <xsd:simpleType name="NumericObjectTypes">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Number"/>
+            <xsd:enumeration value="Byte"/>
+            <xsd:enumeration value="Character"/>
+            <xsd:enumeration value="Short"/>
+            <xsd:enumeration value="Integer"/>
+            <xsd:enumeration value="Long"/>
+            <xsd:enumeration value="Float"/>
+            <xsd:enumeration value="Double"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- NumericPrimitiveTypes: Enumerates the permissible primitive numeric data types -->
+    <xsd:simpleType name="NumericPrimitiveTypes">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="byte"/>
+            <xsd:enumeration value="char"/>
+            <xsd:enumeration value="short"/>
+            <xsd:enumeration value="int"/>
+            <xsd:enumeration value="long"/>
+            <xsd:enumeration value="float"/>
+            <xsd:enumeration value="double"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- NumericStringType: Defines the permissible pattern of numeric Strings -->
+    <xsd:simpleType name="NumericStringType">
+        <xsd:restriction base="xsd:string">
+            <!-- TODO -->
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- TextTypes: Enumerates the permissible text data types -->
+    <xsd:simpleType name="TextTypes">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ASCII"/>
+            <xsd:enumeration value="Unicode"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- StringTypes: Enumerates the permissible String types -->
+    <xsd:simpleType name="StringTypes">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="String"/>
+            <xsd:enumeration value="BinaryString"/>
+            <xsd:enumeration value="HexString"/>
+            <xsd:enumeration value="AsciiString"/>
+            <xsd:enumeration value="UnicodeString"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- BinaryStringType: Describes a String representing a sequence of binary bits -->
+    <xsd:simpleType name="BinaryStringType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0|1]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- BinaryDigitType: Defines a binary digit -->
+    <xsd:simpleType name="BinaryDigitType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0|1]"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- HexStringType: Describes a String representing a sequence of hexidecimal bytes -->
+    <xsd:simpleType name="HexStringType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="([0-1a-fA-F][0-1a-fA-F])*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- HexDigitType: Defines a hexidecimal digit -->
+    <xsd:simpleType name="HexDigitType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-1a-fA-F]"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- SingleCharacterType: Desfines a single character -->
+    <xsd:simpleType name="SingleCharacterType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value=".|\\t|\\n|\\r"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

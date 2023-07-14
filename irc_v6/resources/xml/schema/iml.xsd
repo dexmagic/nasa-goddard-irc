@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Device Remote Control (IRC) project.
+#== Warning ==============================================================
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="ircml.xsd"/>
+	<xsd:include schemaLocation="dataml.xsd"/>
+	<xsd:include schemaLocation="datatransml.xsd"/>
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+
+	<xsd:element name="DeviceSet" type="DeviceSetType"/>
+	<xsd:element name="Device" type="DeviceType"/>
+
+	<!--DeviceSetType: Outer most container for all other constructs. -->
+	<xsd:complexType name="DeviceSetType">
+		<xsd:sequence>
+			<xsd:group ref="DeviceGroupType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute ref="xml:base"/>
+	</xsd:complexType>
+	<!--DeviceGroupType:  -->
+	<xsd:group name="DeviceGroupType">
+		<xsd:choice>
+			<xsd:element name="Device" type="DeviceType" maxOccurs="unbounded"/>
+			<xsd:element name="DevicePeer" type="DevicePeerType" maxOccurs="unbounded"/>
+		</xsd:choice>
+	</xsd:group>
+	<!--DeviceType: Device description. It may contain nested instances of itself.-->
+	<xsd:complexType name="DeviceType">
+		<xsd:complexContent>
+			<xsd:extension base="IrcElementType">
+				<xsd:sequence>
+					<xsd:element name="Device" type="DeviceType" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element name="DevicePeer" type="DevicePeerType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xsd:element name="StateModel" type="StateModelType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xsd:element name="ScriptInterface" type="ScriptInterfaceType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xsd:element name="MessageInterface" type="MessageInterfaceType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xsd:element name="Port" type="PortType" minOccurs="0" maxOccurs="unbounded"/>
+					<!--
+					<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+-->
+				</xsd:sequence>
+				<xsd:attribute ref="xml:base"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--DevicePeerType: Allows for the definition of a device peer. -->
+	<xsd:complexType name="DevicePeerType">
+		<xsd:attribute name="peer" type="xsd:string" use="optional"/>
+		<xsd:attribute name="group" type="xsd:string" use="optional"/>
+		<xsd:attribute name="description" type="xsd:string" use="optional"/>
+		<xsd:attribute name="timeout" type="xsd:int" default="-1"/>
+		<xsd:attribute name="responseLimit" type="xsd:int" default="1"/>
+	</xsd:complexType>
+	<!--StateModelType: Allows for the definition of state model behavior on an device. -->
+	<xsd:complexType name="StateModelType">
+		<xsd:complexContent>
+			<xsd:extension base="ComponentType"/>
+			<!--
+				<xsd:sequence>
+					<xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+-->
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--ScriptInterfaceType: An interface via which scripts are defined. -->
+	<xsd:complexType name="ScriptInterfaceType">
+		<xsd:complexContent>
+			<xsd:extension base="IrcElementType">
+				<xsd:sequence>
+					<xsd:element name="Script" type="ScriptType" minOccurs="0" maxOccurs="unbounded"
+					/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--MessageInterfaceType: An interface via which messages are sent to an device. -->
+	<xsd:complexType name="MessageInterfaceType">
+		<xsd:complexContent>
+			<xsd:extension base="IrcElementType">
+				<xsd:sequence>
+					<xsd:element name="Message" type="MessageType" minOccurs="0"
+						maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--ResponseInterfaceType: An interface via which responses are received from an device. -->
+	<xsd:complexType name="ResponseInterfaceType">
+		<xsd:complexContent>
+			<xsd:extension base="IrcElementType">
+				<xsd:sequence>
+					<xsd:element name="Response" type="ResponseType" minOccurs="0"
+						maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--DataInterfaceType: An interface via which telemetry is received from an device.-->
+	<xsd:complexType name="DataInterfaceType">
+		<xsd:complexContent>
+			<xsd:extension base="IrcElementType">
+				<xsd:choice>
+					<xsd:sequence>
+						<xsd:element name="BasisBundle" type="BasisBundleType" maxOccurs="unbounded"
+						/>
+					</xsd:sequence>
+					<xsd:sequence>
+						<xsd:element name="BasisBundleGroup" type="BasisBundleGroupType"
+							maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--AbstractMessageType: Abstract basis of Message types -->
+	<xsd:complexType name="AbstractMessageType" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="DataMapType">
+				<xsd:attributeGroup ref="NameAttributeGroupType"/>
+				<xsd:attributeGroup ref="DisplayAttributeGroupType"/>
+				<xsd:attribute name="synchronous" type="xsd:boolean" default="false"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--ScriptType: Script description.-->
+	<xsd:complexType name="ScriptType">
+		<xsd:complexContent>
+			<xsd:extension base="AbstractMessageType">
+				<xsd:attribute name="file" type="xsd:string" use="required"/>
+				<xsd:attribute name="language" type="xsd:string"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--MessageType: Message description -->
+	<xsd:complexType name="MessageType">
+		<xsd:complexContent>
+			<xsd:extension base="AbstractMessageType">
+				<xsd:attribute name="timeout" type="xsd:nonNegativeInteger" use="optional"
+					default="0"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--ResponseType: Description of a response for a command.-->
+	<xsd:complexType name="ResponseType">
+		<xsd:complexContent>
+			<xsd:extension base="AbstractMessageType">
+				<xsd:attribute name="isFinal" type="xsd:boolean" default="false"/>
+				<xsd:attribute name="isError" type="xsd:boolean" default="false"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--PortType: Defines a generic communication port.-->
+	<xsd:complexType name="PortType">
+		<xsd:complexContent>
+			<xsd:extension base="ComponentType">
+				<xsd:sequence>
+					<xsd:element name="MessageInterface" type="MessageInterfaceType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xsd:element name="ResponseInterface" type="ResponseInterfaceType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xsd:element name="DataInterface" type="DataInterfaceType" minOccurs="0"
+						maxOccurs="unbounded"/>
+					<xsd:element name="InputAdapter" type="InputAdapterType" minOccurs="0"/>
+					<xsd:element name="OutputAdapter" type="OutputAdapterType" minOccurs="0"/>
+					<xsd:element name="Connection" type="ConnectionType" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--InputAdapterType: Defines an adapter of input data -->
+	<xsd:complexType name="InputAdapterType">
+		<xsd:complexContent>
+			<xsd:extension base="ComponentType">
+				<xsd:sequence>
+					<xsd:element name="Transformation" type="TransformationType" minOccurs="0"
+						maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--OutputAdapterType: Defines an adapter of output data -->
+	<xsd:complexType name="OutputAdapterType">
+		<xsd:complexContent>
+			<xsd:extension base="ComponentType">
+				<xsd:sequence>
+					<xsd:element name="Transformation" type="TransformationType" minOccurs="0"
+						maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--ConnectionType: Describes the a connection to an external entity.-->
+	<xsd:complexType name="ConnectionType">
+		<xsd:complexContent>
+			<xsd:extension base="ComponentType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

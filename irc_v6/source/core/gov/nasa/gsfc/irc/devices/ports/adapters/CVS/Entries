@@ -1,0 +1,17 @@
+/AbstractAdapterDescriptor.java/1.7/Thu May  4 14:26:41 2006//
+/AbstractBasisBundleInputAdapter.java/1.2/Wed Aug  9 21:28:36 2006//
+/AbstractChannelsInputAdapter.java/1.8/Tue Apr 18 14:02:49 2006//
+/AbstractInputAdapter.java/1.11/Tue Mar 14 17:00:44 2006//
+/AbstractMessageInputAdapter.java/1.14/Tue Apr 18 04:09:52 2006//
+/AbstractMessageOutputAdapter.java/1.8/Tue Apr 18 04:09:52 2006//
+/AbstractOutputAdapter.java/1.11/Tue Mar 14 17:00:44 2006//
+/AbstractPipeInputAdapter.java/1.12/Tue Apr 18 14:02:49 2006//
+/AbstractPortAdapter.java/1.11/Thu May  4 14:26:41 2006//
+/BasisBundleInputAdapter.java/1.1/Mon Jan 23 17:59:50 2006//
+/InputAdapter.java/1.4/Tue Jan 24 18:17:53 2006//
+/InputAdapterDescriptor.java/1.3/Fri Sep  9 19:39:03 2005//
+/InputException.java/1.1/Thu Oct 14 15:16:51 2004//
+/OutputAdapter.java/1.2/Thu Oct 21 22:11:48 2004//
+/OutputAdapterDescriptor.java/1.3/Fri Nov 12 15:14:50 2004//
+/OutputException.java/1.1/Thu Oct 14 15:16:51 2004//
+/PortAdapter.java/1.4/Tue Jan 24 18:17:54 2006//

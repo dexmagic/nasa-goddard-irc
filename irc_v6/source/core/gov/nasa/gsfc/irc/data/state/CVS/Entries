@@ -1,0 +1,15 @@
+/AbstractDataComparator.java/1.1/Thu Sep  8 22:18:32 2005//
+/AbstractDataStateDeterminer.java/1.3/Thu May  4 14:26:40 2006//
+/DataComparator.java/1.1/Thu Sep  8 22:18:32 2005//
+/DataComparatorDescriptor.java/1.5/Thu Apr 27 21:39:37 2006//
+/DataComparatorFactory.java/1.1/Thu Sep  8 22:18:32 2005//
+/DataComparatorType.java/1.4/Thu Apr 27 21:39:37 2006//
+/DataStateDeterminantDescriptor.java/1.1/Wed May  3 23:20:17 2006//
+/DataStateDeterminer.java/1.1/Thu Sep  8 22:18:32 2005//
+/DataStateDeterminerDescriptor.java/1.4/Thu May  4 14:26:40 2006//
+/DataStateDeterminerFactory.java/1.1/Thu Sep  8 22:18:32 2005//
+/Datastateml.java/1.3/Thu May  4 14:26:40 2006//
+/DefaultDataComparator.java/1.5/Mon May  1 19:58:24 2006//
+/DefaultDataComparatorFactory.java/1.3/Mon Oct 10 00:58:11 2005//
+/DefaultDataStateDeterminer.java/1.4/Thu May  4 14:26:41 2006//
+/DefaultDataStateDeterminerFactory.java/1.3/Mon Oct 10 00:58:11 2005//

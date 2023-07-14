@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Instrument name="GI" type="Default" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="iml.xsd" docHelp="">
+    <MessageInterface name="CI1" docHelp="">
+        <Message name="HE3" docHelp="" timeout="0" synchronous="false" abbreviation="*RST">
+        </Message>
+        <Message name="volts" docHelp="" timeout="0" synchronous="false" abbreviation="SOURCE:VOLTAGE 2">
+        </Message>
+        <Message name="Command C" docHelp="This message controls the chopping secondary mirror." timeout="0" defaultSynchronous="false" abbreviation="cmdC">
+        </Message>
+        
+        
+     </MessageInterface>
+     
+    <DataInterface name="DI1">
+        <DataElement name="Antenna Pointing" docHelp="" />
+    </DataInterface>
+    
+    <Port name="Port A" type="Simple" docHelp="">
+		<Connection name="command" type="GPIB" docHelp="">
+		</Connection>
+
+		<Formatter name="command" type="SimpleAscii" docHelp="">
+		</Formatter>
+    </Port>
+</Instrument>
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ParameterSet name="Scale" type="Row" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="psml.xsd">
+	<Parameter name="0">
+		<Value value="0.0"/>
+	</Parameter>
+	<Parameter name="1">
+		<Value value="1.0"/>
+	</Parameter>
+	<Parameter name="2">
+		<Value value="2.0"/>
+	</Parameter>
+</ParameterSet>

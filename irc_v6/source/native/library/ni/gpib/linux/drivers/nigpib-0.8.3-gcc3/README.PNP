@@ -1,0 +1,138 @@
+
+NOTE:  To use AT-GPIB/TNT+ ISA Plug-and-Play cards with Linux,
+it is necessary to first use the pnpdump/isapnp commands to
+configure the settings in the card.
+
+If you do not have these utilities, obtain them from your Linux
+distribution vendor, or compile them from source (available from
+ftp://ftp.demon.co.uk/pub/unix/linux/utils.)
+
+First run pnpdump as root, which will output all possible
+configurations for all the PnP cards in your system. Redirect
+this output to a file, such as /etc/isapnp.conf
+The section on the AT-GPIB/TNT+ card should look like the sample
+output at the end of this file.
+Uncomment (remove the initial #) and modify the IO, IRQ, and DMA lines to the
+appropriate settings.  For example:
+
+(IO 0 (BASE 0x02c0))
+(INT 0 (IRQ 11 (MODE +E)))
+(DMA 0 (CHANNEL 5))
+
+Also uncomment the "(ACT Y)" line at the end of the section.
+
+Make sure you do not choose values which conflict with other
+cards in your system.  cat /proc/ioports, /proc/interrupts, and /proc/dma
+to see the resources presently being used in your system.
+You only need to change the first such lines in the file, leaving
+the rest commented out.   Then run 'isapnp /etc/isapnp.conf' to
+change the settings in your card.  The GPIB INSTALL script
+should then be able to recognize your card; enter the same values
+for IO, IRQ, and DMA as you set in the isapnp.conf file.
+
+To make sure your GPIB card is correctly configured every time you
+boot, make sure there is a isapnp command in your system startup
+scripts.  Most distributions will do this automatically if the
+/etc/isapnp.conf file exists.
+
+Note: running pnpdump after you've already configured cards with isapnp
+may reset the cards' settings.
+
+Sample output of pnpdump for the AT-GPIB/TNT+, with IO, IRQ, and DMA
+lines modified to defaults:
+
+# $Id: pnpdump.c,v 1.15a 1998/05/25 17:22:16 fox Exp $
+# This is free software, see the sources for details.
+# This software has NO WARRANTY, use at your OWN RISK
+#
+# For details of this file format, see isapnp.conf(5)
+#
+# For latest information on isapnp and pnpdump see:
+# http://www.roestock.demon.co.uk/isapnptools/
+#
+# Compiler flags: -DREALTIME -DNEEDSETSCHEDULER
+#
+# Trying port address 0203
+# Trying port address 020b
+# Board 1 has serial identifier 4f 00 00 36 31 01 c6 23 39
+
+# (DEBUG)
+(READPORT 0x020b)
+(ISOLATE PRESERVE)
+(IDENTIFY *)
+
+# Card 1: (serial identifier 4f 00 00 36 31 01 c6 23 39)
+# Vendor Id NICc601, Serial Number 13873, checksum 0x4F.
+# Version 1.0, Vendor version 0.0
+# ANSI string -->National Instruments AT-GPIB/TNT (Plug and Play)<--
+#
+# Logical device id NICc601
+#     Device support I/O range check register
+#     Device supports vendor reserved register @ 0x3a
+#     Device supports vendor reserved register @ 0x3d
+#
+# Edit the entries below to uncomment out the configuration required.
+# Note that only the first value of any range is given, this may be changed if required
+# Don't forget to uncomment the activate (ACT Y) when happy
+
+(CONFIGURE NICc601/13873 (LD 0
+#     Logical device decodes 16 bit IO address lines
+#         Minimum IO base address 0x0100
+#         Maximum IO base address 0xffe0
+#         IO base alignment 32 bytes
+#         Number of IO addresses required: 32
+(IO 0 (BASE 0x02c0))
+
+# Multiple choice time, choose one only !
+
+#     Start dependent functions: priority acceptable
+#       IRQ 3, 4, 5, 6, 7, 9, 10, 11, 12, 14 or 15.
+#             High true, edge sensitive interrupt (by default)
+(INT 0 (IRQ 11 (MODE +E)))
+#       First DMA channel 5, 6 or 7.
+#             16 bit DMA only
+#             Logical device is not a bus master
+#             DMA may not execute in count by byte mode
+#             DMA may execute in count by word mode
+#             DMA channel speed type B
+(DMA 0 (CHANNEL 5))
+
+#       Start dependent functions: priority acceptable
+#       IRQ 3, 4, 5, 6, 7, 9, 10, 11, 12, 14 or 15.
+#             High true, edge sensitive interrupt (by default)
+# (INT 0 (IRQ 3 (MODE +E)))
+#       *** ERROR *** No DMA channel specified!
+#             16 bit DMA only
+#             Logical device is not a bus master
+#             DMA may not execute in count by byte mode
+#             DMA may execute in count by word mode
+#             DMA channel speed type B
+# (DMA 0 (CHANNEL 4))
+
+#       Start dependent functions: priority acceptable
+#       *** ERROR *** No IRQ specified!
+#       First DMA channel 5, 6 or 7.
+#             16 bit DMA only
+#             Logical device is not a bus master
+#             DMA may not execute in count by byte mode
+#             DMA may execute in count by word mode
+#             DMA channel speed type B
+# (DMA 0 (CHANNEL 5))
+
+#       Start dependent functions: priority acceptable
+#       *** ERROR *** No IRQ specified!
+#       *** ERROR *** No DMA channel specified!
+#             16 bit DMA only
+#             Logical device is not a bus master
+#             DMA may not execute in count by byte mode
+#             DMA may execute in count by word mode
+#             DMA channel speed type B
+# (DMA 0 (CHANNEL 4))
+
+#     End dependent functions
+(ACT Y)
+))
+# End tag... Checksum 0x00 (OK)
+
+# Returns all cards to the "Wait for Key" state
+(WAITFORKEY)

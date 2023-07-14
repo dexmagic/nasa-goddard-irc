@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<popupmenu id="Popup_Menu" controlclass="Chart_Controller">
+		<menuitem text="Pause" 
+			controlclass="Chart_Controller" actionCommand="Pause"/> 
+		<menuitem text="Resume" 
+			controlclass="Chart_Controller" actionCommand="Resume"/>
+		<separator/> 
+		<menuitem text="Properties..." 
+			controlclass="Chart_Controller" 
+			actionCommand="Properties"
+			enabled="false"/> 
+	</popupmenu>
+</doc>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                         "http://www.docbook.org/xml/4.4/docbookx.dtd"
+[ <!ENTITY % xinclude SYSTEM "../../xinclude.mod"> %xinclude; ]
+>
+<chapter>
+    <title>Components</title>
+    <xi:include href="intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="minimalcomp.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="irccomp.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="compositecomp.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="managedcomp.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="compmanager.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</chapter>
+    

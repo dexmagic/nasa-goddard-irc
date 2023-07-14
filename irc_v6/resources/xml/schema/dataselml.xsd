@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Instrument Remote Control (IRC) project.
+#== Warning ==============================================================
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="ircml.xsd"/>
+    <xsd:include schemaLocation="dataml.xsd"/>
+    <!-- DataSourceSelectionGroupType: Specifies the group of system data selections -->
+    <xsd:group name="SystemDataSelectionGroupType">
+        <xsd:choice>
+            <xsd:element name="Counter"/>
+        </xsd:choice>
+    </xsd:group>
+    <!-- DataFeatureSelectionGroupType: Specifies the group of data feature selections -->
+    <xsd:group name="DataFeatureSelectionGroupType">
+        <xsd:choice>
+            <xsd:element name="ClassName"/>
+            <xsd:element name="DataName"/>
+        </xsd:choice>
+    </xsd:group>
+    <!-- DataSpanSelectionGroupType: Specifies the group of data span selections -->
+    <xsd:group name="DataSpanSelectionGroupType">
+        <xsd:choice>
+            <xsd:element name="ByteDelimited" type="ByteDelimitedDataSelectorType"/>
+            <xsd:element name="CharDelimited" type="CharDelimitedDataSelectorType"/>
+            <xsd:element name="ByteRange" type="ByteRangeDataSelectorType"/>
+            <xsd:element name="CharRange" type="CharRangeDataSelectorType"/>
+            <xsd:element name="ByRegExPattern" type="RegExPatternDataSelectorType"/>
+        </xsd:choice>
+    </xsd:group>
+    <!-- DataContainerSelectionGroupType: Specifies the group of data container selections -->
+    <xsd:group name="DataContainerSelectionGroupType">
+        <xsd:choice>
+            <xsd:element name="FieldValue"/>
+            <xsd:element name="ByName" type="NamedDataSelectorType"/>
+            <xsd:element name="ByFieldName" type="KeyedDataSelectorType"/>
+            <xsd:element name="ByKey" type="KeyedDataSelectorType"/>
+        </xsd:choice>
+    </xsd:group>
+    <!-- SimpleDataSelectionGroupType: Specifies the group of simple data selections -->
+    <xsd:group name="SimpleDataSelectionGroupType">
+        <xsd:choice>
+            <xsd:group ref="SystemDataSelectionGroupType"/>
+            <xsd:group ref="DataFeatureSelectionGroupType"/>
+            <xsd:group ref="DataContainerSelectionGroupType"/>
+            <xsd:group ref="DataSpanSelectionGroupType"/>
+        </xsd:choice>
+    </xsd:group>
+    <!-- SystemDataSelectionType: Describes a system data selection -->
+    <xsd:complexType name="SystemDataSelectionType">
+        <xsd:group ref="SystemDataSelectionGroupType"/>
+    </xsd:complexType>
+    <!-- DataFeatureSelectionType: Describes a data feature selection -->
+    <xsd:complexType name="DataFeatureSelectionType">
+        <xsd:group ref="DataFeatureSelectionGroupType"/>
+    </xsd:complexType>
+    <!-- DataContainerSelectionType: Describes a data container selection -->
+    <xsd:complexType name="DataContainerSelectionType">
+        <xsd:group ref="DataContainerSelectionGroupType"/>
+    </xsd:complexType>
+    <!-- SimpleDataSelectionType: Describes a simple data selection -->
+    <xsd:complexType name="SimpleDataSelectionType">
+        <xsd:sequence>
+            <xsd:group ref="SimpleDataSelectionGroupType"/>
+        </xsd:sequence>
+        <xsd:attribute name="value" type="xsd:string"/>
+    </xsd:complexType>
+    <!-- BufferableDataSelectionType: Describes a bufferable data selection -->
+    <xsd:complexType name="BufferableDataSelectionType">
+        <xsd:sequence>
+            <xsd:group ref="DataSpanSelectionGroupType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <!-- DataConcatenationType: Describes the concatenation of two or more DataSelections -->
+    <xsd:complexType name="DataConcatenationType">
+        <xsd:sequence minOccurs="2" maxOccurs="unbounded">
+            <xsd:element name="Selection" type="DataSelectionType"/>
+        </xsd:sequence>
+        <xsd:attribute name="separator" type="xsd:string"/>
+    </xsd:complexType>
+    <!-- DataSelectionType: Describes a (potentially complex) data selection -->
+    <xsd:complexType name="DataSelectionType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:choice minOccurs="0">
+                    <xsd:group ref="SimpleDataSelectionGroupType"/>
+                    <xsd:element name="Concatenation" type="DataConcatenationType"/>
+                </xsd:choice>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- BufferedDataSelectionType: Describes a buffered data selection -->
+    <xsd:complexType name="BufferedDataSelectionType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Selection" type="BufferableDataSelectionType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- IndexedDataElementSelectorType: Specifies a selector of an indexed data element -->
+    <xsd:complexType name="IndexedDataSelectorType">
+        <xsd:attribute name="index" type="xsd:nonNegativeInteger" default="0"/>
+    </xsd:complexType>
+    <!-- IndexDataRangeSelectorType: Specifies a selector of a range of byte-array data -->
+    <xsd:complexType name="IndexRangeDataSelectorType">
+        <xsd:complexContent>
+            <xsd:extension base="IndexedDataSelectorType">
+                <xsd:attribute name="length" type="xsd:nonNegativeInteger" default="0"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ByteDelimitedDataSelectorType: Specifies a byte-delimited selector of byte-sequence data -->
+    <xsd:complexType name="ByteDelimitedDataSelectorType">
+        <xsd:attribute name="delimiter" type="xsd:byte" default="0"/>
+    </xsd:complexType>
+    <!-- ByteRangeDataSelectorType: Specifies a byte index range selector of byte-sequence data -->
+    <xsd:complexType name="ByteRangeDataSelectorType">
+        <xsd:complexContent>
+            <xsd:extension base="IndexRangeDataSelectorType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- TextSelectorType: Specifies a selector of text data -->
+    <xsd:complexType name="TextSelectorType" abstract="true">
+        <xsd:attribute name="type" type="TextTypes" default="ASCII"/>
+    </xsd:complexType>
+    <!-- CharDelimitedDataSelectorType: Specifies a char-delimited selector of char-sequence data -->
+    <xsd:complexType name="CharDelimitedDataSelectorType">
+        <xsd:complexContent>
+            <xsd:extension base="TextSelectorType">
+                <xsd:attribute name="delimiter" type="SingleCharacterType"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- CharRangeDataSelectorType: Specifies a char index range selector of char-sequence data -->
+    <xsd:complexType name="CharRangeDataSelectorType">
+        <xsd:complexContent>
+            <xsd:extension base="IndexRangeDataSelectorType">
+                <xsd:attribute name="type" type="TextTypes"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- RegExPatternDataSelectorType: Specifies a regular-expression pattern selector of String data -->
+    <xsd:complexType name="RegExPatternDataSelectorType">
+        <xsd:complexContent>
+            <xsd:extension base="TextSelectorType">
+                <xsd:attribute name="regex" type="xsd:string" default="*"/>
+                <xsd:attribute name="flags" type="xsd:integer" default="0"/>
+                <xsd:attribute name="groupNumber" type="xsd:integer" default="0"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- NamedDataSelectorType: Specifies a selector of named data -->
+    <xsd:complexType name="NamedDataSelectorType">
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+    <!-- KeyedDataElementSelectorType: Specifies a selector of a keyed data element -->
+    <xsd:complexType name="KeyedDataSelectorType">
+        <xsd:attribute name="key" type="xsd:string"/>
+        <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+</xsd:schema>

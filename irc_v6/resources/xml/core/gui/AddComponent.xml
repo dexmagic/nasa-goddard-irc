@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<ControlClass id="Component_List_Controller"
+		class="gov.nasa.gsfc.irc.gui.browser.ComponentListController"/>
+	
+	<dialog id="fr_addComponent" size="250,300" title="Add Component" layout="BorderLayout"
+		controlclass="Component_List_Controller" modal="true">
+		<panel layout="borderlayout" background="666666" constraints="BorderLayout.CENTER">
+			<panel constraints="BorderLayout.NORTH"><!-- layout="FlowLayout(FlowLayout.LEFT)" -->
+				<label text="Type" />
+			</panel>		
+			<panel constraints="BorderLayout.CENTER">
+				<scrollPane>
+					<list id="lt" SelectedIndex="0"
+						initclass="gov.nasa.gsfc.irc.gui.browser.ComponentListModel"
+						controlclass="Component_List_Controller" />
+				</scrollPane>
+				<panel>
+					<label text="Name: "/>
+					<textfield columns="10" controlclass="Component_List_Controller" actionCommand="TEXT_ACTION" action="textAction"/>
+				</panel>
+			</panel>
+			<panel constraints="BorderLayout.SOUTH">
+				<button name="okButton" text="OK" controlclass="Component_List_Controller" enabled="true" actionCommand="OK_ACTION"/>
+				<button name="cancelButton" text="Cancel" controlclass="Component_List_Controller" enabled="true" actionCommand="CANCEL_ACTION"/>
+			</panel>		
+		</panel>
+	</dialog>
+</doc>

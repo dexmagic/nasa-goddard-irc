@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://aaa.gsfc.nasa.gov/iml iml.xsd"
+		name="BasisSetClient Device" type="Default" >
+
+
+    <Port name="SensorData-BasisSetClient-Port" type="Simple">
+        <InputAdapter name="SensorData-BasisSetClient-InputAdapter" type="BasisSetTcpGeneric">
+           	
+			<!-- where the server is located -->
+			<Parameter name="hostname" value="localhost"/>
+            <Parameter name="port" value="9000"/>  
+			<!-- Size of underlying transport buffers -->			
+            <Parameter name="bufferSize" value="1000000"/>		
+
+						
+			<!-- This is the size, in bytes of the entire basis
+				bundle for the received basis sets.  It specifies
+				the total number of samples that can be contained
+				on the client for all processing needs.  Default
+				is 5000 -->
+            <Parameter name="basisBundleSize" value="20000"/> 
+			
+			<!-- If this is false, the client will use a different name
+				for the basis bundle than what is used on the server.
+				Use the "DataSpace Browser" to see the name -->
+			<Parameter name="useRemoteBundleNames" value="true"/>
+								
+
+			<DataSetRequest>
+				<Format>xdr</Format>
+				
+				<BasisBundleRequest>
+					<BasisBundleName>	SensorData1
+					</BasisBundleName>
+					<DataBufferName>
+						DAC
+					</DataBufferName>
+					<DataBufferName>
+						SAE
+					</DataBufferName>	
+		            <RequestAmount>100</RequestAmount>
+					<RequestUnit>s</RequestUnit>
+					<Downsampling>2</Downsampling>				
+				</BasisBundleRequest>
+				
+				<BasisBundleRequest>
+					<BasisBundleName>	SensorData2
+					</BasisBundleName>
+					<DataBufferName>
+						DAC
+					</DataBufferName>
+					<DataBufferName>
+						SAE
+					</DataBufferName>		
+		            <RequestAmount>100</RequestAmount>								
+				</BasisBundleRequest>
+				
+				<BasisBundleRequest>
+					<BasisBundleName>	SensorData
+					</BasisBundleName>
+		
+		            <RequestAmount>100</RequestAmount>								
+				</BasisBundleRequest>				
+								
+			</DataSetRequest>
+
+        </InputAdapter>
+
+    </Port>
+
+</Device>
+

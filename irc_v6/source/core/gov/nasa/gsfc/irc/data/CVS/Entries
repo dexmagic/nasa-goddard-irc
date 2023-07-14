@@ -1,0 +1,49 @@
+/AbstractBasisBundleSource.java/1.4/Wed Aug  9 21:28:24 2006//
+/AbstractBasisRequester.java/1.9/Wed Aug  9 21:28:23 2006//
+/AbstractDataBuffer.java/1.7/Tue Jan 24 18:17:51 2006//
+/BasisBundle.java/1.40/Wed Aug  9 21:28:24 2006//
+/BasisBundleFactory.java/1.6/Tue Jan 24 18:17:50 2006//
+/BasisBundleId.java/1.15/Wed Aug  9 21:28:25 2006//
+/BasisBundleSource.java/1.8/Wed Aug  9 21:28:22 2006//
+/BasisRequest.java/1.24/Wed Aug  9 21:28:21 2006//
+/BasisRequestAmount.java/1.3/Mon Jan  2 18:30:31 2006//
+/BasisRequester.java/1.14/Tue Sep 13 22:28:58 2005//
+/BasisRequesterFactory.java/1.1/Fri Aug 26 22:09:50 2005//
+/BasisSet.java/1.60/Wed Aug  9 21:28:22 2006//
+/ByteDataBuffer.java/1.7/Thu Feb  9 15:02:16 2006//
+/CharDataBuffer.java/1.8/Thu Feb  9 15:02:16 2006//
+/DataBuffer.java/1.62/Thu Feb  9 15:02:16 2006//
+/DataBufferFactory.java/1.19/Mon Oct 10 00:58:12 2005//
+/DataRequestSatisfactionRuleType.java/1.3/Tue Jan 24 18:17:50 2006//
+/DataRequester.java/1.19/Mon Jan  2 03:48:09 2006//
+/DataSet.java/1.18/Tue Jan 24 18:17:50 2006//
+/DataSpace.java/1.19/Wed Aug  9 21:28:24 2006//
+/DefaultBasisBundle.java/1.90/Wed Aug  9 21:28:22 2006//
+/DefaultBasisBundleFactory.java/1.7/Tue Jan 24 18:17:52 2006//
+/DefaultBasisBundleId.java/1.3/Wed Aug  9 21:28:24 2006//
+/DefaultBasisBundleIdFactory.java/1.2/Tue Jan 24 18:17:51 2006//
+/DefaultBasisRequester.java/1.66/Mon Jan  2 18:30:31 2006//
+/DefaultBasisRequesterFactory.java/1.5/Mon Jan  2 18:30:31 2006//
+/DefaultBasisSet.java/1.71/Thu Aug 10 18:18:34 2006//
+/DefaultDataRequester.java/1.79/Wed Aug  9 21:28:23 2006//
+/DefaultDataSet.java/1.11/Wed Aug  9 21:28:21 2006//
+/DefaultDataSpace.java/1.33/Wed Aug  9 21:28:24 2006//
+/DoubleDataBuffer.java/1.10/Fri Mar 31 22:54:02 2006//
+/FloatDataBuffer.java/1.9/Thu Feb  9 15:02:15 2006//
+/HasBasisBundles.java/1.6/Tue Jan 24 18:17:51 2006//
+/HasBasisRequests.java/1.3/Mon Jan  2 03:50:16 2006//
+/HistoryBasisRequest.java/1.5/Tue Jan 24 18:17:51 2006//
+/HistoryBasisRequester.java/1.10/Thu Aug 10 15:44:51 2006//
+/HistoryBundle.java/1.6/Wed Aug  9 21:28:21 2006//
+/IntegerDataBuffer.java/1.8/Thu Feb  9 15:02:16 2006//
+/IntervalBasisRequester.java/1.4/Mon Jan  2 18:30:31 2006//
+/InvalidValueException.java/1.2/Tue Jan 11 21:48:58 2005//
+/LongDataBuffer.java/1.8/Thu Feb  9 15:02:16 2006//
+/ObjectDataBuffer.java/1.7/Tue Feb  7 19:08:13 2006//
+/ShortDataBuffer.java/1.8/Thu Feb  9 15:02:16 2006//
+/Values.java/1.1/Fri Oct  1 15:47:40 2004//
+D/description////
+D/events////
+D/selection////
+D/state////
+D/transformation////

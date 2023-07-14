@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Device name="GI" type="Default" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <MessageInterface name="CI1">
+        <Message name="HE3" timeout="0" synchronous="false"/>
+        <Message name="volts" timeout="0" synchronous="false"/>
+        <Message name="Command C" timeout="0" synchronous="false"/>
+    </MessageInterface>
+    <Port name="Port A" type="Simple">
+        <OutputAdapter name="command" type="SimpleAscii"/>
+        <Connection name="command" type="GPIB"/>
+    </Port>
+</Device>

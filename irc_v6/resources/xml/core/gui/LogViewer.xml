@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame id="LogViewer_Frame" name="frame" size="800,600" title="Log Viewer" 
+	 layout="BorderLayout">
+
+	<ControlClass id="Logger_Tree_Controller"
+			class="gov.nasa.gsfc.irc.gui.logging.LoggerTreeController"/>
+	<ControlClass id="Property_Table_Controller"
+			class="gov.nasa.gsfc.irc.gui.properties.PropertyTableController"/>
+	<splitpane Orientation="0" DividerLocation="400">
+		<splitpane Orientation="1" DividerLocation="300"  
+			     LeftComponent="Tree_Panel" RightComponent="Property_Table_Panel">	 
+			<panel id="Tree_Panel" Layout="borderlayout">
+				<scrollpane>
+					<tree id="Component_Tree"
+						initclass="gov.nasa.gsfc.irc.gui.logging.LoggerTreeModel"
+						controlclass="Logger_Tree_Controller"
+						constraints="BorderLayout.NORTH">
+					</tree>
+				</scrollpane>
+				
+			</panel>
+		
+			<InitObject id="Property_Filter_Model"
+				class="gov.nasa.gsfc.irc.gui.browser.PropertyFilterModel"/>
+	
+			<panel id="Property_Editor_Table_Panel" Layout="borderlayout"
+				controlclass="Property_Table_Controller">
+				
+				<panel constraints="BorderLayout.NORTH" layout="GridBagLayout">
+					<toolbar floatable="false" >				
+						<gridbagconstraints id="toolbar_gbc" 
+							gridx="0" gridy="0"
+							gridheight="1" gridwidth="1" 
+							anchor="GridBagConstraints.WEST"
+							fill="GridBagConstraints.HORIZONTAL"
+							weightx="1.0" weighty="0.0" 
+							insets="4,4,4,4"/> 
+						<buttongroup>
+							<togglebutton icon="Sort_None_Icon" 
+								controlclass="Property_Table_Controller"
+								enabled="true" actionCommand="SORT_NONE"
+								toolTipText="Turn sorting off">
+							</togglebutton>
+							<togglebutton icon="Sort_Alpha_Icon" 
+								controlclass="Property_Table_Controller"
+								enabled="true" actionCommand="SORT_ALPHA"
+								toolTipText="Sort alphabetically"
+								selected="true">
+							</togglebutton>
+							<togglebutton icon="Sort_Type_Icon" 
+								controlclass="Property_Table_Controller"
+								enabled="true" actionCommand="SORT_TYPE"
+								toolTipText="Sort by property type">
+							</togglebutton>
+						</buttongroup>
+					</toolbar>	
+					<toolbar floatable="false" >				
+						<gridbagconstraints use="toolbar_gbc"
+							gridx="1" gridy="0"
+							fill="GridBagConstraints.NONE"/> 
+						<label text="Property Filter:">
+						</label>
+						<comboBox controlclass="Property_Table_Controller"
+							initclass="Property_Filter_Model"
+							editable="false"/>			
+					</toolbar>	
+				</panel>
+				<scrollpane constraints="BorderLayout.CENTER">	
+					<table initclass="gov.nasa.gsfc.irc.gui.properties.PropertyTableModel;gov.nasa.gsfc.irc.gui.properties.PropertyColumnModel"
+						controlclass="Logger_Tree_Controller;Property_Table_Controller"
+						surrendersFocusOnKeystroke="true"/>								
+				</scrollpane>			
+			</panel>		
+		</splitpane>
+		<panel layout="borderlayout">
+			<scrollpane>
+				<textpane controlclass="Logger_Tree_Controller"></textpane>
+			</scrollpane>
+		</panel>
+	</splitpane>
+</frame>
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+<frame id="Log_Frame" name="log_frame" size="600,400" title="Log Viewer">
+
+	<ControlClass id="Controller"
+			class="gov.nasa.gsfc.irc.gui.logging.Controller"/>
+
+	<splitpane Orientation="0" DividerLocation="250">	 
+		<splitpane Orientation="1" DividerLocation="120">
+			<panel id="test3">
+				<gridbagconstraints id="gbc" 
+					gridx="0" gridy="0"
+					gridheight="1" gridwidth="1" 
+					anchor="GridBagConstraints.WEST"
+					fill="GridBagConstraints.HORIZONTAL"
+					weightx="2.0" weighty="0.0" 
+					insets="4,4,4,4"/> 	
+				<label text="Level:" constraints="BorderLayout.NORTH"></label>			
+				<comboBox initclass="gov.nasa.gsfc.irc.gui.logging.LoggerLevelModel" 
+					controlclass="Controller" editable="false" constraints="BorderLayout.SOUTH"/>
+			</panel>
+			<panel id="test4">
+			</panel>
+		</splitpane>
+	
+		<panel id="test2" layout="borderlayout">			
+			<scrollpane>
+				<textpane controlclass="Controller"></textpane>
+			</scrollpane>			
+		</panel>
+
+	</splitpane>
+
+</frame>
+-->
+

@@ -1,0 +1,363 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Instrument Remote Control (IRC) project.
+#== Warning ==============================================================
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="ircml.xsd"/>
+    <xsd:include schemaLocation="dataselml.xsd"/>
+    <xsd:include schemaLocation="datastateml.xsd"/>
+    <!-- TransformationType: Describes the transformation of data from source(s) to target(s) -->
+    <xsd:complexType name="TransformationType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Source" type="SourceSelectionType" minOccurs="0"/>
+                    <xsd:element name="Target" type="TargetSelectionType" minOccurs="0"/>
+                    <xsd:element name="Buffer" type="BufferedDataSelectionType" minOccurs="0"/>
+                    <xsd:element name="Parse" type="ParseType" minOccurs="0"/>
+                    <xsd:element name="Log" type="LogType" minOccurs="0"/>
+                    <xsd:element name="Format" type="FormatType" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attribute name="publishParseAsMessage" type="xsd:boolean" default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- SourceSelectionType: Describes a data source selection -->
+    <xsd:complexType name="SourceSelectionType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Selection" type="DataSelectionType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- TargetSelectionType: Describes a data target selection -->
+    <xsd:complexType name="TargetSelectionType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Selection" type="DataContainerSelectionType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ParseType: Describes a data parse -->
+    <xsd:complexType name="ParseType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:choice minOccurs="0">
+                    <xsd:element name="Record" type="RecordParseType"/>
+                    <xsd:element name="Switch" type="ParseSwitchType"/>
+                </xsd:choice>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ParseSwitchType: Describes a set of data parsing cases -->
+    <xsd:complexType name="ParseSwitchType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="CaseSelection" type="DeterminantType"/>
+                    <xsd:sequence>
+                        <xsd:element name="Case" type="ParseType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- RecordParseType: Describes data record parsing -->
+    <xsd:complexType name="RecordParseType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Source" type="SourceSelectionType" minOccurs="0"/>
+                    <xsd:element name="Sequencer" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="SequencerSeparator" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="Initiator" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="InitiatorSeparator" type="ValueParseType" minOccurs="0"/>
+                    <xsd:sequence>
+                        <xsd:element name="FieldDefaults" type="FieldParseType" minOccurs="0"/>
+                        <xsd:element name="Field" type="FieldParseType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                    <xsd:element name="Terminator" type="ValueParseType" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attribute name="useInitiatorAsParseName" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="suppressFirstPrefix" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="suppressLastPostfix" type="xsd:boolean" default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- FieldParseType: Describes data field parsing -->
+    <xsd:complexType name="FieldParseType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Source" type="SourceSelectionType" minOccurs="0"/>
+                    <xsd:element name="Prefix" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="Label" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="LabelSeparator" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="Value" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="Postfix" type="ValueParseType" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attribute name="useLabelAsParseKey" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="applyToRemainingFields" type="xsd:boolean" default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ValueParseType: Describes data value parsing -->
+    <xsd:complexType name="ValueParseType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Source" type="SourceSelectionType" minOccurs="0"/>
+                    <xsd:choice minOccurs="0">
+                        <xsd:element name="Selection" type="DataSelectionType"/>
+                        <xsd:element name="List" type="ListParseType"/>
+                        <xsd:element name="Switch" type="ValueParseSwitchType"/>
+                    </xsd:choice>
+                </xsd:sequence>
+                <xsd:attribute name="value" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ValueParseSwitchType: Describes a set of data value parsing cases -->
+    <xsd:complexType name="ValueParseSwitchType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="CaseSelection" type="DeterminantType"/>
+                    <xsd:sequence>
+                        <xsd:element name="Case" type="ValueParseType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ListParseType: Describes data list parsing -->
+    <xsd:complexType name="ListParseType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Initiator" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="InitiatorSeparator" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="Prefix" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="Value" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="Postfix" type="ValueParseType" minOccurs="0"/>
+                    <xsd:element name="Terminator" type="ValueParseType" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attribute name="length" type="xsd:integer"/>
+                <xsd:attribute name="suppressFirstPrefix" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="suppressLastPostfix" type="xsd:boolean" default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- LogType: Describes a data log -->
+    <xsd:complexType name="LogType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:choice minOccurs="0">
+                    <xsd:element name="Format" type="LogFormatType"/>
+                    <xsd:element name="Switch" type="LogSwitchType"/>
+                </xsd:choice>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- LogFormatType: Describes data log formatting -->
+    <xsd:complexType name="LogFormatType">
+        <xsd:complexContent>
+            <xsd:extension base="FormatType">
+                <xsd:attribute name="logName" type="xsd:string"/>
+                <xsd:attribute name="level" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- LogSwitchType: Describes a set of data logging cases -->
+    <xsd:complexType name="LogSwitchType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="CaseSelection" type="DeterminantType"/>
+                    <xsd:sequence>
+                        <xsd:element name="Case" type="LogFormatType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- FormatType: Describes data formatting -->
+    <xsd:complexType name="FormatType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:choice minOccurs="0">
+                    <xsd:element name="Record" type="RecordFormatType"/>
+                    <xsd:element name="BasisSet" type="BasisSetFormatType"/>
+                    <xsd:element name="Switch" type="FormatSwitchType"/>
+                </xsd:choice>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- FormatSwitchType: Describes a set of data formatting cases -->
+    <xsd:complexType name="FormatSwitchType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="CaseSelection" type="DeterminantType"/>
+                    <xsd:sequence>
+                        <xsd:element name="Case" type="FormatType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- RecordFormatType: Describes data record formatting -->
+    <xsd:complexType name="RecordFormatType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Source" type="SourceSelectionType" minOccurs="0"/>
+                    <xsd:element name="Sequencer" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="SequencerSeparator" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="Initiator" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="InitiatorSeparator" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:sequence>
+                        <xsd:element name="FieldDefaults" type="FieldFormatType" minOccurs="0"/>
+                        <xsd:element name="Field" type="FieldFormatType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                    <xsd:element name="Terminator" type="ValueFormatType" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attribute name="useDataNameAsInitiator" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="suppressFirstPrefix" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="suppressLastPostfix" type="xsd:boolean" default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- FieldFormatType: Describes data field formatting -->
+    <xsd:complexType name="FieldFormatType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Source" type="SourceSelectionType" minOccurs="0"/>
+                    <xsd:element name="Prefix" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="Label" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="LabelSeparator" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="Value" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="Postfix" type="ValueFormatType" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attribute name="applyToAllFields" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="applyToRemainingFields" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="useDataNameAsName" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="useNameAsKeyedValueSelector" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="useDataNameAsLabel" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="useNameAsLabel" type="xsd:boolean" default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- BasisSetFormatType: Describes data basis sample formatting -->
+    <xsd:complexType name="BasisSetFormatType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="DataBufferDefaults" type="DataBufferFormatType" minOccurs="0"/>
+                    <xsd:element name="BasisBuffer" type="DataBufferFormatType" maxOccurs="1"/>
+                    <xsd:element name="DataBuffer" type="DataBufferFormatType" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- DataBufferFormatType: Describes data buffer formatting -->
+    <xsd:complexType name="DataBufferFormatType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Value" type="ValueFormatType" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+                <xsd:attribute name="useNameAsKeyedValueSelector" type="xsd:boolean" default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ValueFormatType: Describes data value formatting -->
+    <xsd:complexType name="ValueFormatType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Source" type="SourceSelectionType" minOccurs="0"/>
+                    <xsd:element name="Target" type="TargetSelectionType" minOccurs="0"/>
+                    <xsd:choice minOccurs="0">
+                        <xsd:element name="Selection" type="DataSelectionType"/>
+                        <xsd:element name="List" type="ListFormatType"/>
+                        <xsd:element name="Switch" type="ValueFormatSwitchType"/>
+                    </xsd:choice>
+                </xsd:sequence>
+                <xsd:attribute name="value" type="xsd:string"/>
+                <xsd:attribute name="pattern" type="xsd:string"/>
+                <xsd:attribute name="rule" type="ValueFormatRuleTypes"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ListFormatType: Describes data list formatting -->
+    <xsd:complexType name="ListFormatType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Initiator" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="InitiatorSeparator" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="Prefix" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="Value" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="Postfix" type="ValueFormatType" minOccurs="0"/>
+                    <xsd:element name="Terminator" type="ValueFormatType" minOccurs="0"/>
+                </xsd:sequence>
+                <xsd:attribute name="length" type="xsd:integer"/>
+                <xsd:attribute name="suppressFirstPrefix" type="xsd:boolean" default="false"/>
+                <xsd:attribute name="suppressLastPostfix" type="xsd:boolean" default="false"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ValueFormatSwitchType: Describes a set of data value formatting cases -->
+    <xsd:complexType name="ValueFormatSwitchType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="CaseSelection" type="DeterminantType"/>
+                    <xsd:sequence>
+                        <xsd:element name="Case" type="ValueFormatType" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!-- ValueFormatTypes: Enumerates the predefined data value formatter types -->
+    <xsd:simpleType name="ValueFormatTypes">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="none"/>
+            <xsd:enumeration value="text"/>
+            <xsd:enumeration value="printf"/>
+            <xsd:enumeration value="date"/>
+            <xsd:enumeration value="time"/>
+            <xsd:enumeration value="binary"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- ValueFormatRuleTypes: Enumerates the permissible data value formatter rule types -->
+    <xsd:simpleType name="ValueFormatRuleTypes">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="and"/>
+            <xsd:enumeration value="nand"/>
+            <xsd:enumeration value="or"/>
+            <xsd:enumeration value="xor"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

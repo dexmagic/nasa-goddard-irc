@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Instrument Remote Control (IRC) project.
+#== Warning ==============================================================
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="dataml.xsd"/>
+    <!--ComponentType: An abstract definition of a Component -->
+    <xsd:complexType name="ComponentType" abstract="true">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:sequence>
+                    <xsd:element name="Property" type="PropertyType" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--PropertyType: Mechanism for setting properties on bean classes -->
+    <xsd:complexType name="PropertyType">
+        <xsd:complexContent>
+            <xsd:extension base="IrcElementType">
+                <xsd:attribute name="value" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--ParameterType: -->
+    <xsd:complexType name="ParameterType">
+        <xsd:attributeGroup ref="NameAttributeGroupType"/>
+        <xsd:attribute name="value" type="xsd:string"/>
+    </xsd:complexType>
+    <!-- NameAttributeGroupType: Defines the group of name attributes -->
+    <xsd:attributeGroup name="NameAttributeGroupType">
+        <xsd:attribute name="name" type="xsd:token"/>
+    </xsd:attributeGroup>
+    <!-- TypeAttributeGroupType: Defines the group of type attributes -->
+    <xsd:attributeGroup name="TypeAttributeGroupType">
+        <xsd:attribute name="type" type="xsd:string"/>
+    </xsd:attributeGroup>
+    <!-- DisplayAttributeGroupType: Defines the group of display attributes -->
+    <xsd:attributeGroup name="DisplayAttributeGroupType">
+        <xsd:attribute name="displayName" type="xsd:token"/>
+        <xsd:attribute name="description" type="xsd:string"/>
+    </xsd:attributeGroup>
+    <!-- IrcElementAttributeGroupType: Defines the group of display attributes -->
+    <xsd:attributeGroup name="IrcElementAttributeGroupType">
+        <xsd:attributeGroup ref="NameAttributeGroupType"/>
+        <xsd:attributeGroup ref="TypeAttributeGroupType"/>
+        <xsd:attributeGroup ref="DisplayAttributeGroupType"/>
+    </xsd:attributeGroup>
+    <!--IrcElementType: Abstract type that provides generic IRC element features -->
+    <xsd:complexType name="IrcElementType" abstract="true">
+        <xsd:sequence>
+            <xsd:element name="Parameter" type="ParameterType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attributeGroup ref="IrcElementAttributeGroupType"/>
+    </xsd:complexType>
+</xsd:schema>

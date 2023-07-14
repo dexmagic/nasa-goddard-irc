@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                         "http://www.docbook.org/xml/4.4/docbookx.dtd"
+[ <!ENTITY % xinclude SYSTEM "../../xinclude.mod"> %xinclude; ]
+>
+<chapter>
+    <title>Messages</title>
+    <xi:include href="intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="description.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="creation.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="publishing.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</chapter>
+    

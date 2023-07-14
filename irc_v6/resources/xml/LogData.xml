@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<Data name="LogData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="dataml.xsd">
+	<BasisBundle name="LogData" >
+		<BasisBuffer name="Time" type="long" units="ms" />		
+		<DataBuffer name="LogMessage" type="Object" />		
+	</BasisBundle>
+</Data>

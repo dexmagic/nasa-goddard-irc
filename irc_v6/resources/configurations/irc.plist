@@ -1,0 +1,157 @@
+###############################################################################
+#
+# Instrument Remote Control default properties file
+#
+# Defined properties:
+#
+#	app.log.configFile={<relative path>/}<filename>
+#		The logging configuration file to use. If specified this will override 
+#		the java.util.logging.config.file system property. The path should 
+#		be relative to a directory in the class path. Note custom handlers
+#		specifed by this file may not be reachable running under Web Start.
+#		See java.util.logging.LogManager documentation for more information.
+#	app.log.handlers=<class>{, <class>}
+#		Specifies a comma separated list of log Handler classes.  
+#		These handlers will be installed during startup to the global handler 
+#		and are in addition to any handlers specified in the logging config
+#		file.
+#	app.log.level=<string>
+#		Default global logging level. This specifies which kinds of events 
+#		are logged across all loggers. For any given logger this global level
+# 		can be overriden by a logger specific level. This property is applied
+#		after and overrides the ".level=" property in a log config file.
+#		Valid log levels are:
+#			SEVERE (highest value) 
+#			WARNING 
+#			INFO 
+#			CONFIG 
+#			FINE 
+#			FINER 
+#			FINEST (lowest value)
+#			OFF 
+#	app.resources.directory=<relative path>
+#		Default directory to look for resources.
+#	app.resources.help={<relative path>/}<filename>
+#		The location of the application online help set.
+#	app.user.directory=<relative path>
+#		Name of the IRC directory relative to the user's local directory.
+#	app.version=<string>
+#		The application version.
+#	app.xml.base.dir=<relative path>
+#		The base directory path where relative XML file references can be found. 
+#       Given path is relative to the classpath.
+#	app.xml.schema.dir=<relative path>
+#		The base schema directory path where relative XML schema file references 
+#       can be found. Given path is relative to the classpath.
+#	app.xml.validationEnabled=[true|false]
+#		The flag to determine if XML validation is enabled.
+#
+#	irc.archive.rootDirectory=<relative path>
+#		The archive repository root directory relative to the current directory.
+#	irc.component.autoStartEnabled=[true|false]
+#		The flag to determine if components created from a device description
+#		file (IML) should be started by default.
+#   irc.component.autoPropertyLoadEnabled
+#       The flag to determine if the properties of Saveable components should
+#       be loaded upon construction.
+#   irc.component.savedPropertiesDirectory
+#       Name of the directory to store saved properties.  The directory is located in the first
+#       element of the resource path.  It is created if it doesn't exist.
+#	irc.description.components={<relative path>/}<filename>
+#		The XML file used to define the available components.
+#	irc.description.client={<relative path>/}<filename>
+#		The XML interface file describing the client interface with 
+#		this device.
+#	irc.description.instrument={<relative path>/}<filename>
+#		The XML interface file describing an interface to an external device 
+#		Ex: irc.description.instrument=resources/xml/examples/test_instrument.xml
+#	irc.description.instrumentTypeMap={<relative path>/}<filename>
+#		The XML file that defines instrument type mappings. Mappings specified in 
+#		the instrument type map will override or supplement those found in the 
+#		default type map.
+#	irc.description.typeMap={<relative path>/}<filename>
+#		The XML file that defines the default type mappings.
+#		Ex: irc.description.typeMap=resources/xml/core/TypeMap.xml
+#	irc.description.scripts={<relative path>/}<filename>
+#		The XML file used to define the available scripts. These scripts are
+#		not directly associated with an external device.
+#	irc.description.userTypeMap={<relative path>/}<filename>
+#		The XML file that defines user type mappings. Mappings specified in 
+#		the user type map will override or supplement those found in the 
+#		instrument and default type map.
+#	irc.gui.dialog.defaultDirectory=<absolute path> or <relative path>
+#		The default directory for GUI file dialogs.
+#		Example: irc.gui.dialog.defaultDirectory=E:/MyDir
+#	irc.gui.desktop={<relative path>/}<filename>
+#		The XML file describing the GUI Desktop for this device.
+#	irc.gui.componentBrowserFrame={<relative path>/}<filename>
+#		The XML file describing the component browser GUI frame for this device.  
+#       The default is resources/xml/core/gui/BrowserGUI.xml.
+#	irc.instrument.id=<string>
+#		The instrument or device name.
+#	irc.instrument.subdirectory=<relative path>
+#		Name of the instrument directory relative to the irc users directory.
+#	irc.manager.noGuiProperties={<relative path>/}<filename>
+#		Optional property "plist" file that will be read in if the application
+#		detects that it is running in an environment that does not support
+#		a graphical UI. This is read in before any instrument or user 
+#		properties.
+#	irc.network.clientDescription.name=<string>
+#	irc.network.clientDescription.url=<url>
+#	irc.network.config=
+#	irc.network.enabled=[true|false]
+#	irc.network.group=
+#	irc.persistence.store.name={<relative path>/}<filename>
+#		The name of the persistence data store to load at startup
+#	irc.plugin.directory=<absolute path>
+#		The plugin directory.
+#	irc.properties.path=<relative path>{;<relative path>}
+#		The default search paths relative to the class path for finding resources.
+#		Each path is seperated by a ";".
+#	irc.scripting.shutdown={<relative path>/}<filename>
+#		Shutdown script that is run before device shutdown
+#	irc.scripting.directory=<relative path>
+#		Default script directory
+#	irc.scripting.startup={<relative path>/}<filename>
+#		Startup script that is run during device initialization
+#	irc.ui.consoleCommandingEnabled=[true|false]
+#		Flag to enable input of user typed commands into the console.
+#	irc.version=<string>
+#		The version of the IRC framework.
+#	irc.workSpace=<string>
+#		The workspace to load on startup.
+#
+###############################################################################
+app.resources.directory=resources
+app.resources.help=resources/help/irc/irc.hs
+app.user.directory=.irc
+app.version=0.0
+app.xml.base.dir=resources/xml/
+app.xml.schema.dir=resources/xml/schema/
+app.xml.validationEnabled=false
+
+irc.archive.rootDirectory=IrcArchive
+irc.component.autoStartEnabled=true
+irc.description.typeMap=resources/xml/core/TypeMap.xml
+irc.gui.dialog.defaultDirectory=./resources
+irc.gui.desktop=resources/xml/core/gui/ApplicationDesktop.xml
+irc.instrument.id=IRC
+irc.instrument.subdirectory=irc_v6
+irc.manager.noGuiProperties=resource/configuration/ircConsole.plist
+#irc.network.clientDescription.name=Telescope
+#irc.network.clientDescription.url=http://sawtooth.gsfc.nasa.gov/Webpub/xml/cso_antenna.xml
+#irc.network.config=/PlatformConfig
+irc.network.enabled=false
+irc.persistence.store.name=irc_datastore
+irc.plugin.directory=ircData/irc/IrcPlugins
+irc.properties.path=.;resources;resources/configurations
+irc.ui.consoleCommandingEnabled=false
+irc.version=6.0b3
+
+# xerces XML parser properties
+org.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration
+
+# Specify Mac OS X-friendly properties
+apple.laf.useScreenMenuBar=true
+com.apple.mrj.application.apple.menu.about.name=IRC
+

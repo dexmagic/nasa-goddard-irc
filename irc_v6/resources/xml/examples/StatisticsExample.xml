@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame title="Status Example">
+	<panel layout="BorderLayout">
+		<Input id="Input">
+			<BasisRequest 
+				basisBundleId="Signals.Signals Output.Signal Generator.IRC"/>
+		</Input>
+		<!-- Only needed if you want to limit the channels in the stat table 
+		-->
+		<InitObject id="Channel_Model"
+			class="gov.nasa.gsfc.irc.gui.vis.channel.DefaultChannelModel"
+			channel="Cos(omega*t)"/>
+		<ControlClass id="Vis_Menu_Controller"
+			class="gov.nasa.gsfc.irc.gui.vis.DefaultVisPanelController"/>
+		
+		<panel layout="GridBagLayout" controlclass="Vis_Menu_Controller">
+			
+			<label text="Signal Generator Example"
+				horizontalAlignment="1.0">
+				<gridbagconstraints insets="4,4,4,4" 
+					gridx="1" gridy="0"
+					fill="GridBagConstraints.BOTH" 
+					weightx="1.0" weighty="0.0" /> 
+			</label>
+										
+			<scrollpane
+				preferredSize="400,51">
+				
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+
+				<gridbagconstraints gridx="0" gridy="5" 
+					gridheight="1" gridwidth="4" 
+					insets="4,0,0,0" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="1.0" /> 
+					
+				<StatisticsTable initclass="Input;Channel_Model"
+					controlclass="Vis_Menu_Controller"
+					statisticsColumns="Name|Value|Min|Max|Mean|Samples">
+					
+				</StatisticsTable>					
+			</scrollpane>
+			
+				
+		</panel>
+	</panel>
+</frame>

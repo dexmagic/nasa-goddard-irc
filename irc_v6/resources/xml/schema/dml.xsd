@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Instrument Remote Control (IRC) project.
+#== Warning ============================================================== 
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="resources/irc/xml/schema/iml_shared.xsd"/>
+	<xsd:element name="Directory" type="DirectoryType"/>
+	<!--DirectoryType:  Collection of entries representing files/directories.-->
+	<xsd:complexType name="DirectoryType">
+		<xsd:complexContent>
+			<xsd:extension base="BaseType">
+				<xsd:sequence>
+					<xsd:element name="Entry" type="EntryType" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--EntryEnumerationType: Restricts the type of entries to files and directories.-->
+	<xsd:simpleType name="EntryEnumerationType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="file"/>
+			<xsd:enumeration value="directory"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--EntryType: Single entry describing a file/directory.-->
+	<xsd:complexType name="EntryType">
+		<xsd:complexContent>
+			<xsd:extension base="BaseType">
+				<xsd:attribute name="type" type="EntryEnumerationType" default="file"/>
+				<xsd:attribute name="path" type="xsd:string" use="required"/>
+				<xsd:attribute name="compressed" type="xsd:boolean" default="false"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

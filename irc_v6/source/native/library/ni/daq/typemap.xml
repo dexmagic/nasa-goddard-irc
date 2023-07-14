@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LookupTable name="GlobalMappings" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mml.xsd">
+    <NamespaceTable name="InstrumentDelegate">
+        <Mapping name="LastCommandResponseMatcher" value="gov.nasa.gsfc.irc.command.delegates.LastCommandResponseMatcher"/>
+        <Mapping name="SequentialTaggingResponseMatcher" value="gov.nasa.gsfc.irc.command.delegates.SequentialTaggingResponseMatcher"/>
+        <Mapping name="AdrDelegate" value="gov.nasa.gsfc.hawc.port.AdrPortDelegate"/>
+    </NamespaceTable>
+    <NamespaceTable name="PortType">
+        <Mapping name="TCP" value="gov.nasa.gsfc.irc.library.port.TCPCommunicationPort"/>
+        <Mapping name="Serial" value="gov.nasa.gsfc.irc.library.port.SerialCommunicationPort"/>
+        <Mapping name="DMA" value="gov.nasa.gsfc.irc.port.DmaCommunicationPort"/>
+	</NamespaceTable>
+    <NamespaceTable name="ParserType">
+        <Mapping name="Object" value="gov.nasa.gsfc.irc.parsing.ObjectParser"/>
+        <Mapping name="RegExp" value="gov.nasa.gsfc.irc.parsing.RegExpParser"/>
+        <Mapping name="BitField" value="gov.nasa.gsfc.irc.parsing.BitFieldParser"/>
+        <Mapping name="Mark2" value="gov.nasa.gsfc.irc.library.mark2.parsing.Mark2DatasetTranslator"/>
+        <Mapping name="Fabry-Perot" value="gov.nasa.gsfc.irc.library.fabryPerot.parsing.FpParser"/>
+        <Mapping name="Antenna" value="gov.nasa.gsfc.irc.library.cso.parsing.AntennaParser"/>
+	  <Mapping name="ASCII" value="gov.nasa.gsfc.irc.parsing.AsciiParser"/>
+        <Mapping name="Dsp" value="gov.nasa.gsfc.irclib.sharc.parsing.DspParser"/>
+	  <Mapping name="Dataset" value="gov.nasa.gsfc.irc.parsing.DatasetParser" />
+        <Mapping name="HawcHK" value="gov.nasa.gsfc.irc.parsing.RegExParser"/>
+        <Mapping name="HawcADRTDL" value="gov.nasa.gsfc.irc.parsing.RegExParser"/>
+    </NamespaceTable>
+    <NamespaceTable name="FormatterType">
+        <Mapping name="Object" value="gov.nasa.gsfc.irc.formatting.ObjectFormatter"/>
+        <Mapping name="RegExp" value="gov.nasa.gsfc.irc.formatting.RegExpFormatter"/>
+        <Mapping name="BitField" value="gov.nasa.gsfc.irc.formatting.BitFieldFormatter"/>
+        <Mapping name="Mark2" value="gov.nasa.gsfc.irc.formatting.BitFieldFormatter"/>
+        <Mapping name="Fabry-Perot" value="gov.nasa.gsfc.irc.library.fabryPerot.formatting.FpFormatter"/>
+        <Mapping name="Antenna" value="gov.nasa.gsfc.irc.library.cso.formatting.DummyFormatter"/>
+	  <Mapping name="ASCII" value="gov.nasa.gsfc.irc.formatting.AsciiFormatter"/>
+	  <Mapping name="Dataset" value="gov.nasa.gsfc.irc.formatting.ObjectFormatter" />
+        <Mapping name="HawcHK" value="gov.nasa.gsfc.irc.library.cso.formatting.DummyFormatter"/>
+        <Mapping name="HawcADRTDL" value="gov.nasa.gsfc.irc.library.cso.formatting.DummyFormatter"/>
+    </NamespaceTable>
+    <NamespaceTable name="Type">
+        <Mapping name="String" value="java.lang.String"/>
+        <Mapping name="Integer" value="java.lang.Integer"/>
+        <Mapping name="Float" value="java.lang.Float"/>
+        <Mapping name="Double" value="java.lang.Double"/>
+        <Mapping name="Short" value="java.lang.Short"/>
+        <Mapping name="UShort" value="java.lang.Integer"/>
+        <Mapping name="Long" value="java.lang.Long"/>
+        <Mapping name="Byte" value="java.lang.Byte"/>
+        <Mapping name="UByte" value="java.lang.Short"/>
+        <Mapping name="Boolean" value="java.lang.Boolean"/>
+		<Mapping name="Date" value="java.util.Date" />
+        <Mapping name="Color" value="gov.nasa.gsfc.irc.datatypes.StringableColor"/>
+		<Mapping name="File" value="java.io.File"/>
+        <Mapping name="Selection2d" value="gov.nasa.gsfc.irc.plot.properties.Selection2d"/>
+        <Mapping name="CoordinateSelection2d" value="gov.nasa.gsfc.irc.plot.properties.CoordinateSelection2d"/>
+        <Mapping name="ColorMap" value="gov.nasa.gsfc.irc.plot.properties.ColorMap"/>
+        <Mapping name="Sexagesimal" value="gov.nasa.gsfc.irc.datatypes.Sexagesimal"/>
+        <Mapping name="BitArray" value="gov.nasa.gsfc.irc.datatypes.BitArray"/>
+		<Mapping name="ChannelSelection" value="gov.nasa.gsfc.irc.datatypes.ChannelSelection"/>
+        <Mapping name="FrameStream" value="gov.nasa.gsfc.irc.dataset.framestream.FrameStream"/>
+        <Mapping name="ComplexDataset" value="gov.nasa.gsfc.irc.dataset.ComplexDataset"/>
+        <Mapping name="ArchiveTrackPair" value="gov.nasa.gsfc.irc.archiving.ArchiveTrackPair"/>
+        <Mapping name="ArchiveName" value="gov.nasa.gsfc.irc.archiving.ArchiveName"/>
+		<Mapping name="StatisticCategories" value="gov.nasa.gsfc.irc.plot.properties.StatisticCategories"/>
+		<Mapping name="DataStoreEntry" value="gov.nasa.gsfc.irc.datatypes.DataStoreEntry"/>
+	</NamespaceTable>
+    <NamespaceTable name="AlgorithmType">
+        <Mapping name="NativeAlgorithm" value="gov.nasa.gsfc.irc.algorithms.NativeAlgorithm"/>
+        <Mapping name="AutoCorrelator" value="gov.nasa.gsfc.irc.library.algorithms.AutoCorrelator"/>
+        <Mapping name="BasisChannelChunker" value="gov.nasa.gsfc.irc.library.algorithms.BasisChannelChunker"/>
+        <Mapping name="BinCoadder" value="gov.nasa.gsfc.irc.library.algorithms.BinCoadder"/>
+        <Mapping name="BoundsFinder" value="gov.nasa.gsfc.irc.library.algorithms.BoundsFinder"/>
+        <Mapping name="ChopCoadder" value="gov.nasa.gsfc.irc.library.algorithms.ChopCoadder"/>
+        <Mapping name="PairDifferencer" value="gov.nasa.gsfc.irc.library.algorithms.PairDifferencer"/>
+        <Mapping name="CSOTelescopeFileReaderAlgorithm" value="gov.nasa.gsfc.irc.library.cso.algorithms.CSOTelescopeFileReaderAlgorithm"/>
+		<Mapping name="DataExporter" value="gov.nasa.gsfc.irc.library.algorithms.DataExporter"/>
+
+        <Mapping name="DataPlayer" value="gov.nasa.gsfc.irc.archiving.DataPlayer"/>
+        <Mapping name="DataRecorder" value="gov.nasa.gsfc.irc.archiving.DataRecorder"/>
+        <Mapping name="DatasetDebugger" value="gov.nasa.gsfc.irc.library.algorithms.DatasetDebugger"/>
+        <Mapping name="FrameCoadder" value="gov.nasa.gsfc.irc.library.algorithms.FrameCoadder"/>
+        <Mapping name="Mark2TestAlgorithm" value="gov.nasa.gsfc.irc.algorithms.test.Mark2TestAlgorithm"/>
+        <Mapping name="PeriodFinder" value="gov.nasa.gsfc.irc.library.algorithms.PeriodFinder"/>
+        <Mapping name="PowerDensitySpectrum" value="gov.nasa.gsfc.irc.library.algorithms.PowerDensitySpectrum"/>
+        <Mapping name="StripVis" value="gov.nasa.gsfc.irc.plot.vis.StripVis"/>
+        <Mapping name="TextDebuggerVis" value="gov.nasa.gsfc.irc.plot.vis.tabular.TextDebuggerVis"/>
+        <Mapping name="ScatterVis" value="gov.nasa.gsfc.irc.plot.vis.ScatterVis"/>
+        <Mapping name="TwinkleVis" value="gov.nasa.gsfc.irc.plot.vis.TwinkleVis"/>
+        <Mapping name="TestReaderAlgorithm" value="gov.nasa.gsfc.irc.algorithms.test.TestReaderAlgorithm"/>
+        <Mapping name="ComplexTestReaderAlgorithm" value="gov.nasa.gsfc.irc.algorithms.test.ComplexTestReaderAlgorithm"/>
+        <Mapping name="MultiIOTestAlgorithm" value="gov.nasa.gsfc.irc.algorithms.test.MultiIOTestAlgorithm"/>
+        <Mapping name="BadPixelFilter" value="gov.nasa.gsfc.irclib.sharc.algorithms.BadPixelFilter"/>
+        <Mapping name="FramedSnapShot" value="gov.nasa.gsfc.irc.library.algorithms.FramedSnapShot"/>
+        <Mapping name="TimeCoadder" value="gov.nasa.gsfc.irc.library.algorithms.TimeCoadder"/>
+        <Mapping name="SignalFlux" value="gov.nasa.gsfc.irc.library.algorithms.SignalFlux"/>
+        <Mapping name="Scaler" value="gov.nasa.gsfc.irc.library.algorithms.Scaler"/>
+        <Mapping name="Bias" value="gov.nasa.gsfc.irc.library.algorithms.Bias"/>
+        <Mapping name="Polynomial" value="gov.nasa.gsfc.irc.library.algorithms.Polynomial"/>
+        <Mapping name="LookupTable" value="gov.nasa.gsfc.irc.library.algorithms.LookupTable"/>
+        <Mapping name="FabryPerotPositionCalculator" value="gov.nasa.gsfc.irc.library.fabryperot.algorithms.FabryPerotPositionCalculator"/>
+        <Mapping name="TimeSynchronizer" value="gov.nasa.gsfc.irc.library.fibre.algorithms.TimeSynchronizer"/>
+	    <Mapping name="SharcTimeSynchronizer" value="gov.nasa.gsfc.irclib.sharc.algorithms.TimeSynchronizer" />
+	    <Mapping name="SharcTimeCoadder" value="gov.nasa.gsfc.irclib.sharc.algorithms.SharcTimeCoadder" />
+        <Mapping name="ObservationRecorder" value="gov.nasa.gsfc.irclib.sharc.algorithms.ObservationRecorder" />
+        <Mapping name="SharcRawDataFitsRecorder" value="gov.nasa.gsfc.irclib.sharc.algorithms.RawDataFitsRecorder" />
+    </NamespaceTable>
+    <NamespaceTable name="ParameterSetType">
+        <Mapping name="Generic" value="gov.nasa.gsfc.irc.algorithms.parameterset.GenericParameterSet"/>
+        <Mapping name="Channel" value="gov.nasa.gsfc.irc.algorithms.parameterset.ChannelBasedParameterSet"/>
+        <Mapping name="Row" value="gov.nasa.gsfc.irc.algorithms.parameterset.RowBasedParameterSet"/>
+        <Mapping name="Column" value="gov.nasa.gsfc.irc.algorithms.parameterset.ColumnBasedParameterSet"/>
+        <Mapping name="RowType" value="gov.nasa.gsfc.irc.algorithms.parameterset.RowTypeBasedParameterSet"/>
+        <Mapping name="ColumnType" value="gov.nasa.gsfc.irc.algorithms.parameterset.ColumnTypeBasedParameterSet"/>
+    </NamespaceTable>
+    <NamespaceTable name="StateModelType">
+        <Mapping name="Mark2InstrumentModel" value="gov.nasa.gsfc.irc.library.mark2.instrument.Mark2InstrumentModel"/>
+    </NamespaceTable>
+    <NamespaceTable name="DatasetProcessorType">
+    	<Mapping name="Complex" value="gov.nasa.gsfc.irc.algorithms.ComplexDefaultDatasetProcessor"/>
+    	<Mapping name="Framed" value="gov.nasa.gsfc.irc.algorithms.FramedDefaultDatasetProcessor"/>
+    </NamespaceTable>
+</LookupTable>

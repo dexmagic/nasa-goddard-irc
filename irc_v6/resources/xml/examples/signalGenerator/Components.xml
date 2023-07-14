@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ComponentSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://aaa.gsfc.nasa.gov/cml cml.xsd" 
+	xmlns="http://aaa.gsfc.nasa.gov/cml">
+	
+	<Component name="Signal Generator" type="SignalGenerator" start="true"/>
+</ComponentSet>

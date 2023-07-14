@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Device Remote Control (IRC) project.
+#== Warning ==============================================================
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema
+	targetNamespace="http://aaa.gsfc.nasa.gov/drml"
+	xmlns="http://aaa.gsfc.nasa.gov/drml"
+	xmlns:drml="http://aaa.gsfc.nasa.gov/drml"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	
+	
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!-- Define the root element of a parse definition document -->
+	<xsd:element name="DataSetRequest" type="DataSetRequestType"/>
+
+	<!--ParseDefType: Root of a parse definition.-->
+	<xsd:complexType name="DataSetRequestType">
+		<xsd:element name="Format" type="xsd:string" use=""/>
+	</xsd:complexType>
+	
+	<!-- INCOMPLETE !!!!!! -->
+
+</xsd:schema>

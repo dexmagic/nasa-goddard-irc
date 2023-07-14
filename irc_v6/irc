@@ -1,0 +1,31 @@
+#!/bin/sh
+# script to run irc v6
+ 
+echo "Starting the IRC"
+ 
+IRC_CLASSPATH="-cp build/classes:."
+IRC_CLASSPATH=$IRC_CLASSPATH:lib/irc.jar
+ 
+# If JAVA_HOME wasn't already established, try to find it.
+if [ -z "$JAVA_HOME" ]; then
+  JAVA=`which java`
+    if [ -z "$JAVA" ]; then
+      echo "Cannot find JAVA. Please set your JAVA_HOME."
+      exit 1
+    fi
+  JAVA_BINDIR=`dirname $JAVA`
+  JAVA_HOME=$JAVA_BINDIR/..
+  echo "Found JAVA at $JAVA_HOME"
+fi
+                                                                                                              
+ 
+#
+# Build and execute command
+#
+JAVA=$JAVA_HOME/bin/java
+ 
+if [ "$1" ]; then
+        $JAVA $IRC_CLASSPATH gov.nasa.gsfc.irc.app.Irc $1 $2 $3 $4 $5 $6 $7
+else
+        $JAVA $IRC_CLASSPATH gov.nasa.gsfc.irc.app.Irc $2 $3 $4 $5 $6 $7
+fi

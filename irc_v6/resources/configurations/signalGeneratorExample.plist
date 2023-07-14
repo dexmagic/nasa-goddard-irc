@@ -1,0 +1,9 @@
+#------------------------------------------------------------------------------
+# Signal Generator Example properties file
+#
+#------------------------------------------------------------------------------
+
+irc.description.components=resources/xml/examples/signalGenerator/Components.xml
+irc.gui.desktop=resources/xml/examples/signalGenerator/Desktop.xml
+irc.gui.dialog.defaultDirectory=resources/xml/examples
+

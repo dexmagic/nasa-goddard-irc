@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<ControlClass id="Add_Request_Controller"
+		class="gov.nasa.gsfc.irc.gui.data.AddBasisRequestController"/>
+	
+	<dialog id="Add_Request_Frame" size="250,300" title="Add Request" 
+		layout="BorderLayout"
+		controlclass="Add_Request_Controller" modal="true">
+		<panel layout="GridBagLayout" constraints="BorderLayout.CENTER">		
+			<label text="Select data bundle for request:">
+				<gridbagconstraints id="gbc_1" insets="4,4,4,4" 
+					gridx="0" gridy="0"
+					gridheight="1" gridwidth="1" 
+					anchor="GridBagConstraints.WEST" 
+					fill="GridBagConstraints.HORIZONTAL" 
+					weightx="1.0" weighty="0.0" /> 
+			</label>
+			<scrollPane>
+				<gridbagconstraints use="gbc_1" insets="4,4,4,4" 
+					gridx="0" gridy="1"
+					anchor="GridBagConstraints.NORTH" 
+					fill="GridBagConstraints.BOTH" 
+					weightx="1.0" weighty="1.0" /> 
+				<tree id="Data_Space_Tree" rootVisible="false"
+					initclass="gov.nasa.gsfc.irc.gui.data.DataSpaceTreeModel"
+					controlclass="Add_Request_Controller"
+					constraints="BorderLayout.NORTH">
+				</tree>
+			</scrollPane>
+			<panel>
+				<gridbagconstraints use="gbc_1" gridy="2" 
+					fill="GridBagConstraints.HORIZONTAL"
+					weighty="0.0" /> 
+				<label text="Select request type:">
+				</label>
+				<combobox text="Cancel"
+					controlclass="Add_Request_Controller"/>
+			</panel>		
+			<panel>
+				<gridbagconstraints use="gbc_1" gridy="3" 
+					fill="GridBagConstraints.HORIZONTAL"
+					anchor="GridBagConstraints.SOUTH"
+					weighty="0.0" /> 
+				<button name="okButton" text="OK" 
+					controlclass="Add_Request_Controller"
+					actionCommand="OK_ACTION"/>
+				<button name="cancelButton" text="Cancel"
+					controlclass="Add_Request_Controller" 
+					actionCommand="CANCEL_ACTION"/>
+			</panel>		
+		</panel>
+	</dialog>
+</doc>

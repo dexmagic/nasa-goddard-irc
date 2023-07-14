@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sect1 PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                         "http://www.docbook.org/xml/4.4/docbookx.dtd"
+[ <!ENTITY % xinclude SYSTEM "../../xinclude.mod"> %xinclude; ]
+>
+<sect1>
+    <title>Device Description</title>
+    <para>TBD</para>
+</sect1>
+    

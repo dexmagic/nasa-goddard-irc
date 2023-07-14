@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame title="FFT Example">
+	<panel layout="BorderLayout">
+		<Input id="Input">
+			<HistoryBasisRequest 
+				basisBundleId="Frequency Spectra of Signals.Frequency Spectrum Output.Frequency Spectrum.IRC"
+				requestAmount="256"
+				updateInterval="0.5"/>
+		</Input>
+		<InitObject id="Y_Trace_Model"
+			class="gov.nasa.gsfc.irc.gui.vis.channel.DefaultChannelModel"/>
+		<ControlClass id="Vis_Menu_Controller"
+			class="gov.nasa.gsfc.irc.gui.vis.DefaultVisPanelController"/>
+		
+		<panel layout="GridBagLayout" controlclass="Vis_Menu_Controller">
+			<InitObject id="X_Axis_Model"
+				class="gov.nasa.gsfc.irc.gui.vis.axis.DefaultAxisModel"
+				autoScale="true"/>
+			<InitObject id="Y_Axis_Model"
+				class="gov.nasa.gsfc.irc.gui.vis.axis.DefaultAxisModel"
+				maximum="500"
+				minimum="-1"
+				autoScale="true"/>
+			<InitObject id="SciDecimal_Formatter"
+				class="gov.nasa.gsfc.commons.numerics.formats.SciDecimalFormat"
+				unit="Hz"/>
+		
+			<popupmenu controlclass="Vis_Menu_Controller">
+				<menuitem text="Properties..." 
+					controlclass="Vis_Menu_Controller" 
+					actionCommand="Properties"/> 
+			</popupmenu>
+
+			<label text="Signal Generator 60Hz and Random Signal Example"
+				horizontalAlignment="1.0">
+				<gridbagconstraints insets="4,4,4,4" 
+					gridx="1" gridy="0"
+					fill="GridBagConstraints.BOTH" 
+					weightx="1.0" weighty="0.0" /> 
+			</label>
+			
+			<AxisComponent
+				initclass="Y_Axis_Model"
+				controlclass="Vis_Menu_Controller"
+				border="EmptyBorder(2, 0, 2, 0)"
+				width="50"
+				foreground="black"
+				opaque="true">
+				<gridbagconstraints gridx="0" gridy="1"
+					insets="0,4,0,0" 
+					gridheight="1" gridwidth="1" 
+					anchor="GridBagConstraints.CENTER" 
+					fill="GridBagConstraints.BOTH"
+					weightx="0.0" weighty="1.0"/> 
+				<YAxisRenderer 
+					initclass="Y_Axis_Model">
+				</YAxisRenderer>
+			</AxisComponent>
+
+			<VisComponent 
+				initclass="Input"
+				controlclass="Vis_Menu_Controller"
+				preferredSize="400,50" 
+				background="WHITE"
+				border="LoweredBevelBorder"
+				opaque="true">	
+				<gridbagconstraints gridx="1" gridy="1" 
+					gridheight="1" gridwidth="1" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="1.0" /> 
+
+				<popupmenu controlclass="Vis_Menu_Controller">
+					<menuitem text="Pause" 
+						controlclass="Vis_Menu_Controller" actionCommand="Pause"/> 
+					<menuitem text="Resume" 
+						controlclass="Vis_Menu_Controller" actionCommand="Resume"/>
+					<separator/> 
+					<menuitem text="Properties..." 
+						controlclass="Vis_Menu_Controller" 
+						actionCommand="Properties"/> 
+				</popupmenu>					
+				
+				<AxisAutoScale
+					initclass="X_Axis_Model"
+					scaleChannel="Frequency"
+					oneTimeScaleEnabled="true"/>
+				<AxisAutoScale
+					initclass="Y_Axis_Model"
+					scaleChannel="Sin(omega*t)"
+					oneTimeScaleEnabled="true"/>
+				<XGridRenderer
+					initclass="X_Axis_Model"/>
+				<YGridRenderer
+					initclass="Y_Axis_Model"/>
+				<XyPlotRenderer 
+					initclass="X_Axis_Model;Y_Axis_Model;Y_Trace_Model"
+					yAxisChannels="Sin(omega*t)|Random()"/>
+				<XyLabelRenderer
+					initclass="X_Axis_Model;Y_Axis_Model"
+					dataLabelEnabled="true"
+					positionLabelEnabled="false"
+					xAxisChannel="Frequency"
+					yAxisChannels="Sin(omega*t)|Random()"/>
+			</VisComponent>
+			
+			<AxisComponent
+				initclass="X_Axis_Model"
+				controlclass="Vis_Menu_Controller"
+				border="EmptyBorder(0, 2, 0, 2)"
+				autoScale="true"
+				foreground="black"
+				opaque="true">
+				<gridbagconstraints 
+					gridx="1" gridy="2" 
+					gridheight="1" gridwidth="1" 
+					anchor="GridBagConstraints.CENTER" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="0.0"/> 
+				<XAxisRenderer 
+					initclass="X_Axis_Model;SciDecimal_Formatter">
+				</XAxisRenderer>
+			</AxisComponent>
+			
+<!--			<AxisScrollBar initclass="Y_Axis_Model"
+				orientation="VERTICAL">
+				<gridbagconstraints 
+					gridx="3" gridy="1"
+					fill="GridBagConstraints.VERTICAL"
+					insets="0,0,0,0" 
+					gridheight="1" gridwidth="1" 
+					weightx="0.0" weighty="1.0" /> 					
+			</AxisScrollBar>
+-->
+			<AxisScaleSlider initclass="Y_Axis_Model"
+				controlclass="Vis_Menu_Controller"
+				orientation="VERTICAL"
+				maximum="16"
+				minimum="-16"
+				majorTickSpacing="4"
+				minorTickSpacing="1"
+				powerBase="2"
+				snapToTicks="true"
+				paintTicks="true"
+				paintLabels="false">
+				<gridbagconstraints 
+					gridx="3" gridy="1" 
+					insets="4,4,4,4" 
+					gridheight="1" gridwidth="1" 
+					weightx="0.0" weighty="1.0" /> 					
+			</AxisScaleSlider>
+
+			<AxisScrollBar initclass="X_Axis_Model">
+				<gridbagconstraints 
+					gridx="1" gridy="4"
+					fill="GridBagConstraints.HORIZONTAL"
+					insets="0,0,0,0" 
+					gridheight="1" gridwidth="1" 
+					weightx="1.0" weighty="0.0" /> 					
+			</AxisScrollBar>
+
+			<scrollpane
+				preferredSize="400,50">
+				
+				<gridbagconstraints gridx="0" gridy="5" 
+					gridheight="1" gridwidth="4" 
+					insets="4,0,0,0" 
+					fill="GridBagConstraints.BOTH"
+					weightx="1.0" weighty="0.0" /> 
+					
+				<StatisticsTable initclass="Input;Y_Trace_Model"
+					controlclass="Vis_Menu_Controller"
+					preferredSize="400,50"
+					statisticsColumns="Color|Name|Samples|Min|Max|Mean|Unit">
+				</StatisticsTable>					
+			</scrollpane>
+		</panel>
+	</panel>
+</frame>

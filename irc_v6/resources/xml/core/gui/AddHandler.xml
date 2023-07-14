@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<ControlClass id="Handler_List_Controller"
+		class="gov.nasa.gsfc.irc.gui.logging.HandlerListController"/>
+	
+	<dialog id="fr_addHandler" size="250,300" title="Add Handler" layout="BorderLayout"
+		controlclass="Handler_List_Controller" modal="true">
+		<panel layout="borderlayout" background="666666" constraints="BorderLayout.CENTER">		
+			<panel constraints="BorderLayout.CENTER">
+				<scrollPane>
+					<list id="lt" SelectedIndex="0"
+						initclass="gov.nasa.gsfc.irc.gui.logging.HandlerListModel"
+						controlclass="Handler_List_Controller" />
+				</scrollPane>
+			</panel>
+			<panel constraints="BorderLayout.SOUTH">
+				<button name="okButton" text="OK" 
+					controlclass="Handler_List_Controller"
+					actionCommand="OK_ACTION"/>
+				<button name="cancelButton" text="Cancel"
+					controlclass="Handler_List_Controller" 
+					actionCommand="CANCEL_ACTION"/>
+			</panel>		
+		</panel>
+	</dialog>
+</doc>

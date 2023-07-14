@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+#=========================================================================
+#  This code was developed by NASA, Goddard Space Flight Center, Code 580
+#  for the Instrument Remote Control (IRC) project.
+#== Warning ============================================================== 
+#  This software is property of the National Aeronautics and Space
+#  Administration. Unauthorized use or duplication of this software is
+#  strictly prohibited. Authorized users are subject to the following
+#  restrictions:
+#  * Neither the author, their corporation, nor NASA is responsible for
+#    any consequence of the use of this software.
+#  * The origin of this software must not be misrepresented either by
+#    explicit claim or by omission.
+#  * Altered versions of this software must be plainly marked as such.
+#  * This notice may not be removed or altered.
+#=========================================================================
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="resources/irc/xml/schema/iml_shared.xsd"/>
+	<xsd:element name="CommandProcedureGroup" type="CommandProcedureGroupType"/>
+	<!--CommandProcedureGroupType: Outter most container for command procedures listed standalone from IML.-->
+	<xsd:complexType name="CommandProcedureGroupType">
+		<xsd:complexContent>
+			<xsd:extension base="BaseType">
+				<xsd:sequence>
+					<xsd:element name="CommandProcedureGroup" type="CommandProcedureGroupType" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element name="CommandProcedure" type="CommandProcedureType" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

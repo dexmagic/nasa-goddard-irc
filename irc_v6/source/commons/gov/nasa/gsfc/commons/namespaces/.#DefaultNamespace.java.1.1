@@ -1,0 +1,433 @@
+//=== File Prolog ============================================================
+//	This code was developed by NASA, Goddard Space Flight Center, Code 580
+//	for the Instrument Remote Control (IRC) project.
+//
+//--- Notes ------------------------------------------------------------------
+//	This class requires JDK 1.1 or later.
+//
+//--- Development History:
+//
+//	$Log: DefaultNamespace.java,v $
+//	Revision 1.1  2004/05/12 21:55:40  chostetter_cvs
+//	Further tweaks for new structure, design
+//	
+//	Revision 1.1  2004/04/30 21:20:33  chostetter_cvs
+//	Initial version
+//	
+//
+//
+//--- Warning ----------------------------------------------------------------
+//	This software is property of the National Aeronautics and Space
+//	Administration. Unauthorized use or duplication of this software is
+//	strictly prohibited. Authorized users are subject to the following
+//	restrictions:
+//	*	Neither the author, their corporation, nor NASA is responsible for
+//		any consequence of the use of this software.
+//	*	The origin of this software must not be misrepresented either by
+//		explicit claim or by omission.
+//	*	Altered versions of this software must be plainly marked as such.
+//	*	This notice may not be removed or altered.
+//
+//=== End File Prolog ========================================================
+
+package gov.nasa.gsfc.commons.namespaces;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+/**
+ *  A Namespace tracks and enforces uniqueness of names amongst a Set of named 
+ *  Objects.
+ *
+ *  <P>This code was developed for NASA, Goddard Space Flight Center, Code 580
+ *  for the Instrument Remote Control (IRC) project.
+ *
+ *  @version $Date $
+ *  @author Carl F. Hostetter
+**/
+
+public class DefaultNamespace extends NamedObject implements Namespace
+{
+	private static final String CLASS_NAME = 
+		DefaultNamespace.class.getName();
+	
+	private static final Logger sLogger = 
+		Logger.getLogger(CLASS_NAME);
+	
+	/**
+	 * Lock controlling access to the Set of named Objects in this 
+	 * Namespace.
+	 */
+	private Object fConfigurationChangeLock;
+	
+	private Map fNamedObjects = new HashMap();
+	private Map fCurrentSequenceNumbers = new HashMap();
+	
+	
+	/**
+	 *  Constructs a new anonymous Namespace.
+	 *
+	 **/
+
+	public DefaultNamespace()
+	{
+
+	}
+
+	
+	/**
+	 *  Constructs a new Namespace having the given Name.
+	 *
+	 *  @param name The desired name of the new Namespace
+	 **/
+
+	public DefaultNamespace(String name)
+	{
+		super(name);
+	}
+
+	
+	/**
+	 *  Constructs a new Namespace having the given Name and attempts to 
+	 *  add it to the given Namespace.
+	 *
+	 *  @param The desired name of the new Namespace
+	 *  @param The desired Namespace of the new Namespace
+	 *  @throws DuplicateNameException if given name of the new Namespace 
+	 * 		already occurs in the given Namespace
+	 *  @throws AnonymousObjectException if the given name is null and the 
+	 * 		given Namespace is not null
+	 **/
+
+	public DefaultNamespace(String name, Namespace namespace)
+		throws DuplicateNameException, AnonymousObjectException
+	{
+		super(name, namespace);
+	}
+
+	
+	/**
+	 *  Returns the lock Object used by this Namespace to synchronize 
+	 *  changes to its configuration.
+	 *
+	 *  @return The lock Object used by this Manager to synchronize 
+	 *  	changes to its configuration
+	 */
+
+	public Object getConfigurationChangeLock()
+	{
+		return (fConfigurationChangeLock);
+	}
+
+
+	/**
+	 *  Returns the incremented value of the given Namespace sequence Number.
+	 * 
+	 *  <p>Here, simply increments the integer value of the given Number.
+	 *
+	 *  @param number A Namespace sequence Number
+	 *  @return	The incremented value of the given Namespace sequence Number
+	 **/
+
+	protected Number incrementSequenceNumber(Number number)
+	{
+		int value = number.intValue() + 1;
+		
+		return (new Integer(value));
+	}
+	
+	
+	/**
+	 *  Returns the next available sequence Number for the given name within 
+	 *  this Namespace.
+	 *
+	 *  @param name A String name
+	 *  @return	The next available sequence Number for the given name within 
+	 *  	this Namespace
+	 **/
+
+	private Number getNextSequenceNumber(String name)
+	{
+		synchronized (fConfigurationChangeLock)
+		{
+			Number currentSequenceNumberForName = 
+			(Number) fCurrentSequenceNumbers.get(name);
+			
+			Number nextSequenceNumber = 
+			incrementSequenceNumber(currentSequenceNumberForName);
+			
+			return (nextSequenceNumber);
+		}
+	}
+	
+	
+	/**
+	 *  Adds the given named Object to the Set of named Objects in this 
+	 *  Namespace.
+	 *  
+	 *  @param namedObject A named Object
+	 **/
+
+	private void add(HasNamespace namedObject)
+	{
+		String sequencedName = namedObject.getSequencedName();
+		
+		fNamedObjects.put(sequencedName, namedObject);
+		
+		namedObject.joinedNamespace(this);
+		
+		if (sLogger.isLoggable(Level.INFO))
+		{
+			String message = sequencedName + " [" + namedObject.getClass() + 
+				"] added to Namespace: " + this;
+		
+			sLogger.logp(Level.INFO, CLASS_NAME, 
+				"add", message);
+		}
+	}
+	
+	
+	/**
+	 *  Adds the given named Object to the Set of named Objects in this 
+	 *  Namespace.
+	 *  
+	 *  @param namedObject A named Object
+	 *  @param sequenceIfNeeded Indicates whether the given named Object 
+	 * 		should be sequenced if necessary to add it to this Namespace
+	 *  @throws	AnonymousObjectException if the given Object is 
+	 * 		currently anonymous
+	 *  @throws	DuplicateNameException if the given named Object has a 
+	 * 		name that is not unique within this Namespace
+	 **/
+
+	public void add(HasNamespace namedObject, boolean sequenceIfNeeded)
+		throws AnonymousObjectException, DuplicateNameException
+	{
+		String sequencedName = namedObject.getSequencedName();
+		
+		if (sequencedName != null)
+		{
+			synchronized (fConfigurationChangeLock)
+			{
+				if (! fNamedObjects.containsKey(sequencedName))
+				{
+					add(namedObject);
+				}
+				else if (sequenceIfNeeded)
+				{
+					String baseName = namedObject.getName();
+					
+					Number nextSequenceNumber = 
+						getNextSequenceNumber(baseName);
+					
+					namedObject.assignedSequenceNumber
+						(this, nextSequenceNumber);
+					
+					fCurrentSequenceNumbers.put
+						(baseName, nextSequenceNumber);
+					
+					add(namedObject);
+				}
+				else
+				{
+					String message = "Attempted to add NamedObject [" + 
+						namedObject.getClass() + "] with duplicate name " + 
+						sequencedName + " to Namespace " + this;
+			
+					if (sLogger.isLoggable(Level.WARNING))
+					{
+						sLogger.logp(Level.WARNING, CLASS_NAME, 
+							"add", message);
+					}
+					
+					throw (new DuplicateNameException
+						(this, sequencedName, message));
+				}
+			}
+		}
+		else
+		{
+			if (sLogger.isLoggable(Level.WARNING))
+			{
+				String message = "Attempted to add anonymous Object [" + 
+					namedObject.getClass() + "] to Namespace " + this;
+				
+				sLogger.logp(Level.WARNING, CLASS_NAME, 
+					"add", message);
+			}
+		}
+	}
+
+
+	/**
+	 *  Returns true if the given named Object is a member of this 
+	 *  Namespace, false otherwise.
+	 *  
+	 *  @param namedObject A named Object
+	 *  @return	True if the given named Object is a member of this 
+	 *  	Namespace, false otherwise
+	 **/
+
+	public boolean contains(HasNamespace namedObject)
+	{
+		return (fNamedObjects.containsValue(namedObject));
+	}
+	
+	
+	/**
+	 *  Returns an Iterator over the Set of named Objects in this 
+	 *  Namespace.
+	 *  
+	 * <p>This Iterator should only be obtained and used within a block 
+	 * that is <code>synchronized</code> on the 
+	 * <code>configurationChangeLock</code> of this Namespace. Otherwise, 
+	 * it would be bad.
+	 *
+	 *  @return	An Iterator over the Set of named Objects in this 
+	 *  	Namespace
+	 **/
+
+	public Iterator iterator()
+	{
+		return (fNamedObjects.values().iterator());
+	}
+	
+	
+	/**
+	 *  Returns the named Object within this Namespace that has the given 
+	 *  name.
+	 *  
+	 *  @param name A name
+	 *  @return	The named Object within this Namespace that has the given 
+	 * 		name
+	 **/
+
+	public HasNamespace get(String name)
+	{
+		return ((NamedObject) fNamedObjects.get(name));
+	}
+	
+	
+	/**
+	 *  Removes the given named Object from the Set of named Objects in 
+	 * 	this Namespace.
+	 *  
+	 *  @param namedObject A named Object
+	 **/
+
+	public void remove(HasNamespace namedObject)
+	{
+		String sequencedName = namedObject.getSequencedName();
+		
+		synchronized (fConfigurationChangeLock)
+		{
+			fNamedObjects.remove(sequencedName);
+			
+			namedObject.leftNamespace(this);
+		}
+		
+		if (sLogger.isLoggable(Level.INFO))
+		{
+			String message = sequencedName + " [" + namedObject.getClass() + 
+				"] removed from Namespace: " + this;
+		
+			sLogger.logp(Level.WARNING, CLASS_NAME, 
+				"remove", message);
+		}
+	}
+	
+	
+	/**
+	 *  Removes the named Object having the given name from the Set of 
+	 *  named Objects in this Namespace.
+	 *  
+	 *  @param name A String name
+	 *  @return The named Object that was removed
+	 **/
+
+	public HasNamespace remove(String name)
+	{
+		HasNamespace namedObject = 
+			(HasNamespace) fNamedObjects.get(name);
+		
+		remove (namedObject);
+		
+		return (namedObject);
+	}
+
+
+	/**
+	 *  Returns true if the given name occurs amongst the Set of named 
+	 *  Objects in this Namespace, false otherwise.
+	 *  
+	 *  @param name A String name
+	 *  @return	True if the given name occurs amongst the Set of named 
+	 * 		Objects in this Namespace, false otherwise
+	 **/
+
+	public boolean nameOccurs(String name)
+	{
+		return (fNamedObjects.containsKey(name));
+	}
+
+
+	/**
+	 *  Returns true if the name of the given named Object occurs amongst 
+	 *  the Set of named Objects in this Namespace, false otherwise.
+	 *  
+	 *  @param namedObject A named Object
+	 *  @return	True if the name of the given NamedObject occurs amongst 
+	 * 		the Set of NamedObjects in this Namespace, false otherwise
+	 **/
+
+	public boolean nameOccurs(HasNamespace namedObject)
+	{
+		return (nameOccurs(namedObject.getSequencedName()));
+	}
+	
+	
+	/**
+	 *  Returns true if the given name does not occur in this Namespace, 
+	 *  false otherwise.
+	 *  
+	 *  @param name A String name
+	 *  @return	True if the given name does not occur in this Namespace, 
+	 *  	false otherwise
+	 **/
+
+	public boolean isUnique(String name)
+	{
+		return (! nameOccurs(name));
+	}
+
+
+	/**
+	 *  Returns true if the name of the given named Object does not occur 
+	 * 	in this Namespace, false otherwise.
+	 *
+	 *  @param namedObject A named Object
+	 *  @return	True if the name of the given named Object does not occur 
+	 * 		in this Namespace, false otherwise
+	 **/
+
+	public boolean isUnique(HasNamespace namedObject)
+	{
+		return (! nameOccurs(namedObject));
+	}
+	
+	
+	/**
+	 *  Returns a String representation of this Namespace.
+	 *  
+	 * @return A String representation of this Namespace
+	 **/
+
+	public String toString()
+	{
+		return (fNamedObjects.toString());
+	}
+}

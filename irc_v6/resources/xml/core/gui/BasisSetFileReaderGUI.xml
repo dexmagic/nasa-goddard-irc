@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<ControlClass id="BasisSetFileController"
+		class="gov.nasa.gsfc.irc.library.archiving.data.BasisSetFileController"/>
+	
+	<dialog size="600,600" title="BasisSet Reader" layout="BorderLayout"
+		controlclass="BasisSetFileController" modal="true">
+		<panel layout="borderlayout" background="666666" constraints="BorderLayout.CENTER">
+			<panel constraints="BorderLayout.NORTH">
+				<!-- <label text="Select Files" /> -->
+				<button name="delButton" text="Delete" controlclass="BasisSetFileController" enabled="false" actionCommand="DEL_ACTION"/>				
+			</panel>		
+		</panel>
+		<panel constraints="BorderLayout.CENTER">
+			<scrollPane>
+				<table id="table"
+					initclass="gov.nasa.gsfc.irc.library.archiving.data.BasisSetFileModel"
+					controlclass="BasisSetFileController" />
+			</scrollPane>
+		</panel>
+		<panel constraints="BorderLayout.SOUTH">			
+			<button name="okButton" text="OK" controlclass="BasisSetFileController" enabled="false" actionCommand="OK_ACTION"/>
+			<button name="cancelButton" text="Cancel" controlclass="BasisSetFileController" enabled="true" actionCommand="CANCEL_ACTION"/>
+		</panel>				
+	</dialog>
+</doc>

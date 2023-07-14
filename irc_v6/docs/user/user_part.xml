@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.docbook.org/xml/4.4/docbookx.dtd"
+>
+<part>
+    <title>IRC User's Guide</title>
+    <xi:include href="intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</part>
