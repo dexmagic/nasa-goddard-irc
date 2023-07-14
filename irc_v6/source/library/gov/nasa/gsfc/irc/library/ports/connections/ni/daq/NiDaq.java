@@ -212,7 +212,7 @@ public class NiDaq	extends	Object
 	 *
 	 *  @param	deviceNumber	number assigned by configuration utility
 	 *  @param	group			the group to be written to
-	 *  @param	buffer			array containing the user’s data
+	 *  @param	buffer			array containing the user's data
 	 *  @param	offset			index where items to be transferred starts.
 	 *  @param	count			number of items to be transferred
 	 *
@@ -234,7 +234,7 @@ public class NiDaq	extends	Object
 	 *
 	 *  @param	deviceNumber	number assigned by configuration utility
 	 *  @param	group			the group to be written to
-	 *  @param	buffer			array containing the user’s data
+	 *  @param	buffer			array containing the user's data
 	 *  @param	offset			index where items to be transferred starts.
 	 *  @param	count			number of items to be transferred
 	 *
