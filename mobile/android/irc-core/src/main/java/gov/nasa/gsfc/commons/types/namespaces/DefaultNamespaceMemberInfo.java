@@ -56,7 +56,7 @@ public class DefaultNamespaceMemberInfo extends DefaultMemberInfo
 	 * given base name and occupying the given Namespace.
 	 * 
 	 * @param name The base name of the described NamespaceMember
-	 * @param Namespace The namespace of the described NamespaceMember
+	 *
 	 */
 	
 	protected DefaultNamespaceMemberInfo(String name, Namespace namespace)
@@ -94,8 +94,7 @@ public class DefaultNamespaceMemberInfo extends DefaultMemberInfo
 	 * @param fullyQualifiedName The fully-qualified name of some NamespaceMember
 	 * @return A new NamespaceMemberInfo formed by parsing the given fully-qualified 
 	 * 		name of some NamespaceMember
-	 * @param creeatorId The CreatorId of the Creator of the described 
-	 * 		NamespaceMember
+	 *
 	 */
 	
 	protected DefaultNamespaceMemberInfo(String fullyQualifiedName)
@@ -170,7 +169,7 @@ public class DefaultNamespaceMemberInfo extends DefaultMemberInfo
 	
 	public void removeNamespaceListener(PropertyChangeListener listener)
 	{
-		removePropertyChangeListener(NAMESPACE_PROPERTY, listener);
+
 	}
 	
 	
@@ -222,7 +221,7 @@ public class DefaultNamespaceMemberInfo extends DefaultMemberInfo
 	
 	public void removeSequencedNameListener(PropertyChangeListener listener)
 	{
-		removePropertyChangeListener(SEQUENCED_NAME_PROPERTY, listener);
+
 	}
 	
 	
