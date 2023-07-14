@@ -423,7 +423,7 @@ public class BasisSetFileReadProcessor extends DefaultProcessor
      */
     public void start()
     {        
-        ArchiveSession[] selRows = BasisSetFileController.sSelectedRows;
+        ArchiveSession[] selRows = new ArchiveSession[0];
         
         //if none of the session rows are selected then stop Reader
         if(selRows == null || selRows.length == 0)
