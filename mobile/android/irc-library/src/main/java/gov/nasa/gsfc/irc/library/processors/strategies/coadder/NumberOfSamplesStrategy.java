@@ -125,7 +125,7 @@ public class NumberOfSamplesStrategy implements CoadderStrategy {
     	{
     		// This is more to guide the user; if they don't want coadding this algorithm should
     		// be removed since it introduces overhead
-    		throw new PropertyVetoException("Illegal number of samples for coadding: " + numberOfSamplesInCoadds, new PropertyChangeEvent(this, "NumberOfSamplesInCoadds", new Integer(fNumberOfSamplesInCoadds), new Integer(numberOfSamplesInCoadds)));
+    		throw new PropertyVetoException("Illegal number of samples for coadding: " + numberOfSamplesInCoadds);
     	}    	
     }
 }
