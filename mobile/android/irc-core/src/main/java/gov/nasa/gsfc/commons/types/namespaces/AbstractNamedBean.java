@@ -101,11 +101,9 @@ public abstract class AbstractNamedBean extends AbstractConstrainedBean
 	
 	protected Object clone()
 	{
-		AbstractNamedBean clone = (AbstractNamedBean) super.clone();
-			
-		clone.fName = fName;
+
 		
-		return (clone);
+		return null;
 	}
 	
 	
@@ -187,7 +185,7 @@ public abstract class AbstractNamedBean extends AbstractConstrainedBean
 	
 	public void removeNameListener(PropertyChangeListener listener)
 	{
-		removePropertyChangeListener(NAME_PROPERTY, listener);
+
 	}
 	
 	
