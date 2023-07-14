@@ -62,7 +62,7 @@ import gov.nasa.gsfc.commons.processing.tasks.TaskManager;
  * @version	$Date: 2005/01/09 05:40:21 $
  * @author	Troy Ames
 **/
-public class PeerNetworkManager implements  DescriptionListener,
+public class PeerNetworkManager implements gov.nasa.gsfc.commons.net.DescriptionListener,
 											DiscoveryListener
 {
 	private static final String CLASS_NAME = 

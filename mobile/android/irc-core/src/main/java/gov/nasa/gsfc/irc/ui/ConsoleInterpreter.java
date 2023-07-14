@@ -85,7 +85,6 @@ import java.util.logging.Logger;
 // FIXME: these imports create a circular dependency. Combine modules?
 import gov.nasa.gsfc.commons.system.Sys;
 import gov.nasa.gsfc.irc.app.Irc;
-import gov.nasa.gsfc.irc.gui.GuiFactory;
 import gov.nasa.gsfc.irc.messages.MessageException;
 import gov.nasa.gsfc.irc.messages.Messages;
 import gov.nasa.gsfc.irc.scripts.ScriptException;
@@ -396,43 +395,6 @@ public class ConsoleInterpreter implements Runnable
 	 */
 	protected void handleLoadGui(String line)
 	{
-		// Load GUI command
-		String[] elements = line.split("\\s");
-		
-		if (elements.length > 1)
-		{
-			URL url = Sys.getResourceManager().getResource(elements[1]);
-
-			if (url != null)
-			{
-				GuiFactory builder = Irc.getGuiFactory();
-				
-				try
-				{
-					builder.render(url).setVisible(true);
-				}
-				catch (Exception e)
-				{
-					String message = 
-						"Error loading GUI: "  + e.getMessage();
-						
-					//sLogger.logp(Level.WARNING, CLASS_NAME, "run", message);
-					System.err.println(message);						
-				}
-			}
-			else
-			{
-				System.out.println("Could not find file:" + elements[1]);
-			}
-		}
-		else
-		{
-			String message = 
-				"Invalid parameter:" + line + "\nExpecting:\n"
-				+ CMD_INDENT + LOAD_GUI_CMD + " <filename>";
-				
-			//sLogger.logp(Level.WARNING, CLASS_NAME, "run", message);
-			System.err.println(message);						
-		}		
+		System.out.println("GUI not supported on Android");
 	}
 }
