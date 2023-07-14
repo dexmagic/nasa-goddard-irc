@@ -87,7 +87,7 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener)
 	{
-		getNamespaceMemberInfo().addPropertyChangeListener(listener);		
+
 	}
 
 
@@ -100,7 +100,7 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	
 	public void removePropertyChangeListener(PropertyChangeListener listener)
 	{
-		getNamespaceMemberInfo().removePropertyChangeListener(listener);		
+
 	}
 
 
@@ -130,7 +130,6 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	public void removePropertyChangeListener
 		(String propertyName, PropertyChangeListener listener)
 	{
-		getNamespaceMemberInfo().removePropertyChangeListener(propertyName, listener);
 	}
 		
 	
@@ -171,7 +170,6 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	 
 	protected void firePropertyChange(PropertyChangeEvent event)
 	{
-		getNamespaceMemberInfo().firePropertyChange(event);
 	}
 		
 	
@@ -189,7 +187,7 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, Object oldValue, 
 		Object newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange(propertyName, oldValue, newValue);
+
 	}
 		
 	
@@ -207,7 +205,7 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, boolean oldValue, 
 		boolean newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange(propertyName, oldValue, newValue);
+
 	}
 		
 	
@@ -225,8 +223,6 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, byte oldValue, 
 		byte newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange
-			(propertyName, new Byte(oldValue), new Byte(newValue));
 	}
 	
 	
@@ -244,8 +240,6 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, char oldValue, 
 		char newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange
-			(propertyName, new Character(oldValue), new Character(newValue));
 	}
 	
 	
@@ -263,8 +257,6 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, short oldValue, 
 		short newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange
-			(propertyName, new Short(oldValue), new Short(newValue));
 	}
 	
 	
@@ -282,7 +274,7 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, int oldValue, 
 		int newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange(propertyName, oldValue, newValue);
+
 	}
 	
 	
@@ -300,8 +292,7 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, long oldValue, 
 		long newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange
-			(propertyName, new Long(oldValue), new Long(newValue));
+
 	}
 	
 	
@@ -319,8 +310,7 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, float oldValue, 
 		float newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange
-			(propertyName, new Float(oldValue), new Float(newValue));
+
 	}
 	
 	
@@ -338,8 +328,7 @@ public abstract class AbstractNamespaceMemberBean extends AbstractNamespaceMembe
 	protected void firePropertyChange(String propertyName, double oldValue, 
 		double newValue)
 	{
-		getNamespaceMemberInfo().firePropertyChange
-			(propertyName, new Double(oldValue), new Double(newValue));
+
 	}
 	
 	
