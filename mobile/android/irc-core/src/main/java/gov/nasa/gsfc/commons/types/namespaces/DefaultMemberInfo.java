@@ -221,9 +221,7 @@ public class DefaultMemberInfo extends AbstractNamedBean
 
 	public void removeFullyQualifiedNameListener(PropertyChangeListener listener)
 	{
-		removePropertyChangeListener
-			(HasBoundFullyQualifiedNameProperty.FULLY_QUALIFIED_NAME_PROPERTY, 
-				listener);
+
 	}
 	
 
