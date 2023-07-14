@@ -42,7 +42,7 @@ import java.beans.VetoableChangeListener;
  *  @author Carl F. Hostetter
 **/
 
-public interface HasConstrainedNameProperty extends HasBoundNameProperty
+public interface HasConstrainedNameProperty extends gov.nasa.gsfc.commons.types.namespaces.HasBoundNameProperty
 {
 	/**
 	 * Adds the given VetoableChangeListener as a listener for changes in the 
