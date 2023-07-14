@@ -47,28 +47,7 @@ public class ProgressDisplay
 	 */
 	public ProgressDisplay(boolean graphicsContext)
 	{
-		fGraphicsContext = graphicsContext;
-		
-		try
-		{
-			if (fGraphicsContext)
-			{
-				fProgressFrame = 
-					new gov.nasa.gsfc.irc.gui.swing.ProgressFrame();
-				
-				((gov.nasa.gsfc.irc.gui.swing.ProgressFrame) 
-						fProgressFrame).pack();
-				((gov.nasa.gsfc.irc.gui.swing.ProgressFrame) 
-						fProgressFrame).setVisible(true);
-			}
-		}
-		catch (Exception e)
-		{
-			// If for any reason an exception is thrown assume
-			// there is not a graphic context and go on.
-			fGraphicsContext = false;
-			e.printStackTrace();
-		}
+
 	}
 	
 	/**
@@ -89,10 +68,7 @@ public class ProgressDisplay
 			{
 				percent = 1.0f;
 			}
-			
-			// Update status display
-			((gov.nasa.gsfc.irc.gui.swing.ProgressFrame) 
-					fProgressFrame).setPercentComplete(percent);
+
 		}
 	}
 		
@@ -104,13 +80,6 @@ public class ProgressDisplay
 	 */
 	public void setString(String text)
 	{
-		if (fGraphicsContext)
-		{
-			((gov.nasa.gsfc.irc.gui.swing.ProgressFrame) 
-					fProgressFrame).setString(text);
-		}
-
-		System.out.println("Progress: " + text);
 	}
 }
 
