@@ -149,7 +149,7 @@ public class BasisBufferIntervalStrategy implements CoadderStrategy
     public void setIntervalInBasisBuffer(double interval) throws PropertyVetoException {
     	if (interval <= 0)
         {
-    		throw new PropertyVetoException("Basis buffer interval must be greater than 0: " + interval, new PropertyChangeEvent(this, "IntervalInBasisBuffer", new Double(fIntervalInBasisBuffer), new Double(interval)));
+    		throw new PropertyVetoException("Basis buffer interval must be greater than 0: " + interval);
         }
     	fIntervalInBasisBuffer = interval;    	
     }
