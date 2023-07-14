@@ -105,7 +105,7 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	
 	public void addPropertyChangeListener(PropertyChangeListener listener)
 	{
-		getMemberInfo().addPropertyChangeListener(listener);		
+
 	}
 
 
@@ -118,7 +118,7 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	
 	public void removePropertyChangeListener(PropertyChangeListener listener)
 	{
-		getMemberInfo().removePropertyChangeListener(listener);		
+
 	}
 
 
@@ -148,7 +148,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	public void removePropertyChangeListener
 		(String propertyName, PropertyChangeListener listener)
 	{
-		getMemberInfo().removePropertyChangeListener(propertyName, listener);
 	}
 		
 	
@@ -189,7 +188,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	 
 	protected void firePropertyChange(PropertyChangeEvent event)
 	{
-		getMemberInfo().firePropertyChange(event);
 	}
 		
 	
@@ -207,7 +205,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, Object oldValue, 
 		Object newValue)
 	{
-		getMemberInfo().firePropertyChange(propertyName, oldValue, newValue);
 	}
 		
 	
@@ -225,7 +222,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, boolean oldValue, 
 		boolean newValue)
 	{
-		getMemberInfo().firePropertyChange(propertyName, oldValue, newValue);
 	}
 		
 	
@@ -243,8 +239,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, byte oldValue, 
 		byte newValue)
 	{
-		getMemberInfo().firePropertyChange
-			(propertyName, new Byte(oldValue), new Byte(newValue));
 	}
 	
 	
@@ -262,8 +256,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, char oldValue, 
 		char newValue)
 	{
-		getMemberInfo().firePropertyChange
-			(propertyName, new Character(oldValue), new Character(newValue));
 	}
 	
 	
@@ -281,8 +273,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, short oldValue, 
 		short newValue)
 	{
-		getMemberInfo().firePropertyChange
-			(propertyName, new Short(oldValue), new Short(newValue));
 	}
 	
 	
@@ -300,7 +290,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, int oldValue, 
 		int newValue)
 	{
-		getMemberInfo().firePropertyChange(propertyName, oldValue, newValue);
 	}
 	
 	
@@ -318,8 +307,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, long oldValue, 
 		long newValue)
 	{
-		getMemberInfo().firePropertyChange
-			(propertyName, new Long(oldValue), new Long(newValue));
 	}
 	
 	
@@ -337,8 +324,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, float oldValue, 
 		float newValue)
 	{
-		getMemberInfo().firePropertyChange
-			(propertyName, new Float(oldValue), new Float(newValue));
 	}
 	
 	
@@ -356,8 +341,6 @@ public class AbstractMemberBean extends AbstractMember implements MemberBean
 	protected void firePropertyChange(String propertyName, double oldValue, 
 		double newValue)
 	{
-		getMemberInfo().firePropertyChange
-			(propertyName, new Double(oldValue), new Double(newValue));
 	}
 	
 	
