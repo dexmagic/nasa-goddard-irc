@@ -1407,34 +1407,8 @@ public class DefaultIrcManager implements IrcManager
 	 */
 	protected synchronized void initializeEnvironment()
 	{
-		boolean graphicsEnabled = true;
 
-		try
-		{
-			if (java.awt.GraphicsEnvironment.isHeadless())
-			{
-				graphicsEnabled = false;
-			}
-			else
-			{
-				// Check to see if the gui is disabled by the user
-				String guiDisabled = 
-					Irc.getPreference(IrcPrefKeys.IRC_MANAGER_GUI_DISABLED);
-				
-				if (Boolean.valueOf(guiDisabled).booleanValue())
-				{
-					graphicsEnabled = false;
-				}
-			}
-		}
-		catch (RuntimeException e)
-		{
-			// if for any reason the graphics environment is not reachable
-			// then disable graphics.
-			graphicsEnabled = false;
-		}
-		
-		fGraphicsEnabled = graphicsEnabled;
+		fGraphicsEnabled = false;
 	}
 
 	/**
