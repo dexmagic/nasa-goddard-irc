@@ -26,10 +26,9 @@ import java.beans.PropertyChangeListener;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-/**/
 
 import gov.nasa.gsfc.commons.processing.activity.ActivityStateModel;
 import gov.nasa.gsfc.commons.processing.activity.DefaultActivityStateModel;
