@@ -14,3 +14,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Iop Remote Component"
 include ':app'
+include ':irc-commons'
+include ':irc-core'
+include ':irc-gui'
+include ':irc-library'
+include ':irc-tools'
