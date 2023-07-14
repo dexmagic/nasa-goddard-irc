@@ -82,6 +82,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// FIXME: these imports create a circular dependency. Combine modules?
 import gov.nasa.gsfc.commons.system.Sys;
 import gov.nasa.gsfc.irc.app.Irc;
 import gov.nasa.gsfc.irc.gui.GuiFactory;
