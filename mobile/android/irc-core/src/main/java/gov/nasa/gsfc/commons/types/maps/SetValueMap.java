@@ -64,7 +64,7 @@ public class SetValueMap extends HashMap
 	 * @param key The key with which the given value is to be associated 
 	 * @param value The value to add to the Set of values associated with the 
 	 *  	given key
-	 * @param The given key
+	 *
 	**/
 	
 	public Object put(Object key, Object value)
@@ -125,30 +125,5 @@ public class SetValueMap extends HashMap
 	}
 	
 
-	/**
-	 * Removes the given value from the List of values associated with the 
-	 * entry of this SetValueMap having the given key. If the value is the 
-	 * only value currently in the list, the entry will be removed entirely. 
-	 *
-	 * @param key The key of the entry from which to remove the given value 
-	 * @param value The value to be removed
-	 * @return The given key
-	**/
-	
-	public Object remove(Object key, Object value)
-	{
-		Set values = (Set) super.get(key);
-		
-		if (values != null)
-		{
-			values.remove(value);
-			
-			if (values.isEmpty())
-			{
-				remove(key);
-			}
-		}
-		
-		return (key);
-	}
+
 }
