@@ -28,7 +28,7 @@ import java.nio.Buffer;
 import java.util.Iterator;
 import java.util.List;
 
-import edu.emory.mathcs.backport.java.util.concurrent.CopyOnWriteArrayList;
+
 
 import gov.nasa.gsfc.irc.devices.ports.connections.OutputBufferEvent;
 import gov.nasa.gsfc.irc.devices.ports.connections.OutputBufferListener;

@@ -28,8 +28,11 @@
 package gov.nasa.gsfc.commons.system.io;
 
 import java.io.File;
+import java.io.FileFilter;
 
+/*
 import javax.swing.filechooser.FileFilter;
+*/
 
 
 /**
@@ -41,7 +44,7 @@ import javax.swing.filechooser.FileFilter;
  *  @version	$Date: 2004/07/12 14:26:23 $
  *  @author  	John Higinbotham
 **/
-public class ExtFileFilter extends FileFilter
+public class ExtFileFilter implements FileFilter
 {
 	//---Common filter extensions
 	private final static String XML_EXT	 = "xml";

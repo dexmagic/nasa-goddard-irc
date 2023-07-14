@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.emory.mathcs.backport.java.util.concurrent.CopyOnWriteArrayList;
+/**/
 
 import gov.nasa.gsfc.commons.processing.activity.ActivityStateModel;
 import gov.nasa.gsfc.commons.processing.activity.DefaultActivityStateModel;

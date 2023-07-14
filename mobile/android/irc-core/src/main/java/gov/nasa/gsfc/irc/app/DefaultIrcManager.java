@@ -60,7 +60,6 @@ import gov.nasa.gsfc.irc.devices.DeviceProxy;
 import gov.nasa.gsfc.irc.devices.description.DeviceDescriptor;
 import gov.nasa.gsfc.irc.devices.description.DeviceSetDescriptor;
 import gov.nasa.gsfc.irc.devices.description.RootDescriptor;
-import gov.nasa.gsfc.irc.gui.GuiFactory;
 import gov.nasa.gsfc.irc.messages.MessageFactory;
 import gov.nasa.gsfc.irc.messages.MessageValidator;
 import gov.nasa.gsfc.irc.scripts.ScriptEvaluator;
@@ -97,7 +96,7 @@ public class DefaultIrcManager implements IrcManager
 	private DescriptorFramework fDescriptorFramework = null;
 	private PersistentObjectStore fObjectStore = null;
 	private DescriptorLibrary fDescriptorLibrary = null;
-	private GuiFactory fGuiBuilder = null;
+	private Object fGuiBuilder = null;
 	private DataSpace fDataSpace = null;
 	private BasisBundleFactory fBasisBundleFactory = null;
 	private BasisRequesterFactory fBasisRequesterFactory = null;
@@ -759,7 +758,7 @@ public class DefaultIrcManager implements IrcManager
 	 * @return	The GuiFactory to be used by the current instance 
 	 *  		of IRC
 	**/
-	public synchronized GuiFactory getGuiFactory()
+	public synchronized Object getGuiFactory()
 	{
 		if (fGuiBuilder == null)
 		{
@@ -1446,25 +1445,8 @@ public class DefaultIrcManager implements IrcManager
 	 */
 	protected synchronized void initializeGui()
 	{
-		if (isGraphicsEnabled())
-		{
-			GuiFactory builder = getGuiFactory();
 
-			URL url = Irc.getResource(Irc.getPreference(IrcPrefKeys.GUI_DESKTOP));
-			
-			if (url != null)
-			{
-				try
-				{
-					builder.render(url);
-				}
-				catch (Exception e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+		// do nothing.
 	}
 
 	/**
@@ -1950,14 +1932,10 @@ public class DefaultIrcManager implements IrcManager
 	 * @see #instantiateFromTypemap
 	 * @see DesciptorFramework#getGlobalMap()
 	 */
-	protected synchronized GuiFactory loadGuiFactory()
+	protected synchronized Object loadGuiFactory()
 	{
-		GuiFactory builder =
-			(GuiFactory) instantiateFromTypemap(
-					FACTORY_NAMESPACE,
-					"GuiFactory");
-				
-		return builder;
+		// do nothing.
+		return null;
 	}
 	
 	/**

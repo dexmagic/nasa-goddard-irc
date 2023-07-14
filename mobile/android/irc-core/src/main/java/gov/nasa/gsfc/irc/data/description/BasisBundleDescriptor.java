@@ -24,7 +24,7 @@
 
 package gov.nasa.gsfc.irc.data.description;
 
-import gov.nasa.gsfc.commons.properties.beans.A;
+/*import gov.nasa.gsfc.commons.properties.beans.A;*/
 import gov.nasa.gsfc.irc.data.BasisRequest;
 import gov.nasa.gsfc.irc.description.Descriptor;
 import gov.nasa.gsfc.irc.description.xml.DescriptorDirectory;

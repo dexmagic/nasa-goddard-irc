@@ -34,7 +34,7 @@ import gov.nasa.gsfc.irc.data.BasisRequesterFactory;
 import gov.nasa.gsfc.irc.data.DataSpace;
 import gov.nasa.gsfc.irc.description.DescriptorLibrary;
 import gov.nasa.gsfc.irc.devices.description.DeviceDescriptor;
-import gov.nasa.gsfc.irc.gui.GuiFactory;
+
 import gov.nasa.gsfc.irc.messages.MessageFactory;
 import gov.nasa.gsfc.irc.messages.MessageValidator;
 import gov.nasa.gsfc.irc.scripts.ScriptEvaluator;
@@ -152,7 +152,7 @@ public interface IrcManager
 	 * 
 	 * @return The GuiFactory to be used by the current instance of IRC
 	 */
-	public GuiFactory getGuiFactory();
+	public Object getGuiFactory();
 
 	/**
 	 * Returns the message factory to be used by the current instance of IRC.

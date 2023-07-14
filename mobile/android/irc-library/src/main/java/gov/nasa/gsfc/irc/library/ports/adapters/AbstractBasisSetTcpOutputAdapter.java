@@ -22,7 +22,7 @@
 
 package gov.nasa.gsfc.irc.library.ports.adapters;
 
-import edu.emory.mathcs.backport.java.util.concurrent.CopyOnWriteArrayList;
+
 import gov.nasa.gsfc.commons.numerics.types.Amount;
 import gov.nasa.gsfc.commons.system.io.ServerSocketManager;
 import gov.nasa.gsfc.commons.system.io.SocketConnectionHandler;

@@ -31,7 +31,7 @@ import java.nio.channels.WritableByteChannel;
 import java.util.Iterator;
 import java.util.List;
 
-import edu.emory.mathcs.backport.java.util.concurrent.CopyOnWriteArrayList;
+
 
 import gov.nasa.gsfc.commons.publishing.messages.Message;
 import gov.nasa.gsfc.commons.publishing.paths.DefaultPath;
@@ -425,7 +425,8 @@ public abstract class AbstractPipeInputAdapter extends AbstractInputAdapter
 //  Fixed history comment artifact introduced by checking in from the mac.
 //
 //  Revision 1.7  2005/12/02 22:38:04  tames_cvs
-//  Changed run method so the pipe is not reconfigured if the Thread was //  interrupted.
+//  Changed run method so the pipe is not reconfigured if the Thread was 
+//  interrupted.
 //
 //  Revision 1.6  2005/11/21 16:11:13  tames
 //  Removed debug println statements and updated Javadoc.

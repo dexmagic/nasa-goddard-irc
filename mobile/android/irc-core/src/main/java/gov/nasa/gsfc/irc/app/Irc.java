@@ -42,7 +42,7 @@ import gov.nasa.gsfc.irc.data.BasisBundleFactory;
 import gov.nasa.gsfc.irc.data.BasisRequesterFactory;
 import gov.nasa.gsfc.irc.data.DataSpace;
 import gov.nasa.gsfc.irc.description.DescriptorLibrary;
-import gov.nasa.gsfc.irc.gui.GuiFactory;
+
 import gov.nasa.gsfc.irc.messages.MessageFactory;
 import gov.nasa.gsfc.irc.messages.MessageValidator;
 import gov.nasa.gsfc.irc.scripts.ScriptEvaluator;
@@ -361,7 +361,7 @@ public class Irc extends App
 	 * @return	The GuiFactory to be used by the current instance 
 	 *  		of IRC
 	**/
-	public static GuiFactory getGuiFactory()
+	public static Object getGuiFactory()
 	{
 		return (getIrcManager().getGuiFactory());
 	}

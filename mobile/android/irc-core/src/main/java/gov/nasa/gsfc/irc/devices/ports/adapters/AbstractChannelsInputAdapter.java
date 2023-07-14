@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import edu.emory.mathcs.backport.java.util.concurrent.CopyOnWriteArrayList;
+
 
 import gov.nasa.gsfc.commons.publishing.messages.Message;
 import gov.nasa.gsfc.commons.publishing.paths.DefaultPath;
