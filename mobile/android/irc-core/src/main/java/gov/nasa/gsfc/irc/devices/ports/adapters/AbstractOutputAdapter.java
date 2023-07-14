@@ -27,7 +27,7 @@ package gov.nasa.gsfc.irc.devices.ports.adapters;
 import java.nio.Buffer;
 import java.util.Iterator;
 import java.util.List;
-
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 import gov.nasa.gsfc.irc.devices.ports.connections.OutputBufferEvent;
