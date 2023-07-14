@@ -215,6 +215,11 @@ public abstract class AbstractNamedBean extends AbstractConstrainedBean
 	{
 		removeVetoableChangeListener(NAME_PROPERTY, listener);
 	}
+
+	public void addPropertyChangeListener(String name, Object listener){
+		// do nothing.
+	}
+
 }
 
 //--- Development History ----------------------------------------------------
