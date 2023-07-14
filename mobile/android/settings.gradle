@@ -16,6 +16,6 @@ rootProject.name = "Iop Remote Component"
 include ':app'
 include ':irc-commons'
 include ':irc-core'
-include ':irc-gui'
+// include ':irc-gui' // disblaed for now. Needs to be re-written for Android.
 include ':irc-library'
 include ':irc-tools'
