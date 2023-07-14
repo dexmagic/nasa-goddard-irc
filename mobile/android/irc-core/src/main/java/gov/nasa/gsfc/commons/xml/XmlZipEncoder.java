@@ -77,14 +77,9 @@ public class XmlZipEncoder extends XMLEncoder
 	 *  
 	 *  @param oldExp  The expression to be written to the stream
 	 * 
-	 *  @see java.beans.Encoder#writeExpression(Expression)
 	 */
 	public void writeExpression(Expression oldExp)
 	{
-		if (!fFinished)
-		{
-			super.writeExpression(oldExp);
-		}
 	}
 
 	/**
@@ -94,14 +89,9 @@ public class XmlZipEncoder extends XMLEncoder
 	 *
 	 *  @param oldStm The statement to be written to the stream.
 	 *
- 	 *  @see java.beans.Encoder#writeStatement(Statement)
 	 */
 	public void writeStatement(Statement oldStm)
 	{
-		if (!fFinished)
-		{
-			super.writeStatement(oldStm);
-		}
 	}
 
 	/**
@@ -117,7 +107,6 @@ public class XmlZipEncoder extends XMLEncoder
 	 */ 
 	public void finish()
 	{
-		flush();
 		fFinished = true;
 		writePostamble();
 	}
@@ -127,8 +116,7 @@ public class XmlZipEncoder extends XMLEncoder
 	 *  and then closes the output stream associated with this stream.
 	 */
 	public void close() {
-		flush();
-		
+
 		if (!fFinished)
 		{
 			finish();
@@ -140,7 +128,6 @@ public class XmlZipEncoder extends XMLEncoder
 		}
 		catch (IOException e) 
 		{
-			getExceptionListener().exceptionThrown(e);
 		}
 	}
 	
@@ -157,7 +144,6 @@ public class XmlZipEncoder extends XMLEncoder
 		
 		catch (IOException ex) 
 		{
-			getExceptionListener().exceptionThrown(ex);
 		}
 	}
 
