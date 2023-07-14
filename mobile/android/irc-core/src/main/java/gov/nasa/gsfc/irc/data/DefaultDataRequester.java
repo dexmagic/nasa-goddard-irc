@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -1067,8 +1068,6 @@ public class DefaultDataRequester extends AbstractCreator
 	 * when it is next started. If this DataRequester is currently continuous,
 	 * then the result will be 0.
 	 * 
-	 * @param numRepetitions The number of repetitions this DataRequester will
-	 *            make when started
 	 */
 	public int getRepetition()
 	{
